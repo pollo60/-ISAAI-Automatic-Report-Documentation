@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ISAAI Project Plan: Dual-Module Automation</title>
+    
+    <!-- Tailwind CSS for rapid styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Mermaid JS for Gantt Chart rendering -->
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ 
+            startOnLoad: true, 
+            theme: 'base',
+            themeVariables: {
+                textColor: '#0f172a',          /* Force base text color */
+                primaryColor: '#e2e8f0',       /* Light gray background for task bars */
+                primaryTextColor: '#0f172a',   /* Deep black/slate for text inside bars */
+                primaryBorderColor: '#94a3b8', /* Darker gray border for bars */
+                lineColor: '#64748b',          /* Dark gray for grid lines */
+                secondaryColor: '#f1f5f9',     
+                tertiaryColor: '#cbd5e1',
+                fontFamily: 'Inter, sans-serif',
+                titleColor: '#0f172a',         /* Chart Title color */
+                axisTickLabelColor: '#0f172a', /* Bold dark gray for the timeline axis */
+                axisTickColor: '#475569',
+                gridColor: '#cbd5e1',
+                sectionBkgColor: '#f8fafc',
+                sectionBkgColor2: '#f1f5f9',
+                taskTextDarkColor: '#0f172a',  /* Enforce black text on tasks */
+                taskTextLightColor: '#0f172a', /* Enforce black text even on dark tasks */
+                critBorderColor: '#b91c1c',    /* Keep critical path borders distinguishable but readable */
+                critBkgColor: '#fca5a5'
+            }
+        });
+    </script>
+
+    <!-- Custom Print & Base Styles -->
+    <style>
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+        }
+        
+        /* STRICT ARCHITECTURE OVERRIDE: Force all Mermaid text to be dark */
+        .mermaid svg text, 
+        .mermaid svg text.titleText, 
+        .mermaid svg text.sectionTitle, 
+        .mermaid svg text.taskText, 
+        .mermaid svg text.taskTextOutsideRight,
+        .mermaid svg text.taskTextOutsideLeft,
+        .mermaid svg text.tick {
+            fill: #0f172a !important;
+            color: #0f172a !important;
+        }
+        
+        @media print {
+            body { background: white !important; }
+            .no-print { display: none !important; }
+            .print-break-avoid { break-inside: avoid; }
+            .shadow-sm, .shadow-md, .shadow-lg { box-shadow: none !important; border: 1px solid #e2e8f0; }
+            .container { max-width: 100% !important; padding: 0 !important; }
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-900 antialiased py-8 px-4 md:px-8">
+
+    <div class="container mx-auto max-w-7xl">
+        
+        <!-- Header -->
+        <header class="mb-10 border-l-8 border-blue-500 bg-white p-6 shadow-sm rounded-r-lg print-break-avoid">
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-center">
+                <div>
+                    <h4 class="text-sm font-bold tracking-wider text-blue-900 uppercase mb-1">Information Systems Architecture & Integration</h4>
+                    <h1 class="text-3xl font-extrabold text-black tracking-tight">ISA & A+I Dual-Module Automation</h1>
+                    <p class="text-lg text-slate-800 mt-2 font-medium">End-to-End Execution Blueprint & Critical Path (Version 2.2)</p>
+                </div>
+                <div class="text-left md:text-right mt-4 md:mt-0">
+                    <span class="inline-block bg-blue-200 text-blue-900 border border-blue-400 text-xs px-3 py-1 rounded-full font-bold uppercase tracking-wide">Status: Active Development</span>
+                    <p class="text-xs font-bold text-black mt-2">Hard Deadline: 16.06.2026</p>
+                </div>
+            </div>
+        </header>
+
+        <div class="grid grid-cols-1 xl:grid-cols-3 gap-8">
+            
+            <!-- Left Column: Milestones & Architecture -->
+            <div class="xl:col-span-1 space-y-8">
+                
+                <!-- Milestones Section (Roadmap Integration) -->
+                <section class="bg-white p-6 rounded-lg shadow-sm border border-slate-300 print-break-avoid">
+                    <h2 class="text-xl font-bold text-black border-b border-slate-300 pb-2 mb-4 flex items-center">
+                        <svg class="w-5 h-5 mr-2 text-slate-800" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                        Projekt-Phasen (Roadmap)
+                    </h2>
+                    <div class="space-y-4">
+                        <!-- M1 -->
+                        <div class="border-l-4 border-slate-400 pl-4">
+                            <div class="flex justify-between items-baseline">
+                                <h3 class="font-bold text-black">M1: Requirements Split</h3>
+                                <span class="text-xs font-bold text-slate-900 bg-slate-200 border border-slate-300 px-2 py-1 rounded">18.05.-24.05.</span>
+                            </div>
+                            <p class="text-sm text-slate-800 mt-1 font-medium">Definition der ISA- und A+I-Workflows. GitHub-Setup mit separaten Branches.</p>
+                        </div>
+                        <!-- M2 -->
+                        <div class="border-l-4 border-slate-400 pl-4">
+                            <div class="flex justify-between items-baseline">
+                                <h3 class="font-bold text-black">M2: ISA Module Dev</h3>
+                                <span class="text-xs font-bold text-slate-900 bg-slate-200 border border-slate-300 px-2 py-1 rounded">25.05.-01.06.</span>
+                            </div>
+                            <p class="text-sm text-slate-800 mt-1 font-medium">PDF/OCR Ingestion, Datenstrukturierung (JSON/CSV) und Chart-Generierung.</p>
+                        </div>
+                        <!-- M3 -->
+                        <div class="border-l-4 border-slate-400 pl-4">
+                            <div class="flex justify-between items-baseline">
+                                <h3 class="font-bold text-black">M3: A+I Module Dev</h3>
+                                <span class="text-xs font-bold text-slate-900 bg-slate-200 border border-slate-300 px-2 py-1 rounded">02.06.-08.06.</span>
+                            </div>
+                            <p class="text-sm text-slate-800 mt-1 font-medium">XML Parser, GOAL Rule Evaluator, SharePoint & DMS Integration.</p>
+                        </div>
+                        <!-- M4 -->
+                        <div class="border-l-4 border-slate-400 pl-4">
+                            <div class="flex justify-between items-baseline">
+                                <h3 class="font-bold text-black">M4: Dual Integration</h3>
+                                <span class="text-xs font-bold text-slate-900 bg-slate-200 border border-slate-300 px-2 py-1 rounded">09.06.-15.06.</span>
+                            </div>
+                            <p class="text-sm text-slate-800 mt-1 font-medium">Merge beider Branches, E2E-Tests, einheitliche Workflow-Orchestrierung.</p>
+                        </div>
+                        <!-- M5 -->
+                        <div class="border-l-4 border-blue-500 pl-4">
+                            <div class="flex justify-between items-baseline">
+                                <h3 class="font-bold text-black">M5: Submission</h3>
+                                <span class="text-xs font-bold text-slate-900 bg-blue-200 border border-blue-400 px-2 py-1 rounded shadow-sm">16.06.2026</span>
+                            </div>
+                            <p class="text-sm text-slate-800 mt-1 font-medium">Architektur-Dokus (Word/LaTeX), finale Präsentation, CampUAS Upload.</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- GitHub Repository Structure -->
+                <section class="bg-white p-6 rounded-lg shadow-sm border border-slate-300 print-break-avoid">
+                    <h2 class="text-xl font-bold text-black border-b border-slate-300 pb-2 mb-4 flex items-center">
+                        <svg class="w-5 h-5 mr-2 text-slate-800" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path></svg>
+                        GitHub Governance & Structure
+                    </h2>
+                    <ul class="text-sm text-slate-800 space-y-2 font-mono bg-slate-100 p-3 rounded border border-slate-300">
+                        <li><span class="text-purple-800 font-bold">/src/isa/</span>: PDF/OCR Pipeline, Chart-Engine</li>
+                        <li><span class="text-blue-800 font-bold">/src/ai/</span>: XML Parser, Exception Rules</li>
+                        <li><span class="text-green-800 font-bold">/.github/</span>: CI/CD & Actions Orchestration</li>
+                        <li><span class="text-slate-800 font-bold">/docs/</span>: Architektur (ArchiMate, BPMN)</li>
+                        <li><span class="text-slate-800 font-bold">/tests/</span>: Mock XMLs & PDF Unit-Tests</li>
+                    </ul>
+                    <div class="mt-4 pt-4 border-t border-slate-200">
+                        <h3 class="text-xs font-bold text-slate-700 uppercase tracking-wide mb-2">Active Branches</h3>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="px-2 py-1 bg-slate-300 border border-slate-400 text-black text-xs rounded font-mono font-bold">main</span>
+                            <span class="px-2 py-1 bg-blue-200 border border-blue-300 text-blue-900 text-xs rounded font-mono font-bold">develop</span>
+                            <span class="px-2 py-1 bg-purple-200 border border-purple-300 text-purple-900 text-xs rounded font-mono font-bold">feat/isa</span>
+                            <span class="px-2 py-1 bg-green-200 border border-green-300 text-green-900 text-xs rounded font-mono font-bold">feat/ai</span>
+                        </div>
+                    </div>
+                </section>
+
+            </div>
+
+            <!-- Right Column: Gantt & Logic -->
+            <div class="xl:col-span-2 space-y-8">
+                
+                <!-- Enhanced Gantt Chart -->
+                <section class="bg-white p-6 rounded-lg shadow-sm border border-slate-300 print-break-avoid overflow-hidden">
+                    <h2 class="text-xl font-bold text-black border-b border-slate-300 pb-2 mb-4 flex items-center">
+                        <svg class="w-5 h-5 mr-2 text-slate-800" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                        Critical Path & Execution Timeline
+                    </h2>
+                    <div class="overflow-x-auto w-full">
+                        <div class="mermaid text-sm">
+                            gantt
+                                title ISAAI Dual-Module Development Plan
+                                dateFormat  YYYY-MM-DD
+                                axisFormat  %d.%m.
+                                tickInterval 3d
+
+                                section M1: Split
+                                Req Review ISA & AI (18.05.-20.05.)          :done, m1_1, 2026-05-18, 3d
+                                GitHub Repo & Branches (21.05.-22.05.)       :done, m1_2, after m1_1, 2d
+                                Define Workflows (23.05.-24.05.)             :active, m1_3, after m1_2, 2d
+
+                                section M2: ISA (Data)
+                                .MSG/PDF & OCR Pipeline (25.05.-27.05.)           :crit, m2_1, 2026-05-25, 3d
+                                Extraction Logic (28.05.-29.05.)             :crit, m2_2, after m2_1, 2d
+                                JSON to CSV Trans. (30.05.)                  :m2_3, after m2_2, 1d
+                                Bereitstellung fuer Operator (31.05.-01.06.)          :m2_4, after m2_3, 2d
+
+                                section M3: A+I (Process)
+                                XML Parser Rep A & B (02.06.-04.06.)         :crit, m3_1, 2026-06-02, 3d
+                                GOAL Rule Evaluator (05.06.-06.06.)          :crit, m3_2, after m3_1, 2d
+                                Exception Logic (07.06.)                     :m3_3, after m3_2, 1d
+                                SharePoint API (08.06.)                      :m3_4, after m3_3, 1d
+
+                                section M4: Integr.
+                                Merge ISA & AI (09.06.)                      :crit, m4_1, 2026-06-09, 1d
+                                Action Orchestration (10.06.-11.06.)         :crit, m4_2, after m4_1, 2d
+                                E2E Testing (12.06.-15.06.)                  :m4_3, after m4_2, 4d
+
+                                section M5: Submiss.
+                                Architecture Docs (13.06.-15.06.)            :m5_1, 2026-06-13, 3d
+                                Final Submission (16.06.)                    :milestone, m5_3, 2026-06-16, 0d
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Dual Technical Logic Flow -->
+                <section class="bg-white p-6 rounded-lg shadow-sm border border-slate-300 print-break-avoid">
+                    <h2 class="text-xl font-bold text-black border-b border-slate-300 pb-2 mb-6 flex items-center">
+                        <svg class="w-5 h-5 mr-2 text-slate-800" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg>
+                        Dual-Module Architektur-Logik (Technical Breakdown)
+                    </h2>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        
+                        <!-- ISA Path -->
+                        <div class="bg-purple-50 p-5 rounded-lg border border-purple-200">
+                            <h3 class="font-bold text-purple-900 text-lg mb-3 flex items-center">
+                                <span class="bg-purple-200 text-purple-900 w-6 h-6 rounded-full flex items-center justify-center text-xs mr-2 border border-purple-300">1</span>
+                                ISA Modul: Data Intelligence
+                            </h3>
+                            <ul class="text-sm text-slate-900 space-y-2 list-none font-medium">
+                                <li class="flex items-start"><span class="mr-2 text-purple-600">▶</span> <strong>Ingestion:</strong> MSG-Opening Reports und Mail-Daten werden via OCR digitalisiert.</li>
+                                <li class="flex items-start"><span class="mr-2 text-purple-600">▶</span> <strong>Structuring:</strong> Überführung von unstrukturierten Daten (Inhalt der Market Opening Message) in saubere JSON/CSV-Schemata.</li>
+                                <li class="flex items-start"><span class="mr-2 text-purple-600">▶</span> <strong>Visualization:</strong> Automatische Analyse und Bereitstellung fuer Operator (inkl. EXCEPTION HANDLING).</li>
+                                <li class="flex items-start"><span class="mr-2 text-purple-600">▶</span> <strong>Output:</strong> Bereitstellung der Report Mail (inkl. .xlsx Dateien).</li>
+                            </ul>
+                        </div>
+
+                        <!-- A+I Path -->
+                        <div class="bg-blue-50 p-5 rounded-lg border border-blue-200">
+                            <h3 class="font-bold text-blue-900 text-lg mb-3 flex items-center">
+                                <span class="bg-blue-200 text-blue-900 w-6 h-6 rounded-full flex items-center justify-center text-xs mr-2 border border-blue-300">2</span>
+                                A+I Modul: Process Automation
+                            </h3>
+                            <ul class="text-sm text-slate-900 space-y-2 list-none font-medium">
+                                <li class="flex items-start"><span class="mr-2 text-blue-600">▶</span> <strong>Parsing:</strong> Tägliche XML-Strukturberichte (Typ A/B) werden programmatisch verarbeitet.</li>
+                                <li class="flex items-start"><span class="mr-2 text-blue-600">▶</span> <strong>Validation:</strong> Applikation von GOAL-Regeln (Prüfung auf Grenzwerte und primäre Violation-Marker).</li>
+                                <li class="flex items-start"><span class="mr-2 text-blue-600">▶</span> <strong>Governance:</strong> Exception-Handling greift nur bei Fehlern; sonst vollautomatischer Durchlauf.</li>
+                                <li class="flex items-start"><span class="mr-2 text-blue-600">▶</span> <strong>Integration:</strong> API-Schnittstelle für SharePoint (Evidence) und DMS (Sign-Off & Archivierung).</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="mt-6 bg-slate-200 p-4 rounded-lg border border-slate-400 text-slate-900">
+                        <h4 class="text-sm font-bold text-black uppercase tracking-wider mb-2">Integration Layer (Phase 4)</h4>
+                        <p class="text-sm font-medium">Beide Module werden im <code class="bg-slate-300 px-1 py-0.5 rounded text-black font-bold border border-slate-400">develop</code> Branch via GitHub Actions synchronisiert. Das Resultat ist ein Human-Out-Of-The-Loop System, das Rechnungsdaten aufbereitet, Report-Exceptions validiert und die korrekte DMS-Archivierung garantiert.</p>
+                    </div>
+
+                </section>
+
+            </div>
+        </div>
+        
+       
+    </div>
+
+</body>
+</html>
