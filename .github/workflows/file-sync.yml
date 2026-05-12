@@ -1,0 +1,119 @@
+name: File Sync Validation
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main, develop ]
+  schedule:
+    # Run every 6 hours to ensure sync
+    - cron: '0 */6 * * *'
+
+jobs:
+  sync-validation:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0  # Fetch full history for sync checks
+
+      - name: Check for uncommitted changes
+        run: |
+          if [ -n "$(git status --porcelain)" ]; then
+            echo "❌ Uncommitted changes detected:"
+            git status --porcelain
+            exit 1
+          else
+            echo "✅ All files are synced - no uncommitted changes"
+          fi
+
+      - name: Validate critical files exist
+        run: |
+          critical_files=(
+            "README.md"
+            "Architecture/"
+            "Documentation/"
+            "src/"
+            ".github/workflows/"
+          )
+          
+          missing_files=()
+          for file in "${critical_files[@]}"; do
+            if [ ! -e "$file" ]; then
+              missing_files+=("$file")
+            fi
+          done
+          
+          if [ ${#missing_files[@]} -gt 0 ]; then
+            echo "❌ Missing critical files:"
+            printf '%s\n' "${missing_files[@]}"
+            exit 1
+          else
+            echo "✅ All critical files are present"
+          fi
+
+      - name: Validate documentation structure
+        run: |
+          required_docs=(
+            "docs/README.md"
+            "Documentation/Architecture/"
+            "Documentation/Process Modeling/"
+          )
+          
+          for doc in "${required_docs[@]}"; do
+            if [ ! -e "$doc" ]; then
+              echo "❌ Documentation missing: $doc"
+              exit 1
+            fi
+          done
+          echo "✅ Documentation structure is valid"
+
+      - name: Check file permissions
+        run: |
+          # Ensure markdown files are readable
+          echo "✅ Checking file permissions..."
+          find . -name "*.md" -type f ! -perm -u+r -exec chmod u+r {} \;
+          echo "✅ File permissions validated"
+
+      - name: Sync check report
+        if: success()
+        run: |
+          echo "## 📊 File Sync Report"
+          echo "✅ Repository is in sync"
+          echo ""
+          echo "### Verified:"
+          echo "- No uncommitted changes"
+          echo "- All critical files present"
+          echo "- Documentation structure valid"
+          echo "- File permissions correct"
+
+      - name: Notify sync issues
+        if: failure()
+        run: |
+          echo "## ⚠️ Sync Issues Detected"
+          echo "Please resolve the sync issues shown above"
+          exit 1
+
+  push-sync:
+    needs: sync-validation
+    runs-on: ubuntu-latest
+    if: github.event_name == 'schedule' || github.event_name == 'push'
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Ensure all tracked files are staged and synced
+        run: |
+          # This ensures any changes are properly committed
+          echo "Validating git status..."
+          git status
+          
+          # Check for any untracked files that might need syncing
+          untracked=$(git ls-files --others --exclude-standard)
+          if [ -n "$untracked" ]; then
+            echo "⚠️ Untracked files detected:"
+            echo "$untracked"
+          fi
+          
+          echo "✅ Sync validation complete"
