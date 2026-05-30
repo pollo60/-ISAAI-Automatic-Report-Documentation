@@ -20,4 +20,8 @@ Canonical documentation moved under `docs/Documentation/` (previously `Documenta
 | `A + I/-ISAAI-Automatic-Report-Documentation/` | Older git clone; prefer this workspace |
 | `Projektdateien/` | Local working artifacts; merged into `docs/` where unique |
 
-Last updated: 2026-05-30 — initial consolidation commit pending push.
+Last updated: 2026-05-30
+
+## Push status
+
+Local `main` is ready. `git push -u origin main` requires GitHub authentication on this machine (token or SSH). Run push when credentials are configured.
