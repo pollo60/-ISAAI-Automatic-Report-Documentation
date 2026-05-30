@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project Charter: ISAAI</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        :root {
+            --brand-primary: #00335b;
+            --brand-secondary: #00508f;
+            --text-main: #333333;
+            --text-muted: #666666;
+            --bg-slide: #ffffff;
+            --bg-canvas: #eef2f5;
+            --status-positive: #007a33;
+            --status-negative: #d11241;
+            --status-warning: #e37222;
+            --status-info: #00508f;
+            --shape-radius: 2px;
+            --border-width: 1px;
+            --border-color: #d1d5db;
+        }
+
+        body {
+            background-color: var(--bg-canvas);
+            color: var(--text-main);
+            font-family: 'Arial', 'Helvetica Neue', Helvetica, sans-serif;
+            -webkit-print-color-adjust: exact !important;
+            print-color-adjust: exact !important;
+            margin: 0;
+            padding: 2rem 1rem 3rem;
+        }
+
+        .document-shell {
+            max-width: 210mm;
+            margin: 0 auto;
+            background-color: var(--bg-slide);
+            border: var(--border-width) solid var(--border-color);
+            border-radius: var(--shape-radius);
+            box-shadow: 0 15px 45px rgba(0, 0, 0, 0.08);
+            overflow: hidden;
+        }
+
+        .document-inner {
+            padding: 2.5rem;
+        }
+
+        .page-header {
+            border-bottom: var(--border-width) solid #e5e7eb;
+            padding-bottom: 1.75rem;
+            margin-bottom: 2rem;
+        }
+
+        .page-title {
+            color: var(--brand-primary);
+            font-size: 2.25rem;
+            font-weight: 800;
+            letter-spacing: -0.03em;
+            text-transform: uppercase;
+            margin: 0.5rem 0;
+        }
+
+        .meta-tag {
+            display: inline-block;
+            background: #f3f4f6;
+            color: #1f2937;
+            padding: 0.35rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.7rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+        }
+
+        .section-title {
+            font-size: 0.95rem;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            font-weight: 700;
+            color: var(--brand-primary);
+            margin-bottom: 1rem;
+        }
+
+        .section-card {
+            background: #ffffff;
+            border: var(--border-width) solid var(--border-color);
+            border-radius: 0.5rem;
+            padding: 1.25rem;
+            box-shadow: 0 10px 20px rgba(15, 23, 42, 0.04);
+        }
+
+        .info-panel {
+            background-color: #f8fbff;
+            border-left: 4px solid var(--brand-primary);
+            padding: 1rem 1.25rem;
+            border-radius: 0 0.5rem 0.5rem 0;
+            color: #4b5563;
+            font-style: italic;
+        }
+
+        .table-corp {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.85rem;
+        }
+
+        .table-corp th,
+        .table-corp td {
+            padding: 0.9rem 1rem;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .table-corp th {
+            background-color: var(--brand-primary);
+            color: white;
+            text-align: left;
+            font-weight: 700;
+            letter-spacing: 0.06em;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+        }
+
+        .badge-status {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.35rem;
+            padding: 0.35rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 700;
+        }
+
+        .badge-positive { background: #d1fae5; color: #065f46; }
+        .badge-warning { background: #fef3c7; color: #92400e; }
+        .badge-flagged { background: #fef2f2; color: #991b1b; }
+
+        .document-footer {
+            padding: 2rem 2.5rem;
+            background: #f8fafc;
+            border-top: var(--border-width) solid #e2e8f0;
+            color: #6b7280;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 1rem;
+            font-size: 0.85rem;
+        }
+
+        .signature-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 1rem;
+        }
+
+        .signature-box {
+            border-bottom: 1px solid #9ca3af;
+            padding-bottom: 1.25rem;
+            text-align: center;
+            font-size: 0.8rem;
+        }
+
+        @media print {
+            body { background: white; padding: 0; }
+            .document-shell { box-shadow: none; border-radius: 0; margin: 0; }
+            .no-print { display: none !important; }
+        }
+    </style>
+</head>
+<body>
+    <div class="document-shell">
+        <div class="document-inner">
+            <header class="page-header">
+                <div class="flex flex-col lg:flex-row lg:justify-between lg:items-start gap-6">
+                    <div>
+                        <span class="meta-tag">Official Project Document</span>
+                        <h1 class="page-title">Project Charter: ISAAI</h1>
+                        <p class="text-sm text-[#6b7280] mt-2">PROJECT-ID: PRJ-2026-ISAAI </p>
+                    </div>
+                    <div class="text-left lg:text-right">
+                        <span class="meta-tag" style="background: var(--brand-primary); color: white;">Approved</span>
+                        <p class="text-xs text-[#9ca3af] mt-3">RELEASE: 17.05.2026</p>
+                    </div>
+                </div>
+
+                <div class="mt-6 flex flex-wrap gap-2">
+                    <span class="meta-tag">#DualModule</span>
+                    <span class="meta-tag">#Governance</span>
+                    <span class="meta-tag">#WhiteBox</span>
+                </div>
+                <div class="info-panel mt-6">
+                    Diese Projekt-Charta konzeptualisiert formell das ISAAI-Projekt (Information Systems Architecture & Integration). Wir binden die Entwicklungsmöglichkeiten der beiden Module ISA und AI an die architektonischen Richtlinien der White-Box-Modellierung. Meilensteine bis zur fertigen Submission wurden etabliert.
+                </div>
+            </header>
+
+            <main class="space-y-10">
+                <section class="space-y-4">
+                    <p class="section-title">01. Project Stakeholders & Core Metadata</p>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm text-[#475569]">
+                        <div class="section-card">
+                            <p class="uppercase tracking-[0.25em] text-xs text-[#6b7280]">Sponsor & Academic Lead</p>
+                            <p class="font-semibold text-lg text-[#00335b] mt-3">Prof. Dr. Dominik Dietrich</p>
+                            <p class="text-sm mt-1">FRA UAS / FB2</p>
+                        </div>
+                        <div class="section-card">
+                            <p class="uppercase tracking-[0.25em] text-xs text-[#6b7280]">Architecture & Software Engineering</p>
+                            <p class="font-semibold text-lg text-[#00335b] mt-3">Christina Malki, Altay Hennig</p>
+                            <p class="text-sm mt-1"> Modul ISA | A+I | FUAS</p>
+                        </div>
+                        <div class="section-card">
+                            <p class="uppercase tracking-[0.25em] text-xs text-[#6b7280]">Operational Owner</p>
+                            <p class="font-semibold text-lg text-[#00335b] mt-3">Sarah Bullinger</p>
+                            <p class="text-sm mt-1">Project Lead Operations</p>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="space-y-4">
+                    <p class="section-title">02. SMART Project Goals & Mission</p>
+                    <div class="space-y-4">
+                        <div class="section-card">
+                            <p class="font-bold uppercase text-xs tracking-[0.2em] text-[#00335b]">Duale Modul-Architektur (ISA & A+I)</p>
+                            <p class="text-sm text-[#475569] mt-3">Entwicklung eines robusten, GitHub-basierten Automatisierungssystems, aufgeteilt in zwei Invarianten:</p>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4 text-sm text-[#475569]">
+                                <div class="border-l-4 border-[#00335b] bg-[#f8fbff] p-4 rounded-md">
+                                    <p class="font-semibold">Module A: ISA (Invoice Automation)</p>
+                                    <p class="mt-2 text-sm text-[#6b7280]">Vollautomatische Extraktion strukturierter Rechnungsdaten aus PDF/OCR, Konvertierung in JSON/CSV und dynamische Chart-Generierung für C-Level Präsentationen.</p>
+                                </div>
+                                <div class="border-l-4 border-[#00335b] bg-[#f8fbff] p-4 rounded-md">
+                                    <p class="font-semibold">Module B: A+I (Architecture & Integration)</p>
+                                    <p class="mt-2 text-sm text-[#6b7280]">Validierung komplexer XML-Finanzberichte auf Basis vordefinierter GOAL-Regelwerke inklusive Exception-Governance und SharePoint/DMS-Archivierung.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="grid grid-cols-1 sm:grid-cols-5 gap-3 text-center text-sm text-[#475569]">
+                            <div class="section-card">
+                                <p class="font-bold text-[#00335b]">S</p>
+                                <p>pecific</p>
+                                <p class="text-xs text-[#6b7280] mt-2">Duale Pipeline (Python, JSON, XML)</p>
+                            </div>
+                            <div class="section-card">
+                                <p class="font-bold text-[#00335b]">M</p>
+                                <p>easurable</p>
+                                <p class="text-xs text-[#6b7280] mt-2">100% Automatisierungsgrad</p>
+                            </div>
+                            <div class="section-card">
+                                <p class="font-bold text-[#00335b]">A</p>
+                                <p>chievable</p>
+                                <p class="text-xs text-[#6b7280] mt-2">Einsatz verprobter CI/CD-Pipelines</p>
+                            </div>
+                            <div class="section-card">
+                                <p class="font-bold text-[#00335b]">R</p>
+                                <p>elevant</p>
+                                <p class="text-xs text-[#6b7280] mt-2">White-Box-Konformität</p>
+                            </div>
+                            <div class="section-card">
+                                <p class="font-bold text-[#00335b]">T</p>
+                                <p>ime-bound</p>
+                                <p class="text-xs text-[#6b7280] mt-2">Abgabe am 16.06.2026</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="space-y-4">
+                    <p class="section-title">03. Project Scope (In-Scope vs. Out-of-Scope)</p>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm text-[#475569]">
+                        <div class="section-card">
+                            <div class="font-semibold text-[#065f46] mb-3">In-Scope (Konzeption & Umsetzung)</div>
+                            <ul class="list-disc list-inside space-y-2">
+                                <li>Automatisierte PDF-Infiltration & OCR-Textextraktion</li>
+                                <li>White-Box-Schnittstellen-Modellierung (OpenAPI)</li>
+                                <li>Regel-Engine für GOAL-Validierung im A+I-Modul</li>
+                                <li>Synchronisierte Versions-Handshakes & Force-Updates</li>
+                                <li>GitHub-Actions Workflows für automatisierte Tests</li>
+                                <li>DMS-Schnittstellen-Mocks zur Revisionssicherheit</li>
+                            </ul>
+                        </div>
+                        <div class="section-card">
+                            <div class="font-semibold text-[#991b1b] mb-3">Out-of-Scope</div>
+                            <ul class="list-disc list-inside space-y-2">
+                                <li>Manuelle Korrekturen direkt in Produktiv-Datenbanken</li>
+                                <li>Entwicklung proprietärer OCR-Modelle von Grund auf</li>
+                                <li>Anbindung nicht-standardisierter Drittanbieter-APIs</li>
+                                <li>Echtzeit-Transaktionen ohne "Human-in-the-loop"</li>
+                                <li>Physische Server-Infrastruktur-Bereitstellung</li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="space-y-4">
+                    <p class="section-title">04. Milestones & Scheduling</p>
+                    <div class="overflow-x-auto">
+                        <table class="table-corp">
+                            <thead>
+                                <tr>
+                                    <th>Phase / Milestone</th>
+                                    <th>Key Deliverables</th>
+                                    <th>Target Date</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="font-semibold text-[#00335b]">M1: Requirements & Setup</td>
+                                    <td>Analyse Briefing, Split in ISA & A+I Anforderungen, GitHub-Repo-Setup</td>
+                                    <td class="font-mono text-sm text-[#475569]">24.05.2026</td>
+                                </tr>
+                                <tr>
+                                    <td class="font-semibold text-[#00335b]">M2: ISA Module Ready</td>
+                                    <td>Rechnungsextraktion (OCR), JSON/CSV-Parser, "Magic Charts" Generation</td>
+                                    <td class="font-mono text-sm text-[#475569]">01.06.2026</td>
+                                </tr>
+                                <tr>
+                                    <td class="font-semibold text-[#00335b]">M3: A+I Module Ready</td>
+                                    <td>XML Ingestion, GOAL Rule Evaluator, SharePoint/DMS API-Schnittstelle</td>
+                                    <td class="font-mono text-sm text-[#475569]">08.06.2026</td>
+                                </tr>
+                                <tr>
+                                    <td class="font-semibold text-[#00335b]">M4: Integration & Actions</td>
+                                    <td>Zusammenführung Branches, Ende-zu-Ende Integrationstest via GitHub Actions</td>
+                                    <td class="font-mono text-sm text-[#475569]">15.06.2026</td>
+                                </tr>
+                                <tr>
+                                    <td class="font-semibold text-[#00335b]">M5: Submission & Docs</td>
+                                    <td>Prüfungsfertiger Code im Main-Branch, ArchiMate/BPMN Prozessmodelle, Board-Präsentation</td>
+                                    <td class="font-mono text-sm text-[#475569]">16.06.2026</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+
+                <section class="space-y-4">
+                    <p class="section-title">05. RACI Responsibility Assignment Matrix</p>
+                    <div class="overflow-x-auto">
+                        <table class="table-corp text-sm">
+                            <thead>
+                                <tr>
+                                    <th>Core Project Activity</th>
+                                    <th class="text-center">Christina, Altay (Engineering)</th>
+                                    <th class="text-center">Sarah (Ops)</th>
+                                    <th class="text-center">Prof. Dominik</th>
+                                    <th class="text-center">Compliance/IT [SIMULATION]</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Requirements & Architecture Split</td>
+                                    <td class="text-center font-semibold text-[#00335b]">R</td>
+                                    <td class="text-center">A</td>
+                                    <td class="text-center text-[#9ca3af]">C</td>
+                                    <td class="text-center text-[#9ca3af]">I</td>
+                                </tr>
+                                <tr>
+                                    <td>ISA Module Development (OCR & Visuals)</td>
+                                    <td class="text-center font-semibold text-[#00335b]">R / A</td>
+                                    <td class="text-center text-[#9ca3af]">I</td>
+                                    <td class="text-center text-[#9ca3af]">C</td>
+                                    <td class="text-center text-[#9ca3af]">I</td>
+                                </tr>
+                                <tr>
+                                    <td>A+I GOAL Rule Implementation</td>
+                                    <td class="text-center font-semibold text-[#00335b]">R / A</td>
+                                    <td class="text-center text-[#9ca3af]">I</td>
+                                    <td class="text-center text-[#9ca3af]">C</td>
+                                    <td class="text-center font-semibold text-[#065f46]">C</td>
+                                </tr>
+                                <tr>
+                                    <td>CI/CD Pipeline Setup & DevOps</td>
+                                    <td class="text-center font-semibold text-[#00335b]">R</td>
+                                    <td class="text-center font-semibold text-[#065f46]">A</td>
+                                    <td class="text-center text-[#9ca3af]">I</td>
+                                    <td class="text-center font-semibold text-[#065f46]">C</td>
+                                </tr>
+                                <tr>
+                                    <td>Final Submission & Presentation</td>
+                                    <td class="text-center font-semibold text-[#00335b]">R</td>
+                                    <td class="text-center font-semibold text-[#00335b]">R</td>
+                                    <td class="text-center font-semibold text-[#475569]">A</td>
+                                    <td class="text-center text-[#9ca3af]">I</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="mt-4 text-xs text-[#6b7280] flex flex-wrap gap-4">
+                            <span><strong>R:</strong> Responsible (Ausführend)</span>
+                            <span><strong>A:</strong> Accountable (Freigebend)</span>
+                            <span><strong>C:</strong> Consulted (Beratend)</span>
+                            <span><strong>I:</strong> Informed (Zu informieren)</span>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="space-y-4">
+                    <p class="section-title">06. Invariants, Risks & Compliance Gates</p>
+                    <div class="grid grid-cols-1 gap-4 text-sm text-[#475569]">
+                        <div class="section-card bg-[#fffbeb] border-[#fef3c7]">
+                            <p class="font-semibold text-[#92400e]">Technological & Operational Risks</p>
+                            <p class="mt-3 text-[#92400e]">Die größte architektonische Hürde stellt der unautorisierte Datenabfluss dar. Durch ein striktes <strong>Local Sanboxing Model</strong> im Frontend und die Etablierung eines <strong>BFF-Patterns (Backend-for-Frontend)</strong> stellen wir sicher, dass sensible Finanzdaten und Geschäftsgeheimnisse zu keinem Zeitpunkt unverschlüsselt übertragen werden.</p>
+                        </div>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div class="section-card">
+                                <p class="font-semibold text-[#00335b]">EU AI-Act Compliance Gate</p>
+                                <p class="mt-2 text-sm text-[#475569]">Sollte eine Entscheidung vollautomatisch getroffen werden (z. B. durch LLM-gestützte Ausnahmevalidierung), greift zwingend das <strong>Human-in-the-loop (HITL)</strong> Prinzip. Ein manueller Sign-Off-Dialog wird im UI erzwungen, bevor Daten ins DMS transferiert werden.</p>
+                            </div>
+                            <div class="section-card">
+                                <p class="font-semibold text-[#00335b]">Data Sovereignty Gate (DSGVO)</p>
+                                <p class="mt-2 text-sm text-[#475569]">Alle personenbezogenen Daten (PII) durchlaufen eine lokale Anonymisierungsebene. In die Logfiles des GitHub-Testrunners dürfen ausschließlich künstlich generierte Mock-Daten (z. B. Global Bike Datensätze) einfließen.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="space-y-4">
+                    <p class="section-title">07. References & compliance artifacts</p>
+                    <div class="section-card text-sm text-[#475569]">
+                        <ul class="list-disc list-inside space-y-2">
+                            <li><code>docs/compliance/AUDIT-TRAIL.md</code> — traceability fields aligned with GOAL BPMN</li>
+                            <li><code>docs/compliance/DATA-HANDLING.md</code> — pseudonymization before internal LLM use</li>
+                            <li><code>docs/compliance/STAKEHOLDER-INTERFACE-QUESTIONS.md</code> — open interface and sandbox questions</li>
+                            <li><code>docs/api/openapi/</code> — OpenAPI v3 mock specifications (White-Box scope)</li>
+                            <li><code>docs/DESIGN-CANON.md</code> — neutral corporate presentation standards</li>
+                        </ul>
+                        <p class="mt-3 text-xs text-[#6b7280]">Stakeholder-facing working documents use censored naming; grading originals are isolated under <code>docs/official-archive/</code>.</p>
+                    </div>
+                </section>
+            </main>
+        </div>
+
+        <footer class="document-footer">
+            <div>
+                <p class="font-semibold">Project Ownership</p>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm text-[#475569]">
+                        <div class="section-card">
+                            <p class="uppercase tracking-[0.25em] text-xs text-[#6b7280]">Sponsor & Academic Lead</p>
+                            <p class="font-semibold text-lg text-[#00335b] mt-3">Prof. Dr. Dominik Dietrich</p>
+                            <p class="text-sm mt-1">FRA UAS / FB2</p>
+                        </div>
+                        <div class="section-card">
+                            <p class="uppercase tracking-[0.25em] text-xs text-[#6b7280]">Architecture & Software Engineering</p>
+                            <p class="font-semibold text-lg text-[#00335b] mt-3">Christina Malki, Altay Hennig</p>
+                            <p class="text-sm mt-1"> Modul ISA | A+I | FUAS</p>
+                        </div>
+                        <div class="section-card">
+                            <p class="uppercase tracking-[0.25em] text-xs text-[#6b7280]">Operational Owner</p>
+                            <p class="font-semibold text-lg text-[#00335b] mt-3">Sarah Bullinger</p>
+                            <p class="text-sm mt-1">Project Lead Operations</p>
+                        </div>
+                    </div>
+                
+        </footer>
+    </div>
+</body>
+</html>

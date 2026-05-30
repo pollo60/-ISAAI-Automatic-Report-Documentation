@@ -1,0 +1,22 @@
+1. STAKEHOLDER: MODULE Architecture and Integration DEMANDS >> Automatisierung der Financial Reports <<
+Case study work
+• Team of 3 students
+• Working time: 8 weeks
+• Project results:
+• Architecture model and description
+• Implementation using selected
+integration technology
+• Final presentation (5 minutes per person)
+• Max. 60 points altogether
+
+
+
+2. STAKEHOLDER: MODULE  Information Systems Architecture DEMANDS >> Automation of the Exchange Invoice Process <<
+
+1. Read a PDF (or picture) with OCR Software // Or extract data from a website
+2. Identify relevant content / data
+3. Extract the content / data into a csv or json file
+4. Structure the content / data
+5. Do some „magic" charts with the data
+6. Put the charts into a presentation software
+• All steps need to be fully automated

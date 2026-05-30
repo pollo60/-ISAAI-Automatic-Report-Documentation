@@ -1,0 +1,106 @@
+openapi: 3.0.3
+info:
+  title: ISAAI Archive DMS API (Mock)
+  description: Simulated document repository archival after validation or approval.
+  version: 0.1.0
+servers:
+  - url: https://sandbox.example.internal/api/v1
+security:
+  - bearerAuth: []
+paths:
+  /archive/packages:
+    post:
+      operationId: createArchivePackage
+      parameters:
+        - $ref: '#/components/parameters/XRequestId'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [jobId, evidenceRefs]
+              properties:
+                jobId:
+                  type: string
+                evidenceRefs:
+                  type: array
+                  items:
+                    type: string
+            example:
+              jobId: job-7f3a2c91
+              evidenceRefs:
+                - evidence://mail/20260529-summary
+                - evidence://report/20260529-daily
+      responses:
+        '201':
+          description: Archive package created
+          content:
+            application/json:
+              example:
+                archiveId: arc-55de
+                signOffState: PENDING_UPLOAD
+                auditEventId: evt-archive-01
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          description: Incomplete evidence set
+          content:
+            application/json:
+              example:
+                code: incomplete_evidence
+                message: Missing quota report attachment
+        '500':
+          $ref: '#/components/responses/ServerError'
+  /archive/packages/{archiveId}/signoff:
+    post:
+      operationId: finalSignOff
+      parameters:
+        - $ref: '#/components/parameters/XRequestId'
+        - name: archiveId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Irreversible sign-off completed
+          content:
+            application/json:
+              example:
+                archiveId: arc-55de
+                signOffState: COMPLETE
+                signedAt: "2026-05-29T16:45:00Z"
+        '403':
+          content:
+            application/json:
+              example:
+                code: forbidden
+                message: Uploads incomplete — sign-off blocked
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+  parameters:
+    XRequestId:
+      name: X-Request-Id
+      in: header
+      required: true
+      schema:
+        type: string
+        format: uuid
+  responses:
+    Unauthorized:
+      description: Missing or invalid token
+      content:
+        application/json:
+          example:
+            code: unauthorized
+            message: Bearer token required
+    ServerError:
+      description: Internal error
+      content:
+        application/json:
+          example:
+            code: internal_error
+            message: Archive service unavailable

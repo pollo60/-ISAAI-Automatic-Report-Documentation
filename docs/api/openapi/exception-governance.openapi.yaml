@@ -1,0 +1,106 @@
+openapi: 3.0.3
+info:
+  title: ISAAI Exception Governance API (Mock)
+  description: Human-in-the-loop approval for validation exceptions.
+  version: 0.1.0
+servers:
+  - url: https://sandbox.example.internal/api/v1
+security:
+  - bearerAuth: []
+paths:
+  /exceptions/{exceptionId}:
+    get:
+      operationId: getException
+      parameters:
+        - $ref: '#/components/parameters/XRequestId'
+        - name: exceptionId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Exception detail
+          content:
+            application/json:
+              example:
+                exceptionId: exc-001
+                jobId: job-7f3a2c91
+                approvalState: PENDING
+                violations:
+                  - field: threshold_column_3
+                    value: 87
+                    rule: MIN_90
+        '403':
+          description: Role not authorized
+          content:
+            application/json:
+              example:
+                code: forbidden
+                message: Supervisor role required
+  /exceptions/{exceptionId}/decision:
+    post:
+      operationId: submitDecision
+      parameters:
+        - $ref: '#/components/parameters/XRequestId'
+        - name: exceptionId
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [decision, comment]
+              properties:
+                decision:
+                  type: string
+                  enum: [APPROVE, REJECT]
+                comment:
+                  type: string
+            example:
+              decision: APPROVE
+              comment: Threshold breach acknowledged for monthly trend
+      responses:
+        '200':
+          description: Decision recorded
+          content:
+            application/json:
+              example:
+                exceptionId: exc-001
+                approvalState: APPROVED
+                auditEventId: evt-9b12
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '500':
+          $ref: '#/components/responses/ServerError'
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+  parameters:
+    XRequestId:
+      name: X-Request-Id
+      in: header
+      required: true
+      schema:
+        type: string
+        format: uuid
+  responses:
+    Unauthorized:
+      description: Missing or invalid token
+      content:
+        application/json:
+          example:
+            code: unauthorized
+            message: Bearer token required
+    ServerError:
+      description: Internal error
+      content:
+        application/json:
+          example:
+            code: internal_error
+            message: Governance service unavailable

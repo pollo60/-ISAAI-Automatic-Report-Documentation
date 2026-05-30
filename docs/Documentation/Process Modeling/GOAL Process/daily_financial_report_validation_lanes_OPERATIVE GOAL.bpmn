@@ -1,0 +1,358 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" id="Definitions_DailyFinancialReportValidation_SOLL" targetNamespace="http://example.com/bpmn/daily-financial-report-validation-soll" exporter="Camunda Modeler" exporterVersion="5.45.0">
+  <bpmn:collaboration id="Collaboration_DailyFinancialReportValidation_SOLL">
+    <bpmn:participant id="Participant_Process_SOLL" name="Automated Daily Report Processing (SOLL)" processRef="Process_DailyFinancialReportValidation_SOLL" />
+  </bpmn:collaboration>
+  <bpmn:process id="Process_DailyFinancialReportValidation_SOLL" name="Daily Financial Report Validation SOLL" isExecutable="true">
+    <bpmn:documentation>
+      Fully automated target architecture (SOLL). RPA/Python parses the XML reports directly, applies the validation rules, and interacts with SharePoint and DMS via API. Human intervention (Operations Supervisor) is strictly limited to Exception Review &amp; Governance.
+    </bpmn:documentation>
+    <bpmn:laneSet id="LaneSet_Main_SOLL">
+      <bpmn:lane id="Lane_EmailSystem" name="Email System">
+        <bpmn:flowNodeRef>StartEvent_EmailReceived</bpmn:flowNodeRef>
+      </bpmn:lane>
+      <bpmn:lane id="Lane_AutomationService" name="Automated Reporting Service (RPA/AI)">
+        <bpmn:flowNodeRef>Task_AutoExtract</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Gateway_0z9q0e8</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Task_AutoValidate</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Activity_04ayc1v</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Task_GenerateException</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Task_AutoEmail</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Activity_0xake5j</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Activity_141bjdt</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Activity_1vcj43z</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Gateway_0mehm57</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Gateway_AutoExceptions</bpmn:flowNodeRef>
+      </bpmn:lane>
+      <bpmn:lane id="Lane_Supervisor" name="Operations Supervisor">
+        <bpmn:flowNodeRef>Task_SupervisorReview</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>EndEvent_Exception</bpmn:flowNodeRef>
+      </bpmn:lane>
+      <bpmn:lane id="Lane_SharePoint" name="SharePoint (API)">
+        <bpmn:flowNodeRef>Task_AutoSaveSP1</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Task_AutoSaveSP2</bpmn:flowNodeRef>
+      </bpmn:lane>
+      <bpmn:lane id="Lane_DMS" name="DMS System (API / Scraper)">
+        <bpmn:flowNodeRef>Task_AutoArchiveDMS</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>EndEvent_Success</bpmn:flowNodeRef>
+      </bpmn:lane>
+    </bpmn:laneSet>
+    <bpmn:startEvent id="StartEvent_EmailReceived" name="Financial Report email received">
+      <bpmn:outgoing>Flow_Start_Extract</bpmn:outgoing>
+      <bpmn:messageEventDefinition id="MessageEventDefinition_Email_SOLL" />
+    </bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_Start_Extract" sourceRef="StartEvent_EmailReceived" targetRef="Task_AutoExtract" />
+    <bpmn:serviceTask id="Task_AutoExtract" name="Auto-extract XML attachments">
+      <bpmn:incoming>Flow_Start_Extract</bpmn:incoming>
+      <bpmn:outgoing>Flow_1fpvkyg</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_Exceptions_Yes" name="yes" sourceRef="Gateway_AutoExceptions" targetRef="Task_GenerateException" />
+    <bpmn:dataStoreReference id="DataStore_DMS_SOLL" name="DMS Archive Repo" />
+    <bpmn:parallelGateway id="Gateway_0z9q0e8">
+      <bpmn:incoming>Flow_1fpvkyg</bpmn:incoming>
+      <bpmn:outgoing>Flow_1stt29y</bpmn:outgoing>
+      <bpmn:outgoing>Flow_03gmjzb</bpmn:outgoing>
+    </bpmn:parallelGateway>
+    <bpmn:sequenceFlow id="Flow_1fpvkyg" sourceRef="Task_AutoExtract" targetRef="Gateway_0z9q0e8" />
+    <bpmn:sequenceFlow id="Flow_15mmuok" name="no" sourceRef="Gateway_AutoExceptions" targetRef="Task_AutoSaveSP1" />
+    <bpmn:serviceTask id="Task_AutoValidate" name="Parse XML &#38; evaluate Report A rules">
+      <bpmn:documentation>Bot parses XML directly in memory, checking DayViol and MonthViol thresholds without manual Excel rendering.</bpmn:documentation>
+      <bpmn:incoming>Flow_1stt29y</bpmn:incoming>
+      <bpmn:outgoing>Flow_1vpffjz</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:serviceTask id="Activity_04ayc1v" name="Parse XML &#38; evaluate Report B rules">
+      <bpmn:documentation>Bot parses XML directly in memory, checking DayViol and MonthViol thresholds without manual Excel rendering.</bpmn:documentation>
+      <bpmn:incoming>Flow_03gmjzb</bpmn:incoming>
+      <bpmn:outgoing>Flow_1l9fngg</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_1stt29y" sourceRef="Gateway_0z9q0e8" targetRef="Task_AutoValidate" />
+    <bpmn:sequenceFlow id="Flow_03gmjzb" sourceRef="Gateway_0z9q0e8" targetRef="Activity_04ayc1v" />
+    <bpmn:sequenceFlow id="Flow_1pg4obp" sourceRef="Gateway_0mehm57" targetRef="Gateway_AutoExceptions" />
+    <bpmn:serviceTask id="Task_GenerateException" name="Generate Exception Alert">
+      <bpmn:incoming>Flow_Exceptions_Yes</bpmn:incoming>
+      <bpmn:outgoing>Flow_GenEx_Review</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:userTask id="Task_SupervisorReview" name="Review Exception &#38; Execute Governance">
+      <bpmn:incoming>Flow_GenEx_Review</bpmn:incoming>
+      <bpmn:outgoing>Flow_Review_EndEx</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:endEvent id="EndEvent_Exception" name="Exception Handled Manually">
+      <bpmn:incoming>Flow_Review_EndEx</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:serviceTask id="Task_AutoSaveSP1" name="Save Evidence via API">
+      <bpmn:incoming>Flow_15mmuok</bpmn:incoming>
+      <bpmn:outgoing>Flow_SaveSP1_Email</bpmn:outgoing>
+      <bpmn:dataOutputAssociation id="DataOutputAssoc_SP1">
+        <bpmn:targetRef>DataStore_SharePoint_SOLL</bpmn:targetRef>
+      </bpmn:dataOutputAssociation>
+    </bpmn:serviceTask>
+    <bpmn:serviceTask id="Task_AutoEmail" name="Draft Summary Email">
+      <bpmn:incoming>Flow_SaveSP1_Email</bpmn:incoming>
+      <bpmn:outgoing>Flow_1a75x48</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:serviceTask id="Task_AutoSaveSP2" name="Save Sent Email to SharePoint">
+      <bpmn:incoming>Flow_1qjxmkd</bpmn:incoming>
+      <bpmn:outgoing>Flow_SaveSP2_DMS</bpmn:outgoing>
+      <bpmn:dataOutputAssociation id="DataOutputAssoc_SP2">
+        <bpmn:targetRef>DataStore_SharePoint_SOLL</bpmn:targetRef>
+      </bpmn:dataOutputAssociation>
+    </bpmn:serviceTask>
+    <bpmn:serviceTask id="Task_AutoArchiveDMS" name="Archive Email &#38; Auto Sign-Off">
+      <bpmn:incoming>Flow_SaveSP2_DMS</bpmn:incoming>
+      <bpmn:outgoing>Flow_DMS_End</bpmn:outgoing>
+      <bpmn:dataOutputAssociation id="DataOutputAssoc_DMS">
+        <bpmn:targetRef>DataStore_DMS_SOLL</bpmn:targetRef>
+      </bpmn:dataOutputAssociation>
+    </bpmn:serviceTask>
+    <bpmn:endEvent id="EndEvent_Success" name="Automated Processing Completed">
+      <bpmn:incoming>Flow_DMS_End</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:dataStoreReference id="DataStore_SharePoint_SOLL" name="SharePoint Evidence Repo" />
+    <bpmn:serviceTask id="Activity_0xake5j" name="Send Summary Email">
+      <bpmn:incoming>Flow_1a75x48</bpmn:incoming>
+      <bpmn:outgoing>Flow_1qjxmkd</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_GenEx_Review" sourceRef="Task_GenerateException" targetRef="Task_SupervisorReview" />
+    <bpmn:sequenceFlow id="Flow_Review_EndEx" sourceRef="Task_SupervisorReview" targetRef="EndEvent_Exception" />
+    <bpmn:sequenceFlow id="Flow_SaveSP1_Email" sourceRef="Task_AutoSaveSP1" targetRef="Task_AutoEmail" />
+    <bpmn:sequenceFlow id="Flow_1a75x48" sourceRef="Task_AutoEmail" targetRef="Activity_0xake5j" />
+    <bpmn:sequenceFlow id="Flow_1qjxmkd" sourceRef="Activity_0xake5j" targetRef="Task_AutoSaveSP2" />
+    <bpmn:sequenceFlow id="Flow_SaveSP2_DMS" sourceRef="Task_AutoSaveSP2" targetRef="Task_AutoArchiveDMS" />
+    <bpmn:sequenceFlow id="Flow_DMS_End" sourceRef="Task_AutoArchiveDMS" targetRef="EndEvent_Success" />
+    <bpmn:serviceTask id="Activity_141bjdt" name="Generate Evidence File (Excel)">
+      <bpmn:incoming>Flow_1vpffjz</bpmn:incoming>
+      <bpmn:outgoing>Flow_0npq6ee</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:serviceTask id="Activity_1vcj43z" name="Generate Evidence File (Excel)">
+      <bpmn:incoming>Flow_1l9fngg</bpmn:incoming>
+      <bpmn:outgoing>Flow_11oo7g3</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_1vpffjz" sourceRef="Task_AutoValidate" targetRef="Activity_141bjdt" />
+    <bpmn:sequenceFlow id="Flow_1l9fngg" sourceRef="Activity_04ayc1v" targetRef="Activity_1vcj43z" />
+    <bpmn:parallelGateway id="Gateway_0mehm57">
+      <bpmn:incoming>Flow_0npq6ee</bpmn:incoming>
+      <bpmn:incoming>Flow_11oo7g3</bpmn:incoming>
+      <bpmn:outgoing>Flow_1pg4obp</bpmn:outgoing>
+    </bpmn:parallelGateway>
+    <bpmn:sequenceFlow id="Flow_0npq6ee" sourceRef="Activity_141bjdt" targetRef="Gateway_0mehm57" />
+    <bpmn:sequenceFlow id="Flow_11oo7g3" sourceRef="Activity_1vcj43z" targetRef="Gateway_0mehm57" />
+    <bpmn:exclusiveGateway id="Gateway_AutoExceptions" name="Rule Violation detected?">
+      <bpmn:incoming>Flow_1pg4obp</bpmn:incoming>
+      <bpmn:outgoing>Flow_Exceptions_Yes</bpmn:outgoing>
+      <bpmn:outgoing>Flow_15mmuok</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_SOLL">
+    <bpmndi:BPMNPlane id="BPMNPlane_SOLL" bpmnElement="Collaboration_DailyFinancialReportValidation_SOLL">
+      <bpmndi:BPMNShape id="Participant_Process_SOLL_di" bpmnElement="Participant_Process_SOLL" isHorizontal="true">
+        <dc:Bounds x="120" y="80" width="1638" height="760" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Lane_DMS_di" bpmnElement="Lane_DMS" isHorizontal="true">
+        <dc:Bounds x="150" y="720" width="1608" height="120" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Lane_SharePoint_di" bpmnElement="Lane_SharePoint" isHorizontal="true">
+        <dc:Bounds x="150" y="600" width="1608" height="120" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Lane_Supervisor_di" bpmnElement="Lane_Supervisor" isHorizontal="true">
+        <dc:Bounds x="150" y="450" width="1608" height="150" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Lane_AutomationService_di" bpmnElement="Lane_AutomationService" isHorizontal="true">
+        <dc:Bounds x="150" y="200" width="1608" height="250" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Lane_EmailSystem_di" bpmnElement="Lane_EmailSystem" isHorizontal="true">
+        <dc:Bounds x="150" y="80" width="1608" height="120" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="StartEvent_EmailReceived_di" bpmnElement="StartEvent_EmailReceived">
+        <dc:Bounds x="200" y="122" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="180" y="165" width="81" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_AutoExtract_di" bpmnElement="Task_AutoExtract">
+        <dc:Bounds x="280" y="280" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_0z9q0e8_di" bpmnElement="Gateway_0z9q0e8">
+        <dc:Bounds x="405" y="295" width="50" height="50" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_AutoValidate_di" bpmnElement="Task_AutoValidate">
+        <dc:Bounds x="510" y="230" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="BPMNShape_17zzy81" bpmnElement="Activity_04ayc1v">
+        <dc:Bounds x="510" y="330" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_GenerateException_di" bpmnElement="Task_GenerateException">
+        <dc:Bounds x="947" y="360" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_SupervisorReview_di" bpmnElement="Task_SupervisorReview">
+        <dc:Bounds x="1090" y="480" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="EndEvent_Exception_di" bpmnElement="EndEvent_Exception">
+        <dc:Bounds x="1250" y="502" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1224" y="545" width="89" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_AutoSaveSP1_di" bpmnElement="Task_AutoSaveSP1">
+        <dc:Bounds x="1090" y="620" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_AutoEmail_di" bpmnElement="Task_AutoEmail">
+        <dc:Bounds x="1250" y="255" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_AutoSaveSP2_di" bpmnElement="Task_AutoSaveSP2">
+        <dc:Bounds x="1390" y="620" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_AutoArchiveDMS_di" bpmnElement="Task_AutoArchiveDMS">
+        <dc:Bounds x="1530" y="740" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="EndEvent_Success_di" bpmnElement="EndEvent_Success">
+        <dc:Bounds x="1690" y="762" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1681" y="805" width="55" height="40" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="DataStore_SharePoint_SOLL_di" bpmnElement="DataStore_SharePoint_SOLL">
+        <dc:Bounds x="1265" y="635" width="50" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1253" y="692" width="75" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="BPMNShape_1p36w24" bpmnElement="Activity_0xake5j">
+        <dc:Bounds x="1400" y="255" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="BPMNShape_1akcchf" bpmnElement="Activity_141bjdt">
+        <dc:Bounds x="640" y="230" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="BPMNShape_1k6lxpt" bpmnElement="Activity_1vcj43z">
+        <dc:Bounds x="640" y="330" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="BPMNShape_0leepmk" bpmnElement="Gateway_0mehm57">
+        <dc:Bounds x="795" y="295" width="50" height="50" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_AutoExceptions_di" bpmnElement="Gateway_AutoExceptions" isMarkerVisible="true">
+        <dc:Bounds x="865" y="295" width="50" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="831" y="346" width="68" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Flow_Start_Extract_di" bpmnElement="Flow_Start_Extract">
+        <di:waypoint x="236" y="140" />
+        <di:waypoint x="270" y="140" />
+        <di:waypoint x="270" y="320" />
+        <di:waypoint x="280" y="320" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_Exceptions_Yes_di" bpmnElement="Flow_Exceptions_Yes">
+        <di:waypoint x="915" y="320" />
+        <di:waypoint x="997" y="320" />
+        <di:waypoint x="997" y="360" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="978" y="334" width="18" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1fpvkyg_di" bpmnElement="Flow_1fpvkyg">
+        <di:waypoint x="380" y="320" />
+        <di:waypoint x="405" y="320" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_15mmuok_di" bpmnElement="Flow_15mmuok">
+        <di:waypoint x="890" y="345" />
+        <di:waypoint x="890" y="660" />
+        <di:waypoint x="1090" y="660" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="899" y="500" width="13" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1stt29y_di" bpmnElement="Flow_1stt29y">
+        <di:waypoint x="455" y="320" />
+        <di:waypoint x="483" y="320" />
+        <di:waypoint x="483" y="270" />
+        <di:waypoint x="510" y="270" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_03gmjzb_di" bpmnElement="Flow_03gmjzb">
+        <di:waypoint x="455" y="320" />
+        <di:waypoint x="483" y="320" />
+        <di:waypoint x="483" y="370" />
+        <di:waypoint x="510" y="370" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1pg4obp_di" bpmnElement="Flow_1pg4obp">
+        <di:waypoint x="845" y="320" />
+        <di:waypoint x="865" y="320" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_GenEx_Review_di" bpmnElement="Flow_GenEx_Review">
+        <di:waypoint x="1047" y="400" />
+        <di:waypoint x="1100" y="400" />
+        <di:waypoint x="1100" y="480" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_Review_EndEx_di" bpmnElement="Flow_Review_EndEx">
+        <di:waypoint x="1190" y="520" />
+        <di:waypoint x="1250" y="520" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_SaveSP1_Email_di" bpmnElement="Flow_SaveSP1_Email">
+        <di:waypoint x="1190" y="660" />
+        <di:waypoint x="1220" y="660" />
+        <di:waypoint x="1220" y="295" />
+        <di:waypoint x="1250" y="295" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1a75x48_di" bpmnElement="Flow_1a75x48">
+        <di:waypoint x="1350" y="295" />
+        <di:waypoint x="1400" y="295" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1qjxmkd_di" bpmnElement="Flow_1qjxmkd">
+        <di:waypoint x="1450" y="335" />
+        <di:waypoint x="1448" y="620" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_SaveSP2_DMS_di" bpmnElement="Flow_SaveSP2_DMS">
+        <di:waypoint x="1490" y="660" />
+        <di:waypoint x="1510" y="660" />
+        <di:waypoint x="1510" y="780" />
+        <di:waypoint x="1530" y="780" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_DMS_End_di" bpmnElement="Flow_DMS_End">
+        <di:waypoint x="1630" y="780" />
+        <di:waypoint x="1690" y="780" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1vpffjz_di" bpmnElement="Flow_1vpffjz">
+        <di:waypoint x="610" y="270" />
+        <di:waypoint x="640" y="270" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1l9fngg_di" bpmnElement="Flow_1l9fngg">
+        <di:waypoint x="610" y="370" />
+        <di:waypoint x="640" y="370" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0npq6ee_di" bpmnElement="Flow_0npq6ee">
+        <di:waypoint x="740" y="270" />
+        <di:waypoint x="768" y="270" />
+        <di:waypoint x="768" y="320" />
+        <di:waypoint x="795" y="320" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_11oo7g3_di" bpmnElement="Flow_11oo7g3">
+        <di:waypoint x="740" y="370" />
+        <di:waypoint x="768" y="370" />
+        <di:waypoint x="768" y="320" />
+        <di:waypoint x="795" y="320" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="DataStore_DMS_SOLL_di" bpmnElement="DataStore_DMS_SOLL">
+        <dc:Bounds x="1549" y="865" width="50" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1542" y="922" width="64" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="DataOutputAssoc_SP1_di" bpmnElement="DataOutputAssoc_SP1">
+        <di:waypoint x="1190" y="660" />
+        <di:waypoint x="1265" y="660" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="DataOutputAssoc_SP2_di" bpmnElement="DataOutputAssoc_SP2">
+        <di:waypoint x="1390" y="660" />
+        <di:waypoint x="1315" y="660" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="DataOutputAssoc_DMS_di" bpmnElement="DataOutputAssoc_DMS">
+        <di:waypoint x="1579" y="820" />
+        <di:waypoint x="1576" y="865" />
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>

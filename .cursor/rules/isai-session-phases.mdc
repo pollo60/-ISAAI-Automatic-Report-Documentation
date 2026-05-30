@@ -1,0 +1,15 @@
+---
+description: ISAAI phased AI sessions — prevent 50-image API failures
+alwaysApply: true
+---
+
+# ISAAI session phases
+
+Follow [MASTER_PROMPT.md](../MASTER_PROMPT.md).
+
+- Default: **P0–P2 text only** (markdown, HTML, BPMN, ArchiMate XML).
+- **Never** batch-read `*.png`, `*.jpg`, or `*.jpeg`.
+- **Never** attach or read images from outside this repo in the same turn.
+- Max **2 images per request**, **8 per session**; paths must be listed in `docs/AI-SESSION-IMAGE-INDEX.md`.
+- Prefer `.bpmn` / `.archimate` over diagram exports.
+- Use censored stakeholder filenames (`STAKEHOLDER-*`), not `[JP]*` prefixes in new files.

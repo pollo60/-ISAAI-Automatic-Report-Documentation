@@ -1,0 +1,55 @@
+name: File Sync Validation
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main, develop ]
+  schedule:
+    - cron: '0 */6 * * *'
+
+jobs:
+  sync-validation:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Validate critical files exist
+        run: |
+          critical_files=(
+            "README.md"
+            "MASTER_PROMPT.md"
+            "docs/Documentation/"
+            "src/"
+            ".github/workflows/"
+            "presentations/"
+          )
+          for file in "${critical_files[@]}"; do
+            if [ ! -e "$file" ]; then
+              echo "Missing: $file"
+              exit 1
+            fi
+          done
+          echo "All critical paths present"
+
+      - name: Validate documentation structure
+        run: |
+          required_docs=(
+            "docs/README.md"
+            "docs/Documentation/Architecture/"
+            "docs/Documentation/Process Modeling/"
+            "docs/api/openapi/"
+            "docs/compliance/"
+          )
+          for doc in "${required_docs[@]}"; do
+            if [ ! -e "$doc" ]; then
+              echo "Documentation missing: $doc"
+              exit 1
+            fi
+          done
+          echo "Documentation structure valid"
+
+      - name: Sync check report
+        if: success()
+        run: echo "Repository structure validated"
