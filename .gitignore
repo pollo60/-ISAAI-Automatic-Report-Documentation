@@ -44,3 +44,6 @@ logs/
 
 # Presentations build artifacts
 presentations/*.tmp
+
+# Local push bundle (not for remote)
+*.bundle
