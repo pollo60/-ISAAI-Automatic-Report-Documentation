@@ -1,0 +1,337 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<archimate:model xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:archimate="http://www.archimatetool.com/archimate" name="Report Processing SOLL" id="id-report-soll-model" version="5.0.0">
+  <folder name="Strategy" id="id-soll-folder-strategy" type="strategy"/>
+  <folder name="Business" id="id-soll-folder-business" type="business">
+    <element xsi:type="archimate:BusinessActor" name="Operations Supervisor" id="BA_SUPERVISOR">
+      <documentation>Monitors exceptions, validates edge cases, and performs governance-only intervention in the automated target state.</documentation>
+    </element>
+    <element xsi:type="archimate:BusinessProcess" name="Automated Daily Report Processing" id="BP_AUTO">
+      <documentation>Fully automated daily processing of two structured report types from inbound XML to evidence storage, email distribution, DMS archive, and sign-off.</documentation>
+    </element>
+    <element xsi:type="archimate:BusinessProcess" name="Exception Review &amp; Governance" id="BP_EXCEPTION">
+      <documentation>Human oversight process used only when validation detects a rule breach or automation fault.</documentation>
+    </element>
+  </folder>
+  <folder name="Application" id="id-soll-folder-application" type="application">
+    <element xsi:type="archimate:ApplicationService" name="Automated Reporting Service" id="AS_AUTOREPORT">
+      <documentation>End-to-end automation service replacing manual XML import, checking, evidence handling, and summary drafting.</documentation>
+    </element>
+    <element xsi:type="archimate:ApplicationService" name="Exception Alerting Service" id="AS_EXCEPTION">
+      <documentation>Service that routes exceptions and automation failures to the supervisor.</documentation>
+    </element>
+    <element xsi:type="archimate:ApplicationComponent" name="Automation Scheduler" id="AC_SCHEDULER">
+      <documentation>Daily trigger component that starts the report-processing workflow at the defined execution time.</documentation>
+    </element>
+    <element xsi:type="archimate:ApplicationComponent" name="Python Automation Engine" id="AC_AUTOMATION">
+      <documentation>Core orchestration component coordinating parsing, validation, reporting, delivery, and archival steps.</documentation>
+    </element>
+    <element xsi:type="archimate:ApplicationComponent" name="Mail Attachment Ingestion" id="AC_INGEST">
+      <documentation>Retrieves daily ZIP/XML attachments from the inbound mailbox and prepares them for automated processing.</documentation>
+    </element>
+    <element xsi:type="archimate:ApplicationComponent" name="Report Validation Rule Evaluator" id="AC_RULES">
+      <documentation>Implements the two-step validation logic for each report type. Step 1: evaluates the primary violation marker column for the value &quot;V&quot;. Step 2: if a violation is detected, checks the four designated secondary threshold columns against the defined minimum limit. Applied independently for Report Type A (daily snapshot) and Report Type B (month-to-date cumulative). Produces a structured validation result per report type consumed by the downstream exception and reporting modules.</documentation>
+    </element>
+    <element xsi:type="archimate:ApplicationComponent" name="Evidence &amp; Report Generator" id="AC_REPORT">
+      <documentation>Creates standardized evidence files, result packages, and summary content.</documentation>
+    </element>
+    <element xsi:type="archimate:ApplicationComponent" name="Email Dispatch Connector" id="AC_EMAIL">
+      <documentation>Sends standardized result emails and distributes the evidence package to the fixed distribution list.</documentation>
+    </element>
+    <element xsi:type="archimate:ApplicationComponent" name="SharePoint Evidence Connector" id="AC_SHAREPOINT">
+      <documentation>Publishes generated evidence files and outbound email records to SharePoint.</documentation>
+    </element>
+    <element xsi:type="archimate:ApplicationComponent" name="DMS UI-Scraper" id="AC_DMS_SCRAPER">
+      <documentation>Automates DMS upload, comment entry, and sign-off via screen scraping to satisfy the seminar requirement.</documentation>
+    </element>
+    <element xsi:type="archimate:ApplicationComponent" name="Exception Notification Module" id="AC_EXCEPTION">
+      <documentation>Creates controlled exception cases and triggers targeted notifications instead of silent process failure.</documentation>
+    </element>
+    <element xsi:type="archimate:ApplicationComponent" name="Corporate Mail Service" id="AC_MAIL_SERVICE">
+      <documentation>Provides the inbound and outbound mail capabilities used by the automation.</documentation>
+    </element>
+    <element xsi:type="archimate:ApplicationComponent" name="SharePoint Repository" id="AC_SP_LIBRARY">
+      <documentation>Target repository for evidence files and archived outbound messages.</documentation>
+    </element>
+    <element xsi:type="archimate:ApplicationComponent" name="DMS Web Portal" id="AC_DMS_PORTAL">
+      <documentation>Target system for compliant archival of the sent summary and evidence trail.</documentation>
+    </element>
+    <element xsi:type="archimate:DataObject" name="Report Type A XML File" id="DO_REPORT_A_XML">
+      <documentation>Daily snapshot report covering the previous business day. Inbound XML file extracted from the ZIP package and consumed by the automated workflow. File naming convention: YYYYMMDD_ReportTypeA.</documentation>
+    </element>
+    <element xsi:type="archimate:DataObject" name="Report Type B XML File" id="DO_REPORT_B_XML">
+      <documentation>Month-to-date cumulative report covering the current calendar month. Inbound XML file extracted from the ZIP package and consumed by the automated workflow. File naming convention: YYYYMMDD_ReportTypeB.</documentation>
+    </element>
+    <element xsi:type="archimate:DataObject" name="Validation Result Set" id="DO_VALIDATION_RESULT">
+      <documentation>Structured output produced by the rule evaluator for each report type. Contains the primary violation marker status and the outcome of the four secondary threshold column checks. Consumed by the evidence generator and the exception notification module to determine downstream action.</documentation>
+    </element>
+    <element xsi:type="archimate:DataObject" name="Evidence Package" id="DO_EVIDENCE_PACKAGE">
+      <documentation>Standardized evidence file bundle produced for SharePoint publication and DMS archival.</documentation>
+    </element>
+    <element xsi:type="archimate:DataObject" name="Summary Email" id="DO_SUMMARY_EMAIL">
+      <documentation>Standardized automated summary email sent to the distribution list.</documentation>
+    </element>
+    <element xsi:type="archimate:DataObject" name="Exception Case" id="DO_EXCEPTION_CASE">
+      <documentation>Controlled exception payload used for governance, escalation, and review.</documentation>
+    </element>
+    <element xsi:type="archimate:DataObject" name="DMS Archive Record" id="DO_DMS_RECORD">
+      <documentation>Archived DMS day entry containing the uploaded mail record and final sign-off status.</documentation>
+    </element>
+  </folder>
+  <folder name="Technology &amp; Physical" id="id-soll-folder-technology" type="technology">
+    <element xsi:type="archimate:Node" name="Automation Server" id="ND_AUTOMATION">
+      <documentation>Execution environment for the scheduled automation workload.</documentation>
+    </element>
+    <element xsi:type="archimate:Artifact" name="Automation Package" id="AR_AUTOMATION">
+      <documentation>Deployed automation artifact containing the scheduler and Python orchestration code.</documentation>
+    </element>
+    <element xsi:type="archimate:Artifact" name="Connector Package" id="AR_CONNECTORS">
+      <documentation>Deployed integration artifact containing mail and SharePoint adapters.</documentation>
+    </element>
+    <element xsi:type="archimate:Artifact" name="RPA Deployment Package" id="AR_RPA">
+      <documentation>Deployed artifact containing the DMS UI automation scripts.</documentation>
+    </element>
+  </folder>
+  <folder name="Motivation" id="id-soll-folder-motivation" type="motivation">
+    <element xsi:type="archimate:Driver" name="Manual Effort Reduction" id="DRV_MANUAL_EFFORT">
+      <documentation>Daily manual work and repetitive handling create pressure to automate the process.</documentation>
+    </element>
+    <element xsi:type="archimate:Driver" name="Operational Control Risk" id="DRV_CONTROL_RISK">
+      <documentation>Manual checks and forgotten archival steps create control and audit risk.</documentation>
+    </element>
+    <element xsi:type="archimate:Goal" name="Full Daily Automation" id="GOAL_FULL_AUTOMATION">
+      <documentation>The standard daily process should complete without manual execution.</documentation>
+    </element>
+    <element xsi:type="archimate:Goal" name="Standardized Audit Trail" id="GOAL_AUDIT_TRAIL">
+      <documentation>Evidence and archive outputs should be consistent, traceable, and repeatable.</documentation>
+    </element>
+    <element xsi:type="archimate:Requirement" name="Screen Scraping Requirement" id="REQ_DMS_SCRAPING">
+      <documentation>The DMS upload and sign-off must be automated with a UI-scraping or RPA component.</documentation>
+    </element>
+    <element xsi:type="archimate:Requirement" name="Exception Governance Requirement" id="REQ_EXCEPTION_GOVERNANCE">
+      <documentation>Exceptions must remain visible, reviewable, and controllable by the supervisor.</documentation>
+    </element>
+  </folder>
+  <folder name="Implementation &amp; Migration" id="id-soll-folder-implementation" type="implementation_migration"/>
+  <folder name="Other" id="id-soll-folder-other" type="other"/>
+  <folder name="Relations" id="id-soll-folder-relations" type="relations">
+    <element xsi:type="archimate:AssignmentRelationship" id="SOLL_R01" source="BA_SUPERVISOR" target="BP_EXCEPTION"/>
+    <element xsi:type="archimate:ServingRelationship" id="SOLL_R02" source="AS_AUTOREPORT" target="BP_AUTO"/>
+    <element xsi:type="archimate:ServingRelationship" id="SOLL_R03" source="AS_EXCEPTION" target="BP_EXCEPTION"/>
+    <element xsi:type="archimate:RealizationRelationship" id="SOLL_R04" source="AC_AUTOMATION" target="AS_AUTOREPORT"/>
+    <element xsi:type="archimate:RealizationRelationship" id="SOLL_R05" source="AC_EXCEPTION" target="AS_EXCEPTION"/>
+    <element xsi:type="archimate:CompositionRelationship" id="SOLL_R06" source="AC_AUTOMATION" target="AC_SCHEDULER"/>
+    <element xsi:type="archimate:CompositionRelationship" id="SOLL_R07" source="AC_AUTOMATION" target="AC_INGEST"/>
+    <element xsi:type="archimate:CompositionRelationship" id="SOLL_R08" source="AC_AUTOMATION" target="AC_RULES"/>
+    <element xsi:type="archimate:CompositionRelationship" id="SOLL_R09" source="AC_AUTOMATION" target="AC_REPORT"/>
+    <element xsi:type="archimate:CompositionRelationship" id="SOLL_R10" source="AC_AUTOMATION" target="AC_EMAIL"/>
+    <element xsi:type="archimate:CompositionRelationship" id="SOLL_R11" source="AC_AUTOMATION" target="AC_SHAREPOINT"/>
+    <element xsi:type="archimate:CompositionRelationship" id="SOLL_R12" source="AC_AUTOMATION" target="AC_DMS_SCRAPER"/>
+    <element xsi:type="archimate:CompositionRelationship" id="SOLL_R13" source="AC_AUTOMATION" target="AC_EXCEPTION"/>
+    <element xsi:type="archimate:AssociationRelationship" id="SOLL_R14" source="AC_INGEST" target="AC_MAIL_SERVICE"/>
+    <element xsi:type="archimate:AssociationRelationship" id="SOLL_R15" source="AC_EMAIL" target="AC_MAIL_SERVICE"/>
+    <element xsi:type="archimate:AssociationRelationship" id="SOLL_R16" source="AC_SHAREPOINT" target="AC_SP_LIBRARY"/>
+    <element xsi:type="archimate:AssociationRelationship" id="SOLL_R17" source="AC_DMS_SCRAPER" target="AC_DMS_PORTAL"/>
+    <element xsi:type="archimate:FlowRelationship" id="SOLL_R18" source="AC_SCHEDULER" target="AC_INGEST"/>
+    <element xsi:type="archimate:FlowRelationship" id="SOLL_R19" source="AC_INGEST" target="AC_RULES"/>
+    <element xsi:type="archimate:FlowRelationship" id="SOLL_R20" source="AC_RULES" target="AC_REPORT"/>
+    <element xsi:type="archimate:FlowRelationship" id="SOLL_R21" source="AC_REPORT" target="AC_SHAREPOINT"/>
+    <element xsi:type="archimate:FlowRelationship" id="SOLL_R22" source="AC_REPORT" target="AC_EMAIL"/>
+    <element xsi:type="archimate:FlowRelationship" id="SOLL_R23" source="AC_RULES" target="AC_EXCEPTION"/>
+    <element xsi:type="archimate:FlowRelationship" id="SOLL_R24" source="AC_EXCEPTION" target="AC_EMAIL"/>
+    <element xsi:type="archimate:FlowRelationship" id="SOLL_R25" source="AC_EMAIL" target="AC_DMS_SCRAPER"/>
+    <element xsi:type="archimate:AccessRelationship" id="SOLL_R26" source="AC_INGEST" target="DO_REPORT_A_XML"/>
+    <element xsi:type="archimate:AccessRelationship" id="SOLL_R27" source="AC_INGEST" target="DO_REPORT_B_XML"/>
+    <element xsi:type="archimate:AccessRelationship" id="SOLL_R28" source="AC_RULES" target="DO_REPORT_A_XML"/>
+    <element xsi:type="archimate:AccessRelationship" id="SOLL_R29" source="AC_RULES" target="DO_REPORT_B_XML"/>
+    <element xsi:type="archimate:AccessRelationship" id="SOLL_R30" source="AC_RULES" target="DO_VALIDATION_RESULT"/>
+    <element xsi:type="archimate:AccessRelationship" id="SOLL_R31" source="AC_RULES" target="DO_EXCEPTION_CASE"/>
+    <element xsi:type="archimate:AccessRelationship" id="SOLL_R32" source="AC_REPORT" target="DO_VALIDATION_RESULT"/>
+    <element xsi:type="archimate:AccessRelationship" id="SOLL_R33" source="AC_REPORT" target="DO_EVIDENCE_PACKAGE"/>
+    <element xsi:type="archimate:AccessRelationship" id="SOLL_R34" source="AC_REPORT" target="DO_SUMMARY_EMAIL"/>
+    <element xsi:type="archimate:AccessRelationship" id="SOLL_R35" source="AC_EXCEPTION" target="DO_EXCEPTION_CASE"/>
+    <element xsi:type="archimate:AccessRelationship" id="SOLL_R36" source="AC_EMAIL" target="DO_SUMMARY_EMAIL"/>
+    <element xsi:type="archimate:AccessRelationship" id="SOLL_R37" source="AC_EMAIL" target="DO_EVIDENCE_PACKAGE"/>
+    <element xsi:type="archimate:AccessRelationship" id="SOLL_R38" source="AC_SHAREPOINT" target="DO_EVIDENCE_PACKAGE"/>
+    <element xsi:type="archimate:AccessRelationship" id="SOLL_R39" source="AC_SHAREPOINT" target="DO_SUMMARY_EMAIL"/>
+    <element xsi:type="archimate:AccessRelationship" id="SOLL_R40" source="AC_DMS_SCRAPER" target="DO_SUMMARY_EMAIL"/>
+    <element xsi:type="archimate:AccessRelationship" id="SOLL_R41" source="AC_DMS_SCRAPER" target="DO_EVIDENCE_PACKAGE"/>
+    <element xsi:type="archimate:AccessRelationship" id="SOLL_R42" source="AC_DMS_SCRAPER" target="DO_DMS_RECORD"/>
+    <element xsi:type="archimate:AccessRelationship" id="SOLL_R43" source="AC_SP_LIBRARY" target="DO_EVIDENCE_PACKAGE"/>
+    <element xsi:type="archimate:AccessRelationship" id="SOLL_R44" source="AC_SP_LIBRARY" target="DO_SUMMARY_EMAIL"/>
+    <element xsi:type="archimate:AccessRelationship" id="SOLL_R45" source="AC_DMS_PORTAL" target="DO_DMS_RECORD"/>
+    <element xsi:type="archimate:RealizationRelationship" id="SOLL_R46" source="AR_AUTOMATION" target="AC_SCHEDULER"/>
+    <element xsi:type="archimate:RealizationRelationship" id="SOLL_R47" source="AR_AUTOMATION" target="AC_AUTOMATION"/>
+    <element xsi:type="archimate:RealizationRelationship" id="SOLL_R48" source="AR_CONNECTORS" target="AC_INGEST"/>
+    <element xsi:type="archimate:RealizationRelationship" id="SOLL_R49" source="AR_CONNECTORS" target="AC_EMAIL"/>
+    <element xsi:type="archimate:RealizationRelationship" id="SOLL_R50" source="AR_CONNECTORS" target="AC_SHAREPOINT"/>
+    <element xsi:type="archimate:RealizationRelationship" id="SOLL_R51" source="AR_RPA" target="AC_DMS_SCRAPER"/>
+    <element xsi:type="archimate:AssociationRelationship" id="SOLL_R52" source="ND_AUTOMATION" target="AR_AUTOMATION"/>
+    <element xsi:type="archimate:AssociationRelationship" id="SOLL_R53" source="ND_AUTOMATION" target="AR_CONNECTORS"/>
+    <element xsi:type="archimate:AssociationRelationship" id="SOLL_R54" source="ND_AUTOMATION" target="AR_RPA"/>
+    <element xsi:type="archimate:InfluenceRelationship" id="SOLL_R55" source="DRV_MANUAL_EFFORT" target="GOAL_FULL_AUTOMATION"/>
+    <element xsi:type="archimate:InfluenceRelationship" id="SOLL_R56" source="DRV_CONTROL_RISK" target="GOAL_AUDIT_TRAIL"/>
+    <element xsi:type="archimate:AssociationRelationship" id="SOLL_R57" source="GOAL_FULL_AUTOMATION" target="BP_AUTO"/>
+    <element xsi:type="archimate:AssociationRelationship" id="SOLL_R58" source="GOAL_AUDIT_TRAIL" target="AC_REPORT"/>
+    <element xsi:type="archimate:AssociationRelationship" id="SOLL_R59" source="REQ_DMS_SCRAPING" target="AC_DMS_SCRAPER"/>
+    <element xsi:type="archimate:AssociationRelationship" id="SOLL_R60" source="REQ_EXCEPTION_GOVERNANCE" target="BP_EXCEPTION"/>
+    <element xsi:type="archimate:AssociationRelationship" id="SOLL_R61" source="REQ_DMS_SCRAPING" target="GOAL_FULL_AUTOMATION"/>
+    <element xsi:type="archimate:AssociationRelationship" id="SOLL_R62" source="REQ_EXCEPTION_GOVERNANCE" target="GOAL_AUDIT_TRAIL"/>
+  </folder>
+  <folder name="Views" id="id-soll-folder-views" type="diagrams">
+    <element xsi:type="archimate:ArchimateDiagramModel" name="SOLL - Automated Main Flow" id="id-soll-view-main" viewpoint="layered">
+      <child xsi:type="archimate:DiagramObject" id="soll_v1_ba_supervisor" archimateElement="BA_SUPERVISOR">
+        <bounds x="60" y="40" width="220" height="55"/>
+        <sourceConnection xsi:type="archimate:Connection" id="soll_v1_SOLL_R01" source="soll_v1_ba_supervisor" target="soll_v1_bp_exception" archimateRelationship="SOLL_R01"/>
+      </child>
+      <child xsi:type="archimate:DiagramObject" id="soll_v1_bp_exception" archimateElement="BP_EXCEPTION">
+        <bounds x="340" y="40" width="260" height="55"/>
+      </child>
+      <child xsi:type="archimate:DiagramObject" id="soll_v1_bp_auto" archimateElement="BP_AUTO">
+        <bounds x="700" y="40" width="320" height="55"/>
+      </child>
+      <child xsi:type="archimate:DiagramObject" id="soll_v1_as_exception" targetConnections="soll_v1_SOLL_R05" archimateElement="AS_EXCEPTION">
+        <bounds x="340" y="140" width="260" height="55"/>
+        <sourceConnection xsi:type="archimate:Connection" id="soll_v1_SOLL_R03" source="soll_v1_as_exception" target="soll_v1_bp_exception" archimateRelationship="SOLL_R03"/>
+      </child>
+      <child xsi:type="archimate:DiagramObject" id="soll_v1_as_autoreport" archimateElement="AS_AUTOREPORT">
+        <bounds x="700" y="140" width="320" height="55"/>
+        <sourceConnection xsi:type="archimate:Connection" id="soll_v1_SOLL_R02" source="soll_v1_as_autoreport" target="soll_v1_bp_auto" archimateRelationship="SOLL_R02"/>
+      </child>
+      <child xsi:type="archimate:DiagramObject" id="soll_v1_ac_mail_service" archimateElement="AC_MAIL_SERVICE">
+        <bounds x="40" y="260" width="220" height="55"/>
+      </child>
+      <child xsi:type="archimate:DiagramObject" id="soll_v1_ac_exception" archimateElement="AC_EXCEPTION">
+        <bounds x="340" y="260" width="260" height="55"/>
+        <sourceConnection xsi:type="archimate:Connection" id="soll_v1_SOLL_R05" source="soll_v1_ac_exception" target="soll_v1_as_exception" archimateRelationship="SOLL_R05"/>
+        <sourceConnection xsi:type="archimate:Connection" id="soll_v1_SOLL_R24" source="soll_v1_ac_exception" target="soll_v1_ac_email" archimateRelationship="SOLL_R24"/>
+      </child>
+      <child xsi:type="archimate:DiagramObject" id="soll_v1_ac_automation" archimateElement="AC_AUTOMATION">
+        <bounds x="700" y="260" width="320" height="55"/>
+        <sourceConnection xsi:type="archimate:Connection" id="soll_v1_SOLL_R07" source="soll_v1_ac_automation" target="soll_v1_ac_ingest" archimateRelationship="SOLL_R07"/>
+      </child>
+      <child xsi:type="archimate:DiagramObject" id="soll_v1_ac_scheduler" archimateElement="AC_SCHEDULER">
+        <bounds x="40" y="400" width="160" height="55"/>
+        <sourceConnection xsi:type="archimate:Connection" id="soll_v1_SOLL_R18" source="soll_v1_ac_scheduler" target="soll_v1_ac_ingest" archimateRelationship="SOLL_R18"/>
+      </child>
+      <child xsi:type="archimate:DiagramObject" id="soll_v1_ac_ingest" archimateElement="AC_INGEST">
+        <bounds x="220" y="400" width="160" height="55"/>
+        <sourceConnection xsi:type="archimate:Connection" id="soll_v1_SOLL_R14" source="soll_v1_ac_ingest" target="soll_v1_ac_mail_service" archimateRelationship="SOLL_R14"/>
+      </child>
+      <child xsi:type="archimate:DiagramObject" id="soll_v1_ac_rules" archimateElement="AC_RULES">
+        <bounds x="420" y="400" width="160" height="55"/>
+        <sourceConnection xsi:type="archimate:Connection" id="soll_v1_SOLL_R28" source="soll_v1_ac_rules" target="soll_v1_do_report_a" archimateRelationship="SOLL_R28"/>
+      </child>
+      <child xsi:type="archimate:DiagramObject" id="soll_v1_ac_report" archimateElement="AC_REPORT">
+        <bounds x="620" y="400" width="180" height="55"/>
+        <sourceConnection xsi:type="archimate:Connection" id="soll_v1_SOLL_R34" source="soll_v1_ac_report" target="soll_v1_do_summary_email" archimateRelationship="SOLL_R34"/>
+      </child>
+      <child xsi:type="archimate:DiagramObject" id="soll_v1_ac_email" archimateElement="AC_EMAIL">
+        <bounds x="840" y="400" width="180" height="55"/>
+        <sourceConnection xsi:type="archimate:Connection" id="soll_v1_SOLL_R25" source="soll_v1_ac_email" target="soll_v1_ac_dms_scraper" archimateRelationship="SOLL_R25"/>
+        <sourceConnection xsi:type="archimate:Connection" id="soll_v1_SOLL_R37" source="soll_v1_ac_email" target="soll_v1_do_evidence_package" archimateRelationship="SOLL_R37"/>
+      </child>
+      <child xsi:type="archimate:DiagramObject" id="soll_v1_ac_sharepoint" archimateElement="AC_SHAREPOINT">
+        <bounds x="1060" y="400" width="200" height="55"/>
+        <sourceConnection xsi:type="archimate:Connection" id="soll_v1_SOLL_R16" source="soll_v1_ac_sharepoint" target="soll_v1_ac_sp_library" archimateRelationship="SOLL_R16"/>
+      </child>
+      <child xsi:type="archimate:DiagramObject" id="soll_v1_ac_dms_scraper" targetConnections="soll_v1_SOLL_R25" archimateElement="AC_DMS_SCRAPER">
+        <bounds x="1300" y="400" width="200" height="55"/>
+        <sourceConnection xsi:type="archimate:Connection" id="soll_v1_SOLL_R17" source="soll_v1_ac_dms_scraper" target="soll_v1_ac_dms_portal" archimateRelationship="SOLL_R17"/>
+      </child>
+      <child xsi:type="archimate:DiagramObject" id="soll_v1_do_report_a" archimateElement="DO_REPORT_A_XML">
+        <bounds x="220" y="540" width="160" height="55"/>
+      </child>
+      <child xsi:type="archimate:DiagramObject" id="soll_v1_do_report_b" archimateElement="DO_REPORT_B_XML">
+        <bounds x="420" y="540" width="160" height="55"/>
+      </child>
+      <child xsi:type="archimate:DiagramObject" id="soll_v1_do_evidence_package" archimateElement="DO_EVIDENCE_PACKAGE">
+        <bounds x="900" y="540" width="200" height="55"/>
+      </child>
+      <child xsi:type="archimate:DiagramObject" id="soll_v1_do_summary_email" archimateElement="DO_SUMMARY_EMAIL">
+        <bounds x="1120" y="540" width="180" height="55"/>
+      </child>
+      <child xsi:type="archimate:DiagramObject" id="soll_v1_do_dms_record" archimateElement="DO_DMS_RECORD">
+        <bounds x="1320" y="540" width="180" height="55"/>
+      </child>
+      <child xsi:type="archimate:DiagramObject" id="soll_v1_ac_sp_library" archimateElement="AC_SP_LIBRARY">
+        <bounds x="1060" y="660" width="200" height="55"/>
+      </child>
+      <child xsi:type="archimate:DiagramObject" id="soll_v1_ac_dms_portal" archimateElement="AC_DMS_PORTAL">
+        <bounds x="1300" y="660" width="200" height="55"/>
+        <sourceConnection xsi:type="archimate:Connection" id="soll_v1_SOLL_R45" source="soll_v1_ac_dms_portal" target="soll_v1_do_dms_record" archimateRelationship="SOLL_R45"/>
+      </child>
+      <child xsi:type="archimate:DiagramObject" id="soll_v1_nd_automation" archimateElement="ND_AUTOMATION">
+        <bounds x="700" y="820" width="280" height="55"/>
+        <sourceConnection xsi:type="archimate:Connection" id="soll_v1_SOLL_R54" source="soll_v1_nd_automation" target="soll_v1_ar_rpa" archimateRelationship="SOLL_R54"/>
+      </child>
+      <child xsi:type="archimate:DiagramObject" id="soll_v1_ar_automation" archimateElement="AR_AUTOMATION">
+        <bounds x="520" y="940" width="220" height="55"/>
+        <sourceConnection xsi:type="archimate:Connection" id="soll_v1_SOLL_R47" source="soll_v1_ar_automation" target="soll_v1_ac_automation" archimateRelationship="SOLL_R47"/>
+      </child>
+      <child xsi:type="archimate:DiagramObject" id="soll_v1_ar_connectors" archimateElement="AR_CONNECTORS">
+        <bounds x="780" y="940" width="220" height="55"/>
+        <sourceConnection xsi:type="archimate:Connection" id="soll_v1_SOLL_R48" source="soll_v1_ar_connectors" target="soll_v1_ac_ingest" archimateRelationship="SOLL_R48"/>
+      </child>
+      <child xsi:type="archimate:DiagramObject" id="soll_v1_ar_rpa" archimateElement="AR_RPA">
+        <bounds x="1040" y="940" width="220" height="55"/>
+        <sourceConnection xsi:type="archimate:Connection" id="soll_v1_SOLL_R51" source="soll_v1_ar_rpa" target="soll_v1_ac_dms_scraper" archimateRelationship="SOLL_R51"/>
+      </child>
+    </element>
+    <element xsi:type="archimate:ArchimateDiagramModel" name="SOLL - Governance, Data and Motivation" id="id-soll-view-governance" viewpoint="layered">
+      <child xsi:type="archimate:DiagramObject" id="soll_v2_drv_effort" archimateElement="DRV_MANUAL_EFFORT">
+        <bounds x="40" y="40" width="220" height="55"/>
+        <sourceConnection xsi:type="archimate:Connection" id="soll_v2_SOLL_R55" source="soll_v2_drv_effort" target="soll_v2_goal_auto" archimateRelationship="SOLL_R55"/>
+      </child>
+      <child xsi:type="archimate:DiagramObject" id="soll_v2_drv_risk" archimateElement="DRV_CONTROL_RISK">
+        <bounds x="320" y="40" width="220" height="55"/>
+        <sourceConnection xsi:type="archimate:Connection" id="soll_v2_SOLL_R56" source="soll_v2_drv_risk" target="soll_v2_goal_audit" archimateRelationship="SOLL_R56"/>
+      </child>
+      <child xsi:type="archimate:DiagramObject" id="soll_v2_goal_auto" archimateElement="GOAL_FULL_AUTOMATION">
+        <bounds x="40" y="150" width="220" height="55"/>
+        <sourceConnection xsi:type="archimate:Connection" id="soll_v2_SOLL_R57" source="soll_v2_goal_auto" target="soll_v2_bp_auto" archimateRelationship="SOLL_R57"/>
+      </child>
+      <child xsi:type="archimate:DiagramObject" id="soll_v2_goal_audit" archimateElement="GOAL_AUDIT_TRAIL">
+        <bounds x="320" y="150" width="220" height="55"/>
+        <sourceConnection xsi:type="archimate:Connection" id="soll_v2_SOLL_R58" source="soll_v2_goal_audit" target="soll_v2_ac_report" archimateRelationship="SOLL_R58"/>
+      </child>
+      <child xsi:type="archimate:DiagramObject" id="soll_v2_req_scraping" archimateElement="REQ_DMS_SCRAPING">
+        <bounds x="40" y="260" width="220" height="55"/>
+        <sourceConnection xsi:type="archimate:Connection" id="soll_v2_SOLL_R59" source="soll_v2_req_scraping" target="soll_v2_ac_dms_scraper" archimateRelationship="SOLL_R59"/>
+      </child>
+      <child xsi:type="archimate:DiagramObject" id="soll_v2_req_exception" archimateElement="REQ_EXCEPTION_GOVERNANCE">
+        <bounds x="320" y="260" width="220" height="55"/>
+        <sourceConnection xsi:type="archimate:Connection" id="soll_v2_SOLL_R60" source="soll_v2_req_exception" target="soll_v2_bp_exception" archimateRelationship="SOLL_R60"/>
+      </child>
+      <child xsi:type="archimate:DiagramObject" id="soll_v2_bp_auto" archimateElement="BP_AUTO">
+        <bounds x="40" y="400" width="260" height="55"/>
+      </child>
+      <child xsi:type="archimate:DiagramObject" id="soll_v2_bp_exception" archimateElement="BP_EXCEPTION">
+        <bounds x="320" y="400" width="260" height="55"/>
+      </child>
+      <child xsi:type="archimate:DiagramObject" id="soll_v2_ac_report" archimateElement="AC_REPORT">
+        <bounds x="620" y="400" width="200" height="55"/>
+        <sourceConnection xsi:type="archimate:Connection" id="soll_v2_SOLL_R33" source="soll_v2_ac_report" target="soll_v2_do_evidence_package" archimateRelationship="SOLL_R33"/>
+      </child>
+      <child xsi:type="archimate:DiagramObject" id="soll_v2_ac_dms_scraper" archimateElement="AC_DMS_SCRAPER">
+        <bounds x="860" y="400" width="220" height="55"/>
+      </child>
+      <child xsi:type="archimate:DiagramObject" id="soll_v2_ac_exception" archimateElement="AC_EXCEPTION">
+        <bounds x="620" y="520" width="200" height="55"/>
+        <sourceConnection xsi:type="archimate:Connection" id="soll_v2_SOLL_R35" source="soll_v2_ac_exception" target="soll_v2_do_exception_case" archimateRelationship="SOLL_R35"/>
+      </child>
+      <child xsi:type="archimate:DiagramObject" id="soll_v2_ac_rules" archimateElement="AC_RULES">
+        <bounds x="860" y="520" width="220" height="55"/>
+        <sourceConnection xsi:type="archimate:Connection" id="soll_v2_SOLL_R23" source="soll_v2_ac_rules" target="soll_v2_ac_exception" archimateRelationship="SOLL_R23"/>
+      </child>
+      <child xsi:type="archimate:DiagramObject" id="soll_v2_do_evidence_package" archimateElement="DO_EVIDENCE_PACKAGE">
+        <bounds x="320" y="660" width="220" height="55"/>
+      </child>
+      <child xsi:type="archimate:DiagramObject" id="soll_v2_do_exception_case" archimateElement="DO_EXCEPTION_CASE">
+        <bounds x="620" y="660" width="200" height="55"/>
+      </child>
+      <child xsi:type="archimate:DiagramObject" id="soll_v2_do_validation_result" archimateElement="DO_VALIDATION_RESULT">
+        <bounds x="860" y="660" width="220" height="55"/>
+      </child>
+    </element>
+  </folder>
+</archimate:model>
