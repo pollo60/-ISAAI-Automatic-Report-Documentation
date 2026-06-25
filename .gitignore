@@ -56,3 +56,6 @@ presentations/*.tmp
 *.out
 *.synctex.gz
 *.toc
+
+# Test runs
+tests/runs/
