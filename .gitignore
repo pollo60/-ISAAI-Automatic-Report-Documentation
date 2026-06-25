@@ -47,3 +47,12 @@ presentations/*.tmp
 
 # Local push bundle (not for remote)
 *.bundle
+
+# LaTeX build artifacts
+*.aux
+*.fdb_latexmk
+*.fls
+*.log
+*.out
+*.synctex.gz
+*.toc

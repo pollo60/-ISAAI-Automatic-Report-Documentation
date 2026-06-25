@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL"
+  xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI"
+  xmlns:dc="http://www.omg.org/spec/DD/20100524/DC"
+  xmlns:di="http://www.omg.org/spec/DD/20100524/DI"
+  id="Definitions_StrategicFinancialCompliance"
+  targetNamespace="https://sempor.de/bpmn/strategic-financial-compliance">
+
+  <bpmn:process id="Process_StrategicFinancialCompliance" name="Strategic Financial Compliance Process" isExecutable="false">
+    <bpmn:startEvent id="Start_ReceiveReports" name="Receive Regulatory Financial Reports">
+      <bpmn:outgoing>Flow_Start_Assess</bpmn:outgoing>
+    </bpmn:startEvent>
+
+    <bpmn:task id="Task_AssessCompliance" name="Perform Compliance and Quality Assessment">
+      <bpmn:incoming>Flow_Start_Assess</bpmn:incoming>
+      <bpmn:outgoing>Flow_Assess_Gateway</bpmn:outgoing>
+    </bpmn:task>
+
+    <bpmn:exclusiveGateway id="Gateway_Exceptions" name="Compliance Risks or Exceptions Identified?">
+      <bpmn:incoming>Flow_Assess_Gateway</bpmn:incoming>
+      <bpmn:outgoing>Flow_Yes_Governance</bpmn:outgoing>
+      <bpmn:outgoing>Flow_No_Evidence</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+
+    <bpmn:task id="Task_GovernanceReview" name="Execute Governance Review and Risk Response">
+      <bpmn:incoming>Flow_Yes_Governance</bpmn:incoming>
+      <bpmn:outgoing>Flow_Governance_Approve</bpmn:outgoing>
+    </bpmn:task>
+
+    <bpmn:task id="Task_AuditEvidence" name="Preserve Audit Evidence">
+      <bpmn:incoming>Flow_No_Evidence</bpmn:incoming>
+      <bpmn:outgoing>Flow_Evidence_Approve</bpmn:outgoing>
+    </bpmn:task>
+
+    <bpmn:task id="Task_ApproveStatus" name="Approve Resolution and Compliance Status">
+      <bpmn:incoming>Flow_Governance_Approve</bpmn:incoming>
+      <bpmn:incoming>Flow_Evidence_Approve</bpmn:incoming>
+      <bpmn:outgoing>Flow_Approve_Communicate</bpmn:outgoing>
+    </bpmn:task>
+
+    <bpmn:task id="Task_CommunicateOutcomes" name="Communicate Outcomes to Stakeholders">
+      <bpmn:incoming>Flow_Approve_Communicate</bpmn:incoming>
+      <bpmn:outgoing>Flow_Communicate_Close</bpmn:outgoing>
+    </bpmn:task>
+
+    <bpmn:task id="Task_CloseProcess" name="Maintain Audit Trail and Close Process">
+      <bpmn:incoming>Flow_Communicate_Close</bpmn:incoming>
+      <bpmn:outgoing>Flow_Close_End</bpmn:outgoing>
+    </bpmn:task>
+
+    <bpmn:endEvent id="End_ComplianceAssured" name="Compliance Assurance Achieved">
+      <bpmn:incoming>Flow_Close_End</bpmn:incoming>
+    </bpmn:endEvent>
+
+    <bpmn:sequenceFlow id="Flow_Start_Assess" sourceRef="Start_ReceiveReports" targetRef="Task_AssessCompliance" />
+    <bpmn:sequenceFlow id="Flow_Assess_Gateway" sourceRef="Task_AssessCompliance" targetRef="Gateway_Exceptions" />
+    <bpmn:sequenceFlow id="Flow_Yes_Governance" name="Yes" sourceRef="Gateway_Exceptions" targetRef="Task_GovernanceReview" />
+    <bpmn:sequenceFlow id="Flow_No_Evidence" name="No" sourceRef="Gateway_Exceptions" targetRef="Task_AuditEvidence" />
+    <bpmn:sequenceFlow id="Flow_Governance_Approve" sourceRef="Task_GovernanceReview" targetRef="Task_ApproveStatus" />
+    <bpmn:sequenceFlow id="Flow_Evidence_Approve" sourceRef="Task_AuditEvidence" targetRef="Task_ApproveStatus" />
+    <bpmn:sequenceFlow id="Flow_Approve_Communicate" sourceRef="Task_ApproveStatus" targetRef="Task_CommunicateOutcomes" />
+    <bpmn:sequenceFlow id="Flow_Communicate_Close" sourceRef="Task_CommunicateOutcomes" targetRef="Task_CloseProcess" />
+    <bpmn:sequenceFlow id="Flow_Close_End" sourceRef="Task_CloseProcess" targetRef="End_ComplianceAssured" />
+  </bpmn:process>
+
+  <bpmndi:BPMNDiagram id="BPMNDiagram_StrategicFinancialCompliance">
+    <bpmndi:BPMNPlane id="BPMNPlane_StrategicFinancialCompliance" bpmnElement="Process_StrategicFinancialCompliance">
+
+      <bpmndi:BPMNShape id="Shape_Start_ReceiveReports" bpmnElement="Start_ReceiveReports">
+        <dc:Bounds x="120" y="152" width="36" height="36" />
+      </bpmndi:BPMNShape>
+
+      <bpmndi:BPMNShape id="Shape_Task_AssessCompliance" bpmnElement="Task_AssessCompliance">
+        <dc:Bounds x="220" y="130" width="190" height="80" />
+      </bpmndi:BPMNShape>
+
+      <bpmndi:BPMNShape id="Shape_Gateway_Exceptions" bpmnElement="Gateway_Exceptions" isMarkerVisible="true">
+        <dc:Bounds x="480" y="145" width="50" height="50" />
+      </bpmndi:BPMNShape>
+
+      <bpmndi:BPMNShape id="Shape_Task_GovernanceReview" bpmnElement="Task_GovernanceReview">
+        <dc:Bounds x="610" y="60" width="210" height="80" />
+      </bpmndi:BPMNShape>
+
+      <bpmndi:BPMNShape id="Shape_Task_AuditEvidence" bpmnElement="Task_AuditEvidence">
+        <dc:Bounds x="610" y="250" width="210" height="80" />
+      </bpmndi:BPMNShape>
+
+      <bpmndi:BPMNShape id="Shape_Task_ApproveStatus" bpmnElement="Task_ApproveStatus">
+        <dc:Bounds x="900" y="130" width="210" height="80" />
+      </bpmndi:BPMNShape>
+
+      <bpmndi:BPMNShape id="Shape_Task_CommunicateOutcomes" bpmnElement="Task_CommunicateOutcomes">
+        <dc:Bounds x="1190" y="130" width="210" height="80" />
+      </bpmndi:BPMNShape>
+
+      <bpmndi:BPMNShape id="Shape_Task_CloseProcess" bpmnElement="Task_CloseProcess">
+        <dc:Bounds x="1480" y="130" width="210" height="80" />
+      </bpmndi:BPMNShape>
+
+      <bpmndi:BPMNShape id="Shape_End_ComplianceAssured" bpmnElement="End_ComplianceAssured">
+        <dc:Bounds x="1770" y="152" width="36" height="36" />
+      </bpmndi:BPMNShape>
+
+      <bpmndi:BPMNEdge id="Edge_Flow_Start_Assess" bpmnElement="Flow_Start_Assess">
+        <di:waypoint x="156" y="170" />
+        <di:waypoint x="220" y="170" />
+      </bpmndi:BPMNEdge>
+
+      <bpmndi:BPMNEdge id="Edge_Flow_Assess_Gateway" bpmnElement="Flow_Assess_Gateway">
+        <di:waypoint x="410" y="170" />
+        <di:waypoint x="480" y="170" />
+      </bpmndi:BPMNEdge>
+
+      <bpmndi:BPMNEdge id="Edge_Flow_Yes_Governance" bpmnElement="Flow_Yes_Governance">
+        <di:waypoint x="505" y="145" />
+        <di:waypoint x="505" y="100" />
+        <di:waypoint x="610" y="100" />
+      </bpmndi:BPMNEdge>
+
+      <bpmndi:BPMNEdge id="Edge_Flow_No_Evidence" bpmnElement="Flow_No_Evidence">
+        <di:waypoint x="505" y="195" />
+        <di:waypoint x="505" y="290" />
+        <di:waypoint x="610" y="290" />
+      </bpmndi:BPMNEdge>
+
+      <bpmndi:BPMNEdge id="Edge_Flow_Governance_Approve" bpmnElement="Flow_Governance_Approve">
+        <di:waypoint x="820" y="100" />
+        <di:waypoint x="860" y="100" />
+        <di:waypoint x="860" y="170" />
+        <di:waypoint x="900" y="170" />
+      </bpmndi:BPMNEdge>
+
+      <bpmndi:BPMNEdge id="Edge_Flow_Evidence_Approve" bpmnElement="Flow_Evidence_Approve">
+        <di:waypoint x="820" y="290" />
+        <di:waypoint x="860" y="290" />
+        <di:waypoint x="860" y="170" />
+        <di:waypoint x="900" y="170" />
+      </bpmndi:BPMNEdge>
+
+      <bpmndi:BPMNEdge id="Edge_Flow_Approve_Communicate" bpmnElement="Flow_Approve_Communicate">
+        <di:waypoint x="1110" y="170" />
+        <di:waypoint x="1190" y="170" />
+      </bpmndi:BPMNEdge>
+
+      <bpmndi:BPMNEdge id="Edge_Flow_Communicate_Close" bpmnElement="Flow_Communicate_Close">
+        <di:waypoint x="1400" y="170" />
+        <di:waypoint x="1480" y="170" />
+      </bpmndi:BPMNEdge>
+
+      <bpmndi:BPMNEdge id="Edge_Flow_Close_End" bpmnElement="Flow_Close_End">
+        <di:waypoint x="1690" y="170" />
+        <di:waypoint x="1770" y="170" />
+      </bpmndi:BPMNEdge>
+
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>

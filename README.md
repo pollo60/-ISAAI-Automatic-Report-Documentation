@@ -1,6 +1,6 @@
 # ISAAI Project — Automatic Report Documentation
 
-Dual-module automation for invoice processing (**ISA**) and financial report validation (**A+I**).
+Primary focus: daily automation of **Report A** and **Report B** XML financial-report validation (**A+I**). Parallel university track: exchange-invoice OCR and charts (**ISA**).
 
 ## Canonical layout
 
@@ -12,7 +12,9 @@ Dual-module automation for invoice processing (**ISA**) and financial report val
 | [`src/isa/`](src/isa/) | ISA module (planned): PDF/OCR, charts |
 | [`src/ai/`](src/ai/) | A+I module (planned): XML parser, GOAL validation |
 | [`presentations/`](presentations/) | Boardroom deck and narrative |
-| [`Project Charter.html`](Project%20Charter.html) | Living project charter (HTML) |
+| [`Project Charter.html`](Project%20Charter.html) | Living project charter (HTML, DE) |
+| [`Project-Charter-ISAAI.tex`](Project-Charter-ISAAI.tex) | Project charter (English LaTeX, Report A/B focus) |
+| [`Project-Charter-ISAAI.pdf`](Project-Charter-ISAAI.pdf) | Built PDF (`./scripts/build-charter-pdf.sh`) |
 | [`MASTER_PROMPT.md`](MASTER_PROMPT.md) | Phased AI session contract (image limits) |
 
 ## Branches

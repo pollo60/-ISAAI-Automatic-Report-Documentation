@@ -1,0 +1,320 @@
+\documentclass[11pt,a4paper]{article}
+
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[margin=22mm]{geometry}
+\usepackage{helvet}
+\renewcommand{\familydefault}{\sfdefault}
+
+\usepackage{xcolor}
+\usepackage{booktabs}
+\usepackage{graphicx}
+\usepackage{longtable}
+\usepackage{array}
+\usepackage{enumitem}
+\usepackage{hyperref}
+\usepackage{tcolorbox}
+
+\definecolor{ISAAIBlue}{HTML}{00335b}
+\definecolor{ISAAIBlueLight}{HTML}{00508f}
+\definecolor{ISAAIGreen}{HTML}{007a33}
+\definecolor{ISAAIRed}{HTML}{d11241}
+\definecolor{ISAAIMuted}{HTML}{666666}
+\definecolor{ISAAIBorder}{HTML}{d1d5db}
+\definecolor{ISAAIWarnBg}{HTML}{fffbeb}
+\definecolor{ISAAIWarnText}{HTML}{92400e}
+
+\hypersetup{
+  colorlinks=true,
+  linkcolor=ISAAIBlueLight,
+  urlcolor=ISAAIBlueLight,
+  pdftitle={Project Charter: ISAAI},
+}
+
+\newcommand{\sectiontitle}[1]{%
+  \vspace{1.2em}%
+  {\color{ISAAIBlue}\bfseries\MakeUppercase{#1}}%
+  \vspace{0.4em}\par
+}
+
+\newcommand{\metatag}[1]{%
+  \tcbox[
+    on line,
+    arc=2pt,
+    boxrule=0.4pt,
+    colback=gray!10,
+    colframe=ISAAIBorder,
+    left=3pt,right=3pt,top=1pt,bottom=1pt
+  ]{\scriptsize\bfseries #1}%
+}
+
+\begin{document}
+
+\begin{center}
+  \metatag{Official Project Document}\\[0.8em]
+  {\color{ISAAIBlue}\Huge\bfseries PROJECT CHARTER: ISAAI}\\[0.5em]
+  {\small\color{ISAAIMuted} PROJECT-ID: PRJ-2026-ISAAI \quad|\quad RELEASE: 25 Jun 2026 \quad|\quad Rev.~2}\\[0.8em]
+  \metatag{\#DualModule}
+  \metatag{\#ReportAB}
+  \metatag{\#Governance}
+  \metatag{\#WhiteBox}
+  \metatag{\#PowerAutomate}
+  \metatag{\#SharePoint}
+\end{center}
+
+\begin{tcolorbox}[
+  colback=blue!3,
+  colframe=ISAAIBlue,
+  boxrule=0pt,
+  leftrule=4pt,
+  arc=2pt,
+  left=8pt,right=8pt,top=6pt,bottom=6pt
+]
+\itshape
+This charter formalizes the ISAAI project (Information Systems Architecture \& Integration).
+\textbf{Primary mission:} automate daily validation of structured XML financial \textbf{Report~A} (daily violation snapshot) and \textbf{Report~B} (month-to-date cumulative violations), with exception governance and a standardized audit trail.
+A parallel ISA university track covers exchange-invoice OCR and chart generation under separate milestones.
+\end{tcolorbox}
+
+\sectiontitle{Executive summary}
+
+The stakeholder process today requires roughly 30--40 minutes per day of manual work: receive ZIP/XML reports by mail, import into spreadsheets, check violation markers and thresholds, file evidence, distribute summaries, and sign off in the document repository.
+The project delivers a GOAL-conform target architecture (BPMN SOLL) implemented as a \textbf{Microsoft Power Automate Cloud flow} backed by a \textbf{SharePoint List} as operational database and a \textbf{SharePoint Document Library} as evidence archive. Ingest, rule evaluation, evidence generation, and email distribution are fully automated; humans intervene only on exceptions (human-in-the-loop). The company DMS is excluded from the automated scope.
+
+\subsection*{Opening question}
+\begin{tcolorbox}[colback=blue!3,colframe=ISAAIBlue,leftrule=3pt,arc=2pt]
+\textbf{Can we eliminate the 30--40 minutes of daily manual work while keeping full auditability and human oversight for exceptions?}
+\end{tcolorbox}
+
+\subsection*{Why this matters}
+\begin{itemize}[leftmargin=*, nosep]
+  \item Reduce daily operational effort and human error for routine checks.
+  \item Provide standardized audit trail and evidence linking for compliance.
+  \item Allow staff to focus on exceptions and higher-value review tasks.
+\end{itemize}
+
+\subsection*{Manual labour today (IST)}
+\begin{enumerate}[leftmargin=*, nosep]
+  \item Receive ZIP/XML reports via mail and unpack.
+  \item Import XML into spreadsheets and run manual checks.
+  \item Collect evidence, prepare summary, and distribute to stakeholders.
+  \item Archive signed documents in the document repository.
+\end{enumerate}
+
+\subsection*{Risk \& control gap}
+\begin{tcolorbox}[colback=ISAAIWarnBg,colframe=yellow!50!black,arc=2pt]
+Manual processing multiplies traceability gaps and increases the risk of unauthorized changes or missed violations; automation plus a standardized audit trail closes these gaps.
+\end{tcolorbox}
+
+\subsection*{Automation vision (GOAL)}
+The target-state pipeline, implemented as a \textbf{Power Automate Cloud flow}, ingests Report~A/B from an Exchange mailbox, evaluates GOAL rule sets via parallel XML parsing, generates evidence Excel files, raises exception alerts (email + optional Teams Adaptive Card) for human review, and stores all artifacts in a \textbf{SharePoint Document Library}. A \textbf{SharePoint List} (``Report Processing Log'') tracks every run, enabling dashboard reporting via Power~BI and handling hundreds of daily report emails. The company DMS is excluded; SharePoint serves as the single evidence repository.
+
+\subsection*{Architecture evolution (three tiers)}
+\begin{enumerate}[leftmargin=*, nosep]
+  \item \textbf{CURRENT (IST):} Manual daily process --- spreadsheet import, visual checks, manual filing.
+  \item \textbf{VISION (SOLL):} Full automation including DMS UI-scraping .
+  \item \textbf{GOAL:} Production-ready scope --- Power Automate + SharePoint, DMS excluded, supervisor exception governance via SharePoint List.
+\end{enumerate}
+All three tiers are modeled as both ArchiMate (\texttt{.archimate}) and BPMN (\texttt{.bpmn}) artifacts in the repository.
+
+\subsection*{How ISA shapes this}
+\begin{itemize}[leftmargin=*, nosep]
+  \item Provides process modelling artifacts representing the enterprise architecture.
+  \item Provides an automated file analysis → XML/CSV/JSON pipeline useful as a parallel, demonstrable module.
+\end{itemize}
+
+\subsection*{How A+I shapes this}
+\begin{itemize}[leftmargin=*, nosep]
+  \item Introduces the Architecture through ArchiMate diagrams 
+  \item Defines the Microsoft Power Automate Report~A/B  ingestion, GOAL evaluator and exception governance workflows..
+\end{itemize}
+
+\subsection*{ISA vs A+I — Influence matrix}
+\begin{center}
+\begin{tabular}{@{}p{0.35\textwidth}p{0.6\textwidth}@{}}
+\toprule
+\textbf{Concern} & \textbf{Primary module / influence} \\
+\midrule
+Invoice, charts & ISA (university deliverable) \\
+XML ingest, GOAL rules, exception governance & A+I (primary stakeholder case) \\
+Architecture artefacts (ArchiMate, BPMN) & ISA provides models; A+I consumes/implements \\
+Power Automate workflow \& SharePoint schema & A+I designs; ISA documents integration \\
+ & A+I leads; ISA integrates for demonstration \\
+Compliance & Shared: A+I implements audit trail; ISA documents interfaces \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\vspace{0.8em}
+\begin{tcolorbox}[colback=ISAAIGreen!5,colframe=ISAAIGreen,arc=2pt]
+\textbf{Figures / visuals (available):}
+\begin{itemize}[leftmargin=*, noitemsep]
+  \item BPMN GOAL (main flow): \texttt{docs/Documentation/Process Modeling/GOAL Process/daily\_financial\_report\_validation\_lanes\_OPERATION VISION.png}
+  \item BPMN CURRENT (IST flow): \texttt{docs/Documentation/Process Modeling/CURRENT Process/daily\_financial\_report\_validation\_lanes\_CURRENT.png}
+  \item Architecture VISION (automated main flow): \texttt{docs/Documentation/Architecture/VISION Architecture/VISION - Automated Main Flow.png}
+  \item Architecture GOAL (governance \& data): \texttt{docs/Documentation/Architecture/VISION Architecture/GOAL - Governance, Data and Motivation.png}
+  \item Architecture CURRENT (manual daily flow): \texttt{docs/Documentation/Architecture/CURRENT Architecture/CURRENT - Manual Daily Flow.png}
+\end{itemize}
+\end{tcolorbox}
+
+\sectiontitle{01. Project stakeholders \& core metadata}
+
+\begin{tabular}{@{}p{0.32\textwidth}p{0.62\textwidth}@{}}
+\toprule
+\rowcolor{ISAAIBlue}
+\textcolor{white}{\textbf{Role}} & \textcolor{white}{\textbf{Name / unit}} \\
+\midrule
+Sponsor \& academic lead & Prof.\ Dr.\ Dominik Dietrich --- FRA UAS / FB2 \\
+Architecture \& software engineering & Christina Malki, Altay Hennig --- Modules ISA \& A+I \\
+Operational owner & Sarah Bullinger --- Project lead operations \\
+\bottomrule
+\end{tabular}
+
+\sectiontitle{02. SMART project goals \& mission}
+
+\subsection*{Dual-module architecture (primary vs.\ parallel)}
+
+\textbf{Primary track --- A+I (Architecture \& Integration):} Automated validation of \textbf{Report~A} and \textbf{Report~B} XML financial reports using GOAL rule sets, implemented as a \textbf{Power Automate Cloud flow} with SharePoint as operational database and evidence archive. Exception governance via supervisor review in SharePoint List with optional Teams Adaptive Card alerts.
+
+\textbf{Parallel track --- ISA (Information Systems Architecture):} University deliverable for exchange-invoice PDF/OCR $\rightarrow$ JSON/CSV $\rightarrow$ automated charts; supports enterprise alignment and ArchiMate artifacts but is not the stakeholder Report~A/B use case.
+
+\vspace{0.6em}
+\begin{center}
+\begin{tabular}{@{}cccccc@{}}
+\toprule
+\textbf{S} & \textbf{M} & \textbf{A} & \textbf{R} & \textbf{T} \\
+\midrule
+\begin{minipage}[t]{0.16\textwidth}\small Report~A/B XML pipeline + parallel ISA invoice pipeline\end{minipage} &
+\begin{minipage}[t]{0.16\textwidth}\small End-to-end automation for standard path; exceptions measurable\end{minipage} &
+\begin{minipage}[t]{0.16\textwidth}\small GitHub CI/CD, mock APIs, existing BPMN/ArchiMate\end{minipage} &
+\begin{minipage}[t]{0.16\textwidth}\small White-box interfaces; audit trail; 30--40 min/day pain removal\end{minipage} &
+\begin{minipage}[t]{0.16\textwidth}\small Submission 30 Jun 2026\end{minipage} \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\sectiontitle{03. Project scope}
+
+\begin{minipage}[t]{0.48\textwidth}
+{\color{ISAAIGreen}\bfseries In scope (design \& implementation)}
+\begin{itemize}[leftmargin=*, nosep]
+  \item XML ingest and parsers for \textbf{Report~A} (daily) and \textbf{Report~B} (MTD)
+  \item GOAL rule engine: violation markers, secondary thresholds
+  \item \textbf{Microsoft Power Automate Cloud flow} implementing the end-to-end GOAL process
+  \item \textbf{SharePoint List} as operational database (``Report Processing Log'')
+  \item \textbf{SharePoint Document Library} as evidence archive
+  \item Exception governance workflow (human-in-the-loop via SharePoint + Teams)
+  \item Three-tier architecture models: CURRENT, VISION, GOAL (ArchiMate + BPMN)
+\end{itemize}
+\end{minipage}\hfill
+\begin{minipage}[t]{0.48\textwidth}
+{\color{ISAAIRed}\bfseries Out of scope}
+\begin{itemize}[leftmargin=*, nosep]
+  \item Manual spreadsheet import for Report~A/B in target state
+  \item Company DMS integration (UI-scraping / RPA)
+  \item Direct edits in production databases
+  \item Building proprietary OCR models from scratch
+  \item Non-standard third-party APIs
+  \item Fully automated sign-off without supervisor on exceptions
+  \item Physical server provisioning
+  \item White-box interface modeling (OpenAPI v3 mocks)
+  \item Standardized audit-trail event model
+  \item GitHub Actions for automated tests
+  \item \textit{ISA module (parallel):} PDF/OCR invoice extraction, JSON/CSV, chart generation
+\end{itemize}
+\end{minipage}
+
+\sectiontitle{04. Milestones \& scheduling}
+
+\begin{longtable}{@{}p{0.22\textwidth}p{0.58\textwidth}p{0.14\textwidth}@{}}
+\toprule
+\rowcolor{ISAAIBlue}
+\textcolor{white}{\textbf{Milestone}} & \textcolor{white}{\textbf{Key deliverables}} & \textcolor{white}{\textbf{Date}} \\
+\midrule
+\endhead
+M1: Requirements \& setup &
+Briefing analysis; Report~A/B vs.\ ISA split; GitHub repo structure &
+24 May 2026 \metatag{\color{ISAAIGreen}done} \\
+M2: ISA module (parallel) &
+Invoice OCR pipeline, JSON/CSV schema, chart generation &
+01 Jun 2026 \metatag{\color{ISAAIGreen}done} \\
+M3: A+I architecture \& process &
+CURRENT/VISION/GOAL ArchiMate models; CURRENT/GOAL BPMN processes &
+15 Jun 2026 \metatag{\color{ISAAIGreen}done} \\
+M4: Power Automate design &
+Power Automate prompt; SharePoint List schema; evidence library design &
+25 Jun 2026 \metatag{\color{ISAAIGreen}done} \\
+M5: Integration \& tests &
+Merge branches; E2E test Report~A/B path via GitHub Actions; deploy Power Automate flow &
+28 Jun 2026 \\
+M6: Submission \& docs &
+Main branch, boardroom deck, updated charter (HTML/LaTeX/PDF), presentation narrative &
+30 Jun 2026 \\
+\bottomrule
+\end{longtable}
+
+
+
+\normalsize
+\textbf{R} = Responsible \quad \textbf{A} = Accountable \quad \textbf{C} = Consulted \quad \textbf{I} = Informed
+
+\newpage
+
+
+\sectiontitle{05. Invariants, risks \& compliance gates}
+
+\begin{tcolorbox}[colback=ISAAIWarnBg, colframe=yellow!50!black, arc=2pt]
+\textbf{\color{ISAAIWarnText}Technological \& operational risks}\\
+Unauthorized data egress is the main architectural risk. A local sandbox model and backend-for-front-end pattern ensure financial report data are not transmitted unencrypted.
+\end{tcolorbox}
+
+\vspace{0.5em}
+\begin{minipage}[t]{0.48\textwidth}
+\textbf{\color{ISAAIBlue}EU AI Act compliance gate}\\
+If an LLM assists exception review, \textbf{human-in-the-loop} is mandatory before archive transfer.
+\end{minipage}\hfill
+\begin{minipage}[t]{0.48\textwidth}
+\textbf{\color{ISAAIBlue}Data sovereignty gate (GDPR)}\\
+PII is pseudonymized before any internal LLM use; CI logs use mock data only.
+\end{minipage}
+
+\sectiontitle{06. References \& compliance artifacts}
+
+\begin{itemize}[leftmargin=*, nosep]
+  \item \texttt{docs/compliance/AUDIT-TRAIL.md} --- traceability aligned with GOAL BPMN
+  \item \texttt{docs/compliance/DATA-HANDLING.md} --- pseudonymization policy
+  \item \texttt{docs/compliance/STAKEHOLDER-INTERFACE-QUESTIONS.md} --- open sandbox/API questions
+  \item \texttt{docs/api/openapi/} --- OpenAPI v3 mock specifications
+  \item \texttt{docs/Documentation/Process Modeling/GOAL Process/} --- GOAL BPMN (operative \texttt{.bpmn} + strategic \texttt{.bpmn})
+  \item \texttt{docs/Documentation/Process Modeling/CURRENT Process/} --- CURRENT (IST) BPMN
+  \item \texttt{docs/Documentation/Architecture/GOAL Architecture/} --- GOAL ArchiMate models (\texttt{.archimate})
+  \item \texttt{docs/Documentation/Architecture/VISION Architecture/} --- VISION ArchiMate models incl.\ GOAL view
+  \item \texttt{docs/Documentation/Architecture/CURRENT Architecture/} --- CURRENT (IST) ArchiMate model
+  \item \texttt{presentations/Project Presentation/ISAAI-Boardroom-Manual-to-Automated.pptx} --- boardroom deck
+  \item \texttt{Power Automate prompt} --- Microsoft Power Automate Cloud flow specification (GOAL implementation)
+  \item \texttt{Project Charter.html} --- German living charter (aligned focus)
+\end{itemize}
+\clearpage
+\section*{Appendix: Speaker notes}
+\subsection*{30-second elevator}
+We automate daily Report~A/B validation using Microsoft Power Automate and SharePoint, removing routine manual checks and providing a traceable audit trail. Only exceptions reach human reviewers --- saving 30--40 minutes of daily operational effort while preserving full control.
+
+\subsection*{5-minute walkthrough}
+\begin{itemize}[leftmargin=*, nosep]
+  \item Explain the current 30--40 minute manual process and its failure modes (CURRENT BPMN).
+  \item Walk through the three-tier architecture evolution: CURRENT $\rightarrow$ VISION $\rightarrow$ GOAL.
+  \item Demo the GOAL flow: Power Automate trigger → parallel XML validation → evidence generation → SharePoint archive → summary email.
+  \item Show the SharePoint List as operational database handling hundreds of daily emails.
+  \item Surface the ISA parallel work (invoice OCR → JSON/CSV → charts) as a demonstrable module.
+  \item Highlight compliance gates (EU AI Act human-in-the-loop, GDPR pseudonymization).
+  \item Close with milestones M1--M6 and current status: architecture and Power Automate design complete, integration in progress.
+\end{itemize}
+
+\vfill
+\hrule
+\small\color{ISAAIMuted}
+Project ownership: Prof.\ Dr.\ Dominik Dietrich (sponsor) \textbar\
+Christina Malki, Altay Hennig (engineering) \textbar\
+Sarah Bullinger (operations)
+
+\end{document}
