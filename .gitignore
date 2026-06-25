@@ -59,3 +59,6 @@ presentations/*.tmp
 
 # Test runs
 tests/runs/
+
+# Generated presentations
+presentations/Automated Presentations/*_Run_Summary.pptx
