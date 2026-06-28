@@ -1,62 +1,62 @@
 # Roadmap: ISA & A+I Dual-Module Automation
 
-## Projektziel
-Vollständige GitHub-basierte Implementierung zweier separater Automatisierungsmodule:
-- **ISA (Information Systems Architecture)**: Automatisierte Rechnungsextraktion aus PDF/OCR, Datenstrukturierung und Chart-Generierung für Präsentationen
-- **A+I (Architecture & Integration)**: Vollautomatisierte Finanzberichtsverarbeitung mit GOAL-SOLL Architektur, Validierung und Governance
+## Project Objective
+Complete GitHub-based implementation of two separate automation modules:
+- **ISA (Information Systems Architecture)**: Automated invoice extraction from PDF/OCR, data structuring, and chart generation for presentations
+- **A+I (Architecture & Integration)**: Fully automated financial report processing with GOAL architecture, validation, and governance
 
-## Kernresultate
-- ISA-Modul: Python-basierte Extraktion und Visualisierung von Rechnungsdaten
-- A+I-Modul: GOAL-konforme Validierung, Exception-Handling und SharePoint/DMS-Integration
-- Vollständige GitHub-Implementierung mit separaten Branches für ISA und A+I
-- Architekturbeschreibung, Prozessmodelle und integrierte Präsentation für beide Module
-- Prüfungsfertige Abgabe mit dualer Moduldokumentation
+## Key Deliverables
+- ISA module: Python-based extraction and visualization of invoice data
+- A+I module: GOAL-compliant validation, exception handling, and SharePoint/DMS integration
+- Complete GitHub implementation with separate branches for ISA and A+I
+- Architecture descriptions, process models, and integrated presentation for both modules
+- Exam-ready submission with dual module documentation
 
 ## Roadmap
 
 ### Phase 1: ISA & A+I Requirements Split
-- Analyse der separaten ISA- und A+I-Anforderungen aus dem Briefing
-- Definition von ISA-Workflow: PDF/OCR → Datenextraktion → Chart-Generierung
-- Definition von A+I-Workflow: XML-Ingestion → GOAL-Validierung → Governance & Archive
-- GitHub-Setup mit separaten Branches für ISA und A+I Module
-- Resultate: Getrennte Requirements-Dokumente, GitHub-Repo-Struktur
+- Analyze separate ISA and A+I requirements from the briefing
+- Define ISA workflow: PDF/OCR → Data extraction → Chart generation
+- Define A+I workflow: XML ingestion → GOAL validation → Governance & Archive
+- GitHub setup with separate branches for ISA and A+I modules
+- Deliverables: Separate requirement documents, GitHub repo structure
 
 ### Phase 2: ISA Module Development
-- Aufbau der PDF/OCR-Extraktionspipeline in `/src/isa`
-- Implementierung der Datenstrukturierung in JSON/CSV
-- Entwicklung der automatisierten Chart- und Präsentationsgenerierung
-- **Bereitstellung für Operator**: Implementierung des "Magic Chart" Systems für professorenspezifische Visualisierungen
-- Resultate: Vollständiges ISA-Modul, Testdaten und Unit-Tests
+- Build PDF/OCR extraction pipeline in `/src/isa`
+- Implement data structuring in JSON/CSV
+- Develop automated chart and presentation generation
+- **Operator Deployment**: Implement the "Magic Chart" system for professor-specific visualizations
+- Deliverables: Complete ISA module, test data, and unit tests
 
 ### Phase 3: A+I Module Development
-- XML-Parser für Report Type A und B in `/src/ai`
-- GOAL-SOLL Regelengine für Validierung und Exception-Erkennung
-- Integration von SharePoint-API und DMS-Archivierung
-- Resultate: Vollständiges A+I-Modul mit Governance-Workflow
+- XML parser for Report Type A and B in `/src/ai`
+- GOAL rule engine for validation and exception detection
+- SharePoint API and DMS archiving integration
+- Deliverables: Complete A+I module with governance workflow
 
 ### Phase 4: Dual-Module Integration
-- Vereinigung der ISA- und A+I-Workflows in einem GitHub-Repo
-- End-to-End-Integrationstests für beide Module
-- Cross-Module-Datenflüsse und gemeinsame Präsentationsausgabe
-- Resultate: Integrierte GitHub-Implementierung, vollständige Automatisierung
+- Merge ISA and A+I workflows in a single GitHub repo
+- End-to-end integration tests for both modules
+- Cross-module data flows and shared presentation output
+- Deliverables: Integrated GitHub implementation, complete automation
 
 ### Phase 5: Documentation & Submission
-- ISA-Architektur- und Prozessdokumentation
-- A+I-GOAL-Modellbeschreibung und Governance-Narrative
-- Erstellung der kombinierten Präsentation und Abgabeunterlagen
-- Finalisierung der GitHub-Repo für Submission
-- Resultate: Prüfungsfertige Dokumentation und GitHub-Implementierung
+- ISA architecture and process documentation
+- A+I GOAL model description and governance narrative
+- Creation of combined presentation and submission materials
+- Finalization of GitHub repo for submission
+- Deliverables: Exam-ready documentation and GitHub implementation
 
-## Zeitplan
-- 18.05.–24.05.: ISA/A+I Requirements Split und GitHub-Setup
-- 25.05.–01.06.: ISA-Modul Entwicklung (PDF/OCR, Charts)
-- 02.06.–08.06.: A+I-Modul Entwicklung (Validierung, Archive)
-- 09.06.–15.06.: Integration, Tests und Dokumentation
-- 16.06.: Submission
+## Timeline
+- May 18–24: ISA/A+I requirements split and GitHub setup
+- May 25–Jun 1: ISA module development (PDF/OCR, charts)
+- Jun 2–8: A+I module development (validation, archive)
+- Jun 9–15: Integration, testing, and documentation
+- Jun 16: Submission
 
-## Wichtige Risiko- und Erfolgsfaktoren
-- Klare Trennung von ISA- und A+I-Implementierungen bei gemeinsamer GitHub-Basis
-- Vollständige Automatisierung beider Module ohne manuelle Eingriffe (außer A+I-Governance)
-- Stabile GitHub-Integration und Branching-Strategie für parallele Entwicklung
-- Nachvollziehbare Architekturmodelle und Prozessdokumentation für beide Module
-- Zeitliche Synchronisation der ISA- und A+I-Entwicklung für finale Integration
+## Key Risk and Success Factors
+- Clear separation of ISA and A+I implementations on a shared GitHub base
+- Complete automation of both modules without manual intervention (except A+I governance)
+- Stable GitHub integration and branching strategy for parallel development
+- Traceable architecture models and process documentation for both modules
+- Timeline synchronization of ISA and A+I development for final integration

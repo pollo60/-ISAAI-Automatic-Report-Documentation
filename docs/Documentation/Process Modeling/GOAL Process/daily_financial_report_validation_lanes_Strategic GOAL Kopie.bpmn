@@ -14,10 +14,10 @@
       <bpmn:lane id="Lane_AutomationService" name="Automated Reporting Service (RPA/AI)">
         <bpmn:flowNodeRef>Task_AutoExtract</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Task_GenerateException</bpmn:flowNodeRef>
-        <bpmn:flowNodeRef>Activity_0xake5j</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Gateway_AutoExceptions</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Task_AutoValidate</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Activity_141bjdt</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Activity_0gv1cpp</bpmn:flowNodeRef>
       </bpmn:lane>
       <bpmn:lane id="Lane_Supervisor" name="Operations Supervisor">
         <bpmn:flowNodeRef>Task_SupervisorReview</bpmn:flowNodeRef>
@@ -53,20 +53,14 @@
     </bpmn:endEvent>
     <bpmn:serviceTask id="Task_AutoSaveSP1" name="Save Evidence via API">
       <bpmn:incoming>Flow_15mmuok</bpmn:incoming>
-      <bpmn:outgoing>Flow_SaveSP1_Email</bpmn:outgoing>
+      <bpmn:outgoing>Flow_0klak1k</bpmn:outgoing>
     </bpmn:serviceTask>
     <bpmn:serviceTask id="Task_AutoSaveSP2" name="Save Sent Email to SharePoint">
-      <bpmn:incoming>Flow_1qjxmkd</bpmn:incoming>
+      <bpmn:incoming>Flow_1u99nry</bpmn:incoming>
       <bpmn:outgoing>Flow_1jkfiaw</bpmn:outgoing>
-    </bpmn:serviceTask>
-    <bpmn:serviceTask id="Activity_0xake5j" name="Send Summary Email">
-      <bpmn:incoming>Flow_SaveSP1_Email</bpmn:incoming>
-      <bpmn:outgoing>Flow_1qjxmkd</bpmn:outgoing>
     </bpmn:serviceTask>
     <bpmn:sequenceFlow id="Flow_GenEx_Review" sourceRef="Task_GenerateException" targetRef="Task_SupervisorReview" />
     <bpmn:sequenceFlow id="Flow_Review_EndEx" sourceRef="Task_SupervisorReview" targetRef="EndEvent_Exception" />
-    <bpmn:sequenceFlow id="Flow_SaveSP1_Email" sourceRef="Task_AutoSaveSP1" targetRef="Activity_0xake5j" />
-    <bpmn:sequenceFlow id="Flow_1qjxmkd" sourceRef="Activity_0xake5j" targetRef="Task_AutoSaveSP2" />
     <bpmn:sequenceFlow id="Flow_1vpffjz" sourceRef="Task_AutoValidate" targetRef="Activity_141bjdt" />
     <bpmn:exclusiveGateway id="Gateway_AutoExceptions" name="Rule Violation detected?">
       <bpmn:incoming>Flow_07rw9id</bpmn:incoming>
@@ -88,23 +82,29 @@
       <bpmn:incoming>Flow_1jkfiaw</bpmn:incoming>
     </bpmn:endEvent>
     <bpmn:sequenceFlow id="Flow_1jkfiaw" sourceRef="Task_AutoSaveSP2" targetRef="EndEvent_Success" />
+    <bpmn:sendTask id="Activity_0gv1cpp" name="Send Summary Email">
+      <bpmn:incoming>Flow_0klak1k</bpmn:incoming>
+      <bpmn:outgoing>Flow_1u99nry</bpmn:outgoing>
+    </bpmn:sendTask>
+    <bpmn:sequenceFlow id="Flow_0klak1k" sourceRef="Task_AutoSaveSP1" targetRef="Activity_0gv1cpp" />
+    <bpmn:sequenceFlow id="Flow_1u99nry" sourceRef="Activity_0gv1cpp" targetRef="Task_AutoSaveSP2" />
   </bpmn:process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_SOLL">
     <bpmndi:BPMNPlane id="BPMNPlane_SOLL" bpmnElement="Collaboration_DailyFinancialReportValidation_SOLL">
       <bpmndi:BPMNShape id="Participant_Process_SOLL_di" bpmnElement="Participant_Process_SOLL" isHorizontal="true">
-        <dc:Bounds x="120" y="80" width="1638" height="760" />
+        <dc:Bounds x="120" y="80" width="1728" height="760" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Lane_SharePoint_di" bpmnElement="Lane_SharePoint" isHorizontal="true">
-        <dc:Bounds x="150" y="600" width="1608" height="240" />
+        <dc:Bounds x="150" y="600" width="1698" height="240" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Lane_Supervisor_di" bpmnElement="Lane_Supervisor" isHorizontal="true">
-        <dc:Bounds x="150" y="450" width="1608" height="150" />
+        <dc:Bounds x="150" y="450" width="1698" height="150" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Lane_AutomationService_di" bpmnElement="Lane_AutomationService" isHorizontal="true">
-        <dc:Bounds x="150" y="200" width="1608" height="250" />
+        <dc:Bounds x="150" y="200" width="1698" height="250" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Lane_EmailSystem_di" bpmnElement="Lane_EmailSystem" isHorizontal="true">
-        <dc:Bounds x="150" y="80" width="1608" height="120" />
+        <dc:Bounds x="150" y="80" width="1698" height="120" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="StartEvent_EmailReceived_di" bpmnElement="StartEvent_EmailReceived">
         <dc:Bounds x="200" y="122" width="36" height="36" />
@@ -133,10 +133,6 @@
       <bpmndi:BPMNShape id="Task_AutoSaveSP2_di" bpmnElement="Task_AutoSaveSP2">
         <dc:Bounds x="1390" y="620" width="100" height="80" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="BPMNShape_1p36w24" bpmnElement="Activity_0xake5j">
-        <dc:Bounds x="1400" y="255" width="100" height="80" />
-        <bpmndi:BPMNLabel />
-      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Gateway_AutoExceptions_di" bpmnElement="Gateway_AutoExceptions" isMarkerVisible="true">
         <dc:Bounds x="865" y="295" width="50" height="50" />
         <bpmndi:BPMNLabel>
@@ -156,6 +152,10 @@
         <bpmndi:BPMNLabel>
           <dc:Bounds x="1653" y="685" width="55" height="40" />
         </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0gv1cpp_di" bpmnElement="Activity_0gv1cpp">
+        <dc:Bounds x="1390" y="280" width="100" height="80" />
+        <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="Flow_Start_Extract_di" bpmnElement="Flow_Start_Extract">
         <di:waypoint x="236" y="140" />
@@ -188,16 +188,6 @@
         <di:waypoint x="1190" y="520" />
         <di:waypoint x="1250" y="520" />
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_SaveSP1_Email_di" bpmnElement="Flow_SaveSP1_Email">
-        <di:waypoint x="1190" y="660" />
-        <di:waypoint x="1330" y="660" />
-        <di:waypoint x="1330" y="295" />
-        <di:waypoint x="1400" y="295" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_1qjxmkd_di" bpmnElement="Flow_1qjxmkd">
-        <di:waypoint x="1450" y="335" />
-        <di:waypoint x="1448" y="620" />
-      </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_1vpffjz_di" bpmnElement="Flow_1vpffjz">
         <di:waypoint x="560" y="320" />
         <di:waypoint x="660" y="320" />
@@ -213,6 +203,16 @@
       <bpmndi:BPMNEdge id="Flow_1jkfiaw_di" bpmnElement="Flow_1jkfiaw">
         <di:waypoint x="1490" y="660" />
         <di:waypoint x="1662" y="660" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0klak1k_di" bpmnElement="Flow_0klak1k">
+        <di:waypoint x="1190" y="660" />
+        <di:waypoint x="1340" y="660" />
+        <di:waypoint x="1340" y="320" />
+        <di:waypoint x="1390" y="320" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1u99nry_di" bpmnElement="Flow_1u99nry">
+        <di:waypoint x="1440" y="360" />
+        <di:waypoint x="1440" y="620" />
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>

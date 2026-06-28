@@ -1,1 +1,834 @@
-{"name":"0d70940f-8bff-4ae3-b961-a97843623d5a","id":"/providers/Microsoft.Flow/flows/0d70940f-8bff-4ae3-b961-a97843623d5a","type":"Microsoft.Flow/flows","properties":{"apiId":"/providers/Microsoft.PowerApps/apis/shared_logicflows","displayName":"ISAAI – Daily Report Processing","definition":{"metadata":{"workflowEntityId":null,"processAdvisorMetadata":null,"flowChargedByPaygo":null,"flowclientsuspensionreason":"None","flowclientsuspensiontime":null,"flowclientsuspensionreasondetails":null,"creator":{"id":"065ef796-45dc-4e0c-a612-5c9d6137108f","type":"User","tenantId":"66c5e13f-8c43-4359-b2e8-51775c6d298d"},"provisioningMethod":"FromDefinition","failureAlertSubscription":true,"clientLastModifiedTime":"2026-06-25T15:25:51.9297317Z","connectionKeySavedTimeKey":"2026-06-25T15:25:51.9297317Z","creationSource":"Portal","modifiedSources":"Portal"},"$schema":"https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#","contentVersion":"1.0.0.0","parameters":{"$authentication":{"defaultValue":{},"type":"SecureObject"},"$connections":{"defaultValue":{},"type":"Object"}},"triggers":{"When_a_new_email_arrives_(V3)":{"splitOn":"@triggerOutputs()?['body/value']","metadata":{"Id::AAMkADljNTQzN2IwLWNiYmQtNDYxNi1iOGExLTI0MDg1MzNhODVlNAAuAAAAAACsyi9fg0EDSZ2bA6B7_jiNAQAbEhof9wUsRKeYhXvt-jiaAAAAAAEMAAA=":"Posteingang"},"type":"OpenApiConnectionNotification","inputs":{"parameters":{"includeAttachments":true,"subjectFilter":"Financial Report","fetchOnlyWithAttachment":true,"folderPath":"Id::AAMkADljNTQzN2IwLWNiYmQtNDYxNi1iOGExLTI0MDg1MzNhODVlNAAuAAAAAACsyi9fg0EDSZ2bA6B7_jiNAQAbEhof9wUsRKeYhXvt-jiaAAAAAAEMAAA="},"host":{"apiId":"/providers/Microsoft.PowerApps/apis/shared_office365","connectionName":"shared_office365","operationId":"OnNewEmailV3"},"authentication":"@parameters('$authentication')"}}},"actions":{"Create_item":{"runAfter":{"Initialize_variable_ReportB_Result":["Succeeded"]},"type":"OpenApiConnection","inputs":{"parameters":{"dataset":"https://studfrauasde.sharepoint.com/sites/ISAAIDailyReportProcessing","table":"09670ca0-8b7d-4872-861e-f1bffe28b334","item/Title":"@triggerOutputs()?['body/subject']","item/field_1":"@triggerOutputs()?['body/receivedDateTime']","item/field_2":"@triggerOutputs()?['body/from']","item/field_8":"Processing","item/field_9":"No"},"host":{"apiId":"/providers/Microsoft.PowerApps/apis/shared_sharepointonline","connectionName":"shared_sharepointonline","operationId":"PostItem"},"authentication":"@parameters('$authentication')"}},"Initialize_variable_Report_Date":{"runAfter":{"Initialize_variable_LogItemID":["Succeeded"]},"type":"InitializeVariable","inputs":{"variables":[{"name":"Report Date","type":"string","value":"substring(triggerOutputs()?['body/attachments'][0]['name'], 0, 8)"}]}},"Initialize_variable_LogItemID":{"runAfter":{},"type":"InitializeVariable","inputs":{"variables":[{"name":"LogItemID","type":"integer"}]}},"Initialize_variable_ReportA_Result":{"runAfter":{"Initialize_variable_Report_Date":["Succeeded"]},"type":"InitializeVariable","inputs":{"variables":[{"name":"ReportA_Result","type":"string","value":"Pass"}]}},"Initialize_variable_ReportB_Result":{"runAfter":{"Initialize_variable_ReportA_Result":["Succeeded"]},"type":"InitializeVariable","inputs":{"variables":[{"name":"ReportB_Result","type":"string","value":"Pass"}]}},"Set_variable_LogItemID":{"runAfter":{"Create_item":["Succeeded"]},"type":"SetVariable","inputs":{"name":"LogItemID","value":"@outputs('Create_item')?['body/ID']"}}},"outputs":{}},"connectionReferences":{"shared_office365":{"connectionName":"shared-office365-07d75601-78f5-4081-a02f-d029b0b343d1","source":"Embedded","id":"/providers/Microsoft.PowerApps/apis/shared_office365","tier":"NotSpecified","apiName":"office365","isProcessSimpleApiReferenceConversionAlreadyDone":false},"shared_sharepointonline":{"connectionName":"shared-sharepointonl-e5753339-0453-40f8-99cb-582b6bdebfad","source":"Embedded","id":"/providers/Microsoft.PowerApps/apis/shared_sharepointonline","tier":"NotSpecified","apiName":"sharepointonline","isProcessSimpleApiReferenceConversionAlreadyDone":false}},"flowFailureAlertSubscribed":false,"isManaged":false}}
+{
+  "name": "258e4d60-1dae-4399-85fc-d3cf8c3a4eb8",
+  "id": "/providers/Microsoft.Flow/flows/258e4d60-1dae-4399-85fc-d3cf8c3a4eb8",
+  "type": "Microsoft.Flow/flows",
+  "properties": {
+    "apiId": "/providers/Microsoft.PowerApps/apis/shared_logicflows",
+    "displayName": "ISAAI – Daily Report Processing",
+    "definition": {
+      "metadata": {
+        "workflowEntityId": null,
+        "processAdvisorMetadata": null,
+        "flowChargedByPaygo": null,
+        "flowclientsuspensionreason": "None",
+        "flowclientsuspensiontime": null,
+        "flowclientsuspensionreasondetails": null,
+        "creator": {
+          "id": "",
+          "type": "User",
+          "tenantId": ""
+        },
+        "provisioningMethod": "FromDefinition",
+        "failureAlertSubscription": true,
+        "clientLastModifiedTime": "2026-06-28T21:00:00.0000000Z",
+        "creationSource": "Portal",
+        "modifiedSources": "Portal"
+      },
+      "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+      "contentVersion": "1.0.0.0",
+      "parameters": {
+        "$authentication": {
+          "defaultValue": {},
+          "type": "SecureObject"
+        },
+        "$connections": {
+          "defaultValue": {},
+          "type": "Object"
+        }
+      },
+      "triggers": {
+        "When_a_new_email_arrives_(V3)": {
+          "splitOn": "@triggerOutputs()?['body/value']",
+          "type": "OpenApiConnectionNotification",
+          "inputs": {
+            "parameters": {
+              "includeAttachments": true,
+              "subjectFilter": "Financial Report",
+              "fetchOnlyWithAttachment": true,
+              "folderPath": "Inbox"
+            },
+            "host": {
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_office365",
+              "connectionName": "shared_office365",
+              "operationId": "OnNewEmailV3"
+            },
+            "authentication": "@parameters('$authentication')"
+          }
+        }
+      },
+      "actions": {
+        "Phase_A__Initialize_Variables": {
+          "actions": {
+            "Initialize_variable_LogItemID": {
+              "runAfter": {},
+              "type": "InitializeVariable",
+              "inputs": {
+                "variables": [
+                  {
+                    "name": "LogItemID",
+                    "type": "integer"
+                  }
+                ]
+              }
+            },
+            "Initialize_variable_Report_Date": {
+              "runAfter": {
+                "Initialize_variable_LogItemID": [
+                  "Succeeded"
+                ]
+              },
+              "type": "InitializeVariable",
+              "inputs": {
+                "variables": [
+                  {
+                    "name": "ReportDate",
+                    "type": "string",
+                    "value": "@{substring(triggerOutputs()?['body/attachments'][0]['name'], 0, 8)}"
+                  }
+                ]
+              }
+            },
+            "Initialize_variable_ReportA_Result": {
+              "runAfter": {
+                "Initialize_variable_Report_Date": [
+                  "Succeeded"
+                ]
+              },
+              "type": "InitializeVariable",
+              "inputs": {
+                "variables": [
+                  {
+                    "name": "ReportA_Result",
+                    "type": "string",
+                    "value": "Pass"
+                  }
+                ]
+              }
+            },
+            "Initialize_variable_ReportB_Result": {
+              "runAfter": {
+                "Initialize_variable_ReportA_Result": [
+                  "Succeeded"
+                ]
+              },
+              "type": "InitializeVariable",
+              "inputs": {
+                "variables": [
+                  {
+                    "name": "ReportB_Result",
+                    "type": "string",
+                    "value": "Pass"
+                  }
+                ]
+              }
+            },
+            "Initialize_variable_ReportA_Details": {
+              "runAfter": {
+                "Initialize_variable_ReportB_Result": [
+                  "Succeeded"
+                ]
+              },
+              "type": "InitializeVariable",
+              "inputs": {
+                "variables": [
+                  {
+                    "name": "ReportA_Details",
+                    "type": "string",
+                    "value": "No violation detected"
+                  }
+                ]
+              }
+            },
+            "Initialize_variable_ReportB_Details": {
+              "runAfter": {
+                "Initialize_variable_ReportA_Details": [
+                  "Succeeded"
+                ]
+              },
+              "type": "InitializeVariable",
+              "inputs": {
+                "variables": [
+                  {
+                    "name": "ReportB_Details",
+                    "type": "string",
+                    "value": "No violation detected"
+                  }
+                ]
+              }
+            }
+          },
+          "runAfter": {},
+          "type": "Scope"
+        },
+        "Phase_B__Create_SharePoint_Entry": {
+          "actions": {
+            "Create_item_in_Report_Processing_Log": {
+              "runAfter": {},
+              "type": "OpenApiConnection",
+              "inputs": {
+                "parameters": {
+                  "dataset": "https://studfrauasde.sharepoint.com/sites/ISAAIDailyReportProcessing",
+                  "table": "Report Processing Log",
+                  "item/Title": "@triggerOutputs()?['body/subject']",
+                  "item/ReceivedDateTime": "@triggerOutputs()?['body/receivedDateTime']",
+                  "item/SenderEmail": "@triggerOutputs()?['body/from']",
+                  "item/ReportDate": "@variables('ReportDate')",
+                  "item/OverallStatus": "Processing",
+                  "item/ExceptionFlag": "No"
+                },
+                "host": {
+                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_sharepointonline",
+                  "connectionName": "shared_sharepointonline",
+                  "operationId": "PostItem"
+                },
+                "authentication": "@parameters('$authentication')"
+              }
+            },
+            "Set_variable_LogItemID": {
+              "runAfter": {
+                "Create_item_in_Report_Processing_Log": [
+                  "Succeeded"
+                ]
+              },
+              "type": "SetVariable",
+              "inputs": {
+                "name": "LogItemID",
+                "value": "@outputs('Create_item_in_Report_Processing_Log')?['body/ID']"
+              }
+            }
+          },
+          "runAfter": {
+            "Phase_A__Initialize_Variables": [
+              "Succeeded"
+            ]
+          },
+          "type": "Scope"
+        },
+        "Phase_C__Extract_ZIP_and_Read_XML": {
+          "actions": {
+            "Apply_to_each_attachment": {
+              "foreach": "@triggerOutputs()?['body/attachments']",
+              "actions": {
+                "Check_if_attachment_is_ZIP": {
+                  "actions": {
+                    "Create_ZIP_file_in_OneDrive": {
+                      "runAfter": {},
+                      "type": "OpenApiConnection",
+                      "inputs": {
+                        "parameters": {
+                          "folderPath": "/Evidence Archive/Temp",
+                          "name": "@items('Apply_to_each_attachment')?['name']",
+                          "body": "@base64ToBinary(items('Apply_to_each_attachment')?['contentBytes'])"
+                        },
+                        "host": {
+                          "apiId": "/providers/Microsoft.PowerApps/apis/shared_onedriveforbusiness",
+                          "connectionName": "shared_onedriveforbusiness",
+                          "operationId": "CreateFile"
+                        },
+                        "authentication": "@parameters('$authentication')"
+                      }
+                    },
+                    "Extract_archive_to_folder": {
+                      "runAfter": {
+                        "Create_ZIP_file_in_OneDrive": [
+                          "Succeeded"
+                        ]
+                      },
+                      "type": "OpenApiConnection",
+                      "inputs": {
+                        "parameters": {
+                          "source": "@outputs('Create_ZIP_file_in_OneDrive')?['body/Id']",
+                          "destination": "/Evidence Archive/Temp/Extracted",
+                          "overwrite": true
+                        },
+                        "host": {
+                          "apiId": "/providers/Microsoft.PowerApps/apis/shared_onedriveforbusiness",
+                          "connectionName": "shared_onedriveforbusiness",
+                          "operationId": "ExtractFolderV2"
+                        },
+                        "authentication": "@parameters('$authentication')"
+                      }
+                    },
+                    "Get_ReportTypeA_XML_content": {
+                      "runAfter": {
+                        "Extract_archive_to_folder": [
+                          "Succeeded"
+                        ]
+                      },
+                      "type": "OpenApiConnection",
+                      "inputs": {
+                        "parameters": {
+                          "path": "/Evidence Archive/Temp/Extracted/@{variables('ReportDate')}_ReportTypeA.xml"
+                        },
+                        "host": {
+                          "apiId": "/providers/Microsoft.PowerApps/apis/shared_onedriveforbusiness",
+                          "connectionName": "shared_onedriveforbusiness",
+                          "operationId": "GetFileContent"
+                        },
+                        "authentication": "@parameters('$authentication')"
+                      }
+                    },
+                    "Compose_XML_A_Content": {
+                      "runAfter": {
+                        "Get_ReportTypeA_XML_content": [
+                          "Succeeded"
+                        ]
+                      },
+                      "type": "Compose",
+                      "inputs": "@body('Get_ReportTypeA_XML_content')"
+                    },
+                    "Get_ReportTypeB_XML_content": {
+                      "runAfter": {
+                        "Extract_archive_to_folder": [
+                          "Succeeded"
+                        ]
+                      },
+                      "type": "OpenApiConnection",
+                      "inputs": {
+                        "parameters": {
+                          "path": "/Evidence Archive/Temp/Extracted/@{variables('ReportDate')}_ReportTypeB.xml"
+                        },
+                        "host": {
+                          "apiId": "/providers/Microsoft.PowerApps/apis/shared_onedriveforbusiness",
+                          "connectionName": "shared_onedriveforbusiness",
+                          "operationId": "GetFileContent"
+                        },
+                        "authentication": "@parameters('$authentication')"
+                      }
+                    },
+                    "Compose_XML_B_Content": {
+                      "runAfter": {
+                        "Get_ReportTypeB_XML_content": [
+                          "Succeeded"
+                        ]
+                      },
+                      "type": "Compose",
+                      "inputs": "@body('Get_ReportTypeB_XML_content')"
+                    }
+                  },
+                  "runAfter": {},
+                  "expression": {
+                    "and": [
+                      {
+                        "endsWith": [
+                          "@items('Apply_to_each_attachment')?['name']",
+                          ".zip"
+                        ]
+                      }
+                    ]
+                  },
+                  "type": "If"
+                }
+              },
+              "runAfter": {},
+              "type": "Foreach"
+            }
+          },
+          "runAfter": {
+            "Phase_B__Create_SharePoint_Entry": [
+              "Succeeded"
+            ]
+          },
+          "type": "Scope"
+        },
+        "Phase_D__Parallel_Validation": {
+          "actions": {
+            "Validate_ReportA": {
+              "actions": {
+                "Compose_MarkerA": {
+                  "runAfter": {},
+                  "type": "Compose",
+                  "inputs": "@xpath(xml(outputs('Compose_XML_A_Content')), 'string(/Report/Data/Row/ViolationMarker)')"
+                },
+                "Check_MarkerA_is_V": {
+                  "actions": {
+                    "Compose_ThresholdA1": {
+                      "runAfter": {},
+                      "type": "Compose",
+                      "inputs": "@int(xpath(xml(outputs('Compose_XML_A_Content')), 'string(/Report/Data/Row/Threshold1)'))"
+                    },
+                    "Compose_ThresholdA2": {
+                      "runAfter": {},
+                      "type": "Compose",
+                      "inputs": "@int(xpath(xml(outputs('Compose_XML_A_Content')), 'string(/Report/Data/Row/Threshold2)'))"
+                    },
+                    "Compose_ThresholdA3": {
+                      "runAfter": {},
+                      "type": "Compose",
+                      "inputs": "@int(xpath(xml(outputs('Compose_XML_A_Content')), 'string(/Report/Data/Row/Threshold3)'))"
+                    },
+                    "Compose_ThresholdA4": {
+                      "runAfter": {},
+                      "type": "Compose",
+                      "inputs": "@int(xpath(xml(outputs('Compose_XML_A_Content')), 'string(/Report/Data/Row/Threshold4)'))"
+                    },
+                    "Check_ThresholdsA_Breached": {
+                      "actions": {
+                        "Set_ReportA_Violation": {
+                          "runAfter": {},
+                          "type": "SetVariable",
+                          "inputs": {
+                            "name": "ReportA_Result",
+                            "value": "Violation"
+                          }
+                        },
+                        "Set_ReportA_Details_Violation": {
+                          "runAfter": {
+                            "Set_ReportA_Violation": [
+                              "Succeeded"
+                            ]
+                          },
+                          "type": "SetVariable",
+                          "inputs": {
+                            "name": "ReportA_Details",
+                            "value": "Threshold breach detected — T1: @{outputs('Compose_ThresholdA1')}, T2: @{outputs('Compose_ThresholdA2')}, T3: @{outputs('Compose_ThresholdA3')}, T4: @{outputs('Compose_ThresholdA4')}. Limit: 50."
+                          }
+                        }
+                      },
+                      "runAfter": {
+                        "Compose_ThresholdA1": [
+                          "Succeeded"
+                        ],
+                        "Compose_ThresholdA2": [
+                          "Succeeded"
+                        ],
+                        "Compose_ThresholdA3": [
+                          "Succeeded"
+                        ],
+                        "Compose_ThresholdA4": [
+                          "Succeeded"
+                        ]
+                      },
+                      "expression": {
+                        "or": [
+                          {
+                            "less": [
+                              "@outputs('Compose_ThresholdA1')",
+                              50
+                            ]
+                          },
+                          {
+                            "less": [
+                              "@outputs('Compose_ThresholdA2')",
+                              50
+                            ]
+                          },
+                          {
+                            "less": [
+                              "@outputs('Compose_ThresholdA3')",
+                              50
+                            ]
+                          },
+                          {
+                            "less": [
+                              "@outputs('Compose_ThresholdA4')",
+                              50
+                            ]
+                          }
+                        ]
+                      },
+                      "type": "If"
+                    }
+                  },
+                  "runAfter": {
+                    "Compose_MarkerA": [
+                      "Succeeded"
+                    ]
+                  },
+                  "expression": {
+                    "and": [
+                      {
+                        "equals": [
+                          "@outputs('Compose_MarkerA')",
+                          "V"
+                        ]
+                      }
+                    ]
+                  },
+                  "type": "If"
+                }
+              },
+              "runAfter": {},
+              "type": "Scope"
+            },
+            "Validate_ReportB": {
+              "actions": {
+                "Compose_MarkerB": {
+                  "runAfter": {},
+                  "type": "Compose",
+                  "inputs": "@xpath(xml(outputs('Compose_XML_B_Content')), 'string(/Report/Data/Row/ViolationMarker)')"
+                },
+                "Check_MarkerB_is_V": {
+                  "actions": {
+                    "Compose_ThresholdB1": {
+                      "runAfter": {},
+                      "type": "Compose",
+                      "inputs": "@int(xpath(xml(outputs('Compose_XML_B_Content')), 'string(/Report/Data/Row/Threshold1)'))"
+                    },
+                    "Compose_ThresholdB2": {
+                      "runAfter": {},
+                      "type": "Compose",
+                      "inputs": "@int(xpath(xml(outputs('Compose_XML_B_Content')), 'string(/Report/Data/Row/Threshold2)'))"
+                    },
+                    "Compose_ThresholdB3": {
+                      "runAfter": {},
+                      "type": "Compose",
+                      "inputs": "@int(xpath(xml(outputs('Compose_XML_B_Content')), 'string(/Report/Data/Row/Threshold3)'))"
+                    },
+                    "Compose_ThresholdB4": {
+                      "runAfter": {},
+                      "type": "Compose",
+                      "inputs": "@int(xpath(xml(outputs('Compose_XML_B_Content')), 'string(/Report/Data/Row/Threshold4)'))"
+                    },
+                    "Check_ThresholdsB_Breached": {
+                      "actions": {
+                        "Set_ReportB_Violation": {
+                          "runAfter": {},
+                          "type": "SetVariable",
+                          "inputs": {
+                            "name": "ReportB_Result",
+                            "value": "Violation"
+                          }
+                        },
+                        "Set_ReportB_Details_Violation": {
+                          "runAfter": {
+                            "Set_ReportB_Violation": [
+                              "Succeeded"
+                            ]
+                          },
+                          "type": "SetVariable",
+                          "inputs": {
+                            "name": "ReportB_Details",
+                            "value": "Threshold breach detected — T1: @{outputs('Compose_ThresholdB1')}, T2: @{outputs('Compose_ThresholdB2')}, T3: @{outputs('Compose_ThresholdB3')}, T4: @{outputs('Compose_ThresholdB4')}. Limit: 50."
+                          }
+                        }
+                      },
+                      "runAfter": {
+                        "Compose_ThresholdB1": [
+                          "Succeeded"
+                        ],
+                        "Compose_ThresholdB2": [
+                          "Succeeded"
+                        ],
+                        "Compose_ThresholdB3": [
+                          "Succeeded"
+                        ],
+                        "Compose_ThresholdB4": [
+                          "Succeeded"
+                        ]
+                      },
+                      "expression": {
+                        "or": [
+                          {
+                            "less": [
+                              "@outputs('Compose_ThresholdB1')",
+                              50
+                            ]
+                          },
+                          {
+                            "less": [
+                              "@outputs('Compose_ThresholdB2')",
+                              50
+                            ]
+                          },
+                          {
+                            "less": [
+                              "@outputs('Compose_ThresholdB3')",
+                              50
+                            ]
+                          },
+                          {
+                            "less": [
+                              "@outputs('Compose_ThresholdB4')",
+                              50
+                            ]
+                          }
+                        ]
+                      },
+                      "type": "If"
+                    }
+                  },
+                  "runAfter": {
+                    "Compose_MarkerB": [
+                      "Succeeded"
+                    ]
+                  },
+                  "expression": {
+                    "and": [
+                      {
+                        "equals": [
+                          "@outputs('Compose_MarkerB')",
+                          "V"
+                        ]
+                      }
+                    ]
+                  },
+                  "type": "If"
+                }
+              },
+              "runAfter": {},
+              "type": "Scope"
+            }
+          },
+          "runAfter": {
+            "Phase_C__Extract_ZIP_and_Read_XML": [
+              "Succeeded"
+            ]
+          },
+          "type": "Scope"
+        },
+        "Phase_E__Evidence_and_Presentation": {
+          "actions": {
+            "Copy_evidence_ReportA_to_SharePoint": {
+              "runAfter": {},
+              "type": "OpenApiConnection",
+              "inputs": {
+                "parameters": {
+                  "dataset": "https://studfrauasde.sharepoint.com/sites/ISAAIDailyReportProcessing",
+                  "folderPath": "/Evidence Archive/Evidence",
+                  "name": "@{variables('ReportDate')}_evidence_ReportTypeA.csv",
+                  "body": "Report Date,Report Type,Validation Status,Breach Details\n@{variables('ReportDate')},ReportTypeA,@{variables('ReportA_Result')},@{variables('ReportA_Details')}"
+                },
+                "host": {
+                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_sharepointonline",
+                  "connectionName": "shared_sharepointonline",
+                  "operationId": "CreateFile"
+                },
+                "authentication": "@parameters('$authentication')"
+              }
+            },
+            "Copy_evidence_ReportB_to_SharePoint": {
+              "runAfter": {},
+              "type": "OpenApiConnection",
+              "inputs": {
+                "parameters": {
+                  "dataset": "https://studfrauasde.sharepoint.com/sites/ISAAIDailyReportProcessing",
+                  "folderPath": "/Evidence Archive/Evidence",
+                  "name": "@{variables('ReportDate')}_evidence_ReportTypeB.csv",
+                  "body": "Report Date,Report Type,Validation Status,Breach Details\n@{variables('ReportDate')},ReportTypeB,@{variables('ReportB_Result')},@{variables('ReportB_Details')}"
+                },
+                "host": {
+                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_sharepointonline",
+                  "connectionName": "shared_sharepointonline",
+                  "operationId": "CreateFile"
+                },
+                "authentication": "@parameters('$authentication')"
+              }
+            },
+            "Copy_PPTX_template": {
+              "runAfter": {},
+              "type": "OpenApiConnection",
+              "inputs": {
+                "parameters": {
+                  "dataset": "https://studfrauasde.sharepoint.com/sites/ISAAIDailyReportProcessing",
+                  "source": "/Evidence Archive/Templates/daily_run_template.pptx",
+                  "destination": "/Evidence Archive/Presentations/@{variables('ReportDate')}_Run_Summary.pptx",
+                  "overwrite": true
+                },
+                "host": {
+                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_sharepointonline",
+                  "connectionName": "shared_sharepointonline",
+                  "operationId": "CopyFile"
+                },
+                "authentication": "@parameters('$authentication')"
+              }
+            },
+            "Populate_PPTX_from_template": {
+              "runAfter": {
+                "Copy_PPTX_template": [
+                  "Succeeded"
+                ]
+              },
+              "type": "OpenApiConnection",
+              "inputs": {
+                "parameters": {
+                  "source": "https://studfrauasde.sharepoint.com/sites/ISAAIDailyReportProcessing",
+                  "file": "/Evidence Archive/Presentations/@{variables('ReportDate')}_Run_Summary.pptx",
+                  "templateParameters": {
+                    "ReportDate": "@{variables('ReportDate')}",
+                    "ReportA_Status": "@{variables('ReportA_Result')}",
+                    "ReportB_Status": "@{variables('ReportB_Result')}",
+                    "ReportA_Details": "@{variables('ReportA_Details')}",
+                    "ReportB_Details": "@{variables('ReportB_Details')}"
+                  }
+                },
+                "host": {
+                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_office365",
+                  "connectionName": "shared_office365",
+                  "operationId": "PopulateTemplate"
+                },
+                "authentication": "@parameters('$authentication')"
+              }
+            }
+          },
+          "runAfter": {
+            "Phase_D__Parallel_Validation": [
+              "Succeeded"
+            ]
+          },
+          "type": "Scope"
+        },
+        "Phase_F__Exception_Gate_and_Completion": {
+          "actions": {
+            "Check_for_violations": {
+              "actions": {
+                "Update_SharePoint_Exception": {
+                  "runAfter": {},
+                  "type": "OpenApiConnection",
+                  "inputs": {
+                    "parameters": {
+                      "dataset": "https://studfrauasde.sharepoint.com/sites/ISAAIDailyReportProcessing",
+                      "table": "Report Processing Log",
+                      "id": "@variables('LogItemID')",
+                      "item/ReportA_Status": "@variables('ReportA_Result')",
+                      "item/ReportB_Status": "@variables('ReportB_Result')",
+                      "item/ReportA_ViolationDetails": "@variables('ReportA_Details')",
+                      "item/ReportB_ViolationDetails": "@variables('ReportB_Details')",
+                      "item/OverallStatus": "Exception",
+                      "item/ExceptionFlag": "Yes",
+                      "item/EvidenceA_Link": "https://studfrauasde.sharepoint.com/sites/ISAAIDailyReportProcessing/Evidence%20Archive/Evidence/@{variables('ReportDate')}_evidence_ReportTypeA.csv",
+                      "item/EvidenceB_Link": "https://studfrauasde.sharepoint.com/sites/ISAAIDailyReportProcessing/Evidence%20Archive/Evidence/@{variables('ReportDate')}_evidence_ReportTypeB.csv",
+                      "item/Presentation_Link": "https://studfrauasde.sharepoint.com/sites/ISAAIDailyReportProcessing/Evidence%20Archive/Presentations/@{variables('ReportDate')}_Run_Summary.pptx"
+                    },
+                    "host": {
+                      "apiId": "/providers/Microsoft.PowerApps/apis/shared_sharepointonline",
+                      "connectionName": "shared_sharepointonline",
+                      "operationId": "PatchItem"
+                    },
+                    "authentication": "@parameters('$authentication')"
+                  }
+                },
+                "Send_exception_email_to_supervisor": {
+                  "runAfter": {
+                    "Update_SharePoint_Exception": [
+                      "Succeeded"
+                    ]
+                  },
+                  "type": "OpenApiConnection",
+                  "inputs": {
+                    "parameters": {
+                      "emailMessage/To": "supervisor@example.com",
+                      "emailMessage/Subject": "⚠️ ISAAI Exception — @{variables('ReportDate')} Report Validation Failed",
+                      "emailMessage/Body": "<h2>Exception Alert — Daily Report Validation</h2><p><strong>Report Date:</strong> @{variables('ReportDate')}</p><p><strong>Report A Status:</strong> @{variables('ReportA_Result')}</p><p><strong>Report A Details:</strong> @{variables('ReportA_Details')}</p><p><strong>Report B Status:</strong> @{variables('ReportB_Result')}</p><p><strong>Report B Details:</strong> @{variables('ReportB_Details')}</p><p>Please review the evidence files and presentation in the <a href=\"https://studfrauasde.sharepoint.com/sites/ISAAIDailyReportProcessing/Evidence%20Archive\">Evidence Archive</a>.</p>",
+                      "emailMessage/Importance": "High",
+                      "emailMessage/IsHtml": true
+                    },
+                    "host": {
+                      "apiId": "/providers/Microsoft.PowerApps/apis/shared_office365",
+                      "connectionName": "shared_office365",
+                      "operationId": "SendEmailV2"
+                    },
+                    "authentication": "@parameters('$authentication')"
+                  }
+                }
+              },
+              "else": {
+                "actions": {
+                  "Update_SharePoint_Completed": {
+                    "runAfter": {},
+                    "type": "OpenApiConnection",
+                    "inputs": {
+                      "parameters": {
+                        "dataset": "https://studfrauasde.sharepoint.com/sites/ISAAIDailyReportProcessing",
+                        "table": "Report Processing Log",
+                        "id": "@variables('LogItemID')",
+                        "item/ReportA_Status": "@variables('ReportA_Result')",
+                        "item/ReportB_Status": "@variables('ReportB_Result')",
+                        "item/ReportA_ViolationDetails": "@variables('ReportA_Details')",
+                        "item/ReportB_ViolationDetails": "@variables('ReportB_Details')",
+                        "item/OverallStatus": "Completed",
+                        "item/ExceptionFlag": "No",
+                        "item/EvidenceA_Link": "https://studfrauasde.sharepoint.com/sites/ISAAIDailyReportProcessing/Evidence%20Archive/Evidence/@{variables('ReportDate')}_evidence_ReportTypeA.csv",
+                        "item/EvidenceB_Link": "https://studfrauasde.sharepoint.com/sites/ISAAIDailyReportProcessing/Evidence%20Archive/Evidence/@{variables('ReportDate')}_evidence_ReportTypeB.csv",
+                        "item/Presentation_Link": "https://studfrauasde.sharepoint.com/sites/ISAAIDailyReportProcessing/Evidence%20Archive/Presentations/@{variables('ReportDate')}_Run_Summary.pptx"
+                      },
+                      "host": {
+                        "apiId": "/providers/Microsoft.PowerApps/apis/shared_sharepointonline",
+                        "connectionName": "shared_sharepointonline",
+                        "operationId": "PatchItem"
+                      },
+                      "authentication": "@parameters('$authentication')"
+                    }
+                  },
+                  "Send_completion_email": {
+                    "runAfter": {
+                      "Update_SharePoint_Completed": [
+                        "Succeeded"
+                      ]
+                    },
+                    "type": "OpenApiConnection",
+                    "inputs": {
+                      "parameters": {
+                        "emailMessage/To": "team@example.com",
+                        "emailMessage/Subject": "✅ ISAAI Completed — @{variables('ReportDate')} Report Validation Passed",
+                        "emailMessage/Body": "<h2>Daily Report Validation Passed</h2><p><strong>Report Date:</strong> @{variables('ReportDate')}</p><p><strong>Report A Status:</strong> @{variables('ReportA_Result')}</p><p><strong>Report B Status:</strong> @{variables('ReportB_Result')}</p><p>Evidence files and presentation have been archived in the <a href=\"https://studfrauasde.sharepoint.com/sites/ISAAIDailyReportProcessing/Evidence%20Archive\">Evidence Archive</a>.</p>",
+                        "emailMessage/Importance": "Normal",
+                        "emailMessage/IsHtml": true
+                      },
+                      "host": {
+                        "apiId": "/providers/Microsoft.PowerApps/apis/shared_office365",
+                        "connectionName": "shared_office365",
+                        "operationId": "SendEmailV2"
+                      },
+                      "authentication": "@parameters('$authentication')"
+                    }
+                  }
+                }
+              },
+              "runAfter": {},
+              "expression": {
+                "or": [
+                  {
+                    "equals": [
+                      "@variables('ReportA_Result')",
+                      "Violation"
+                    ]
+                  },
+                  {
+                    "equals": [
+                      "@variables('ReportB_Result')",
+                      "Violation"
+                    ]
+                  }
+                ]
+              },
+              "type": "If"
+            }
+          },
+          "runAfter": {
+            "Phase_E__Evidence_and_Presentation": [
+              "Succeeded"
+            ]
+          },
+          "type": "Scope"
+        }
+      },
+      "outputs": {}
+    },
+    "connectionReferences": {
+      "shared_office365": {
+        "connectionName": "",
+        "source": "Invoker",
+        "id": "/providers/Microsoft.PowerApps/apis/shared_office365",
+        "tier": "NotSpecified",
+        "apiName": "office365"
+      },
+      "shared_sharepointonline": {
+        "connectionName": "",
+        "source": "Invoker",
+        "id": "/providers/Microsoft.PowerApps/apis/shared_sharepointonline",
+        "tier": "NotSpecified",
+        "apiName": "sharepointonline"
+      },
+      "shared_onedriveforbusiness": {
+        "connectionName": "",
+        "source": "Invoker",
+        "id": "/providers/Microsoft.PowerApps/apis/shared_onedriveforbusiness",
+        "tier": "NotSpecified",
+        "apiName": "onedriveforbusiness"
+      }
+    },
+    "flowFailureAlertSubscribed": true,
+    "isManaged": false
+  }
+}

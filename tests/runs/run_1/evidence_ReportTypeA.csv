@@ -1,0 +1,2 @@
+Report Date,Report Type,Validation Status,Breach Details
+20260529,ReportTypeA,Pass,"Violation marker present but thresholds healthy: {'Threshold1': 97, 'Threshold2': 67, 'Threshold3': 65, 'Threshold4': 64}"

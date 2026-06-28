@@ -169,7 +169,8 @@ def send_email(zip_path, date_str, smtp_config):
 
 def main():
     parser = argparse.ArgumentParser(description="Simulate daily report validation runs.")
-    parser.add_argument("--count", type=int, default=10, help="Number of daily runs to simulate.")
+    parser.add_argument("--count", type=int, default=30, help="Number of daily runs to simulate (default: 30).")
+    parser.add_argument("--seed", type=int, default=42, help="Random seed for reproducible data generation (default: 42).")
     parser.add_argument("--send", action="store_true", help="Send generated ZIP files via email to trigger the flow.")
     parser.add_argument("--dry-run", action="store_true", help="Only generate files locally (default).")
     
@@ -201,7 +202,8 @@ def main():
             print("Please configure them via command line arguments or a .env file.")
             sys.exit(1)
 
-    print(f"Starting simulation of {args.count} daily runs...")
+    random.seed(args.seed)
+    print(f"Starting simulation of {args.count} daily runs (seed={args.seed})...")
     print(f"Test data will end up locally in: {TESTS_DIR.relative_to(ROOT)}")
     
     start_date = datetime.now() - timedelta(days=args.count)

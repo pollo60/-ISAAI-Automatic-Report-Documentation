@@ -28,6 +28,7 @@ ENV/
 # IDE
 .vscode/
 .idea/
+.cursor/
 
 # OS
 .DS_Store
@@ -52,17 +53,20 @@ presentations/*.tmp
 *.aux
 *.fdb_latexmk
 *.fls
-*.log
 *.out
 *.synctex.gz
 *.toc
 
-# Test runs
-tests/runs/
+# Large video recordings (may exceed GitHub 100MB limit)
+*.mov
 
-# Generated presentations
-presentations/Automated Presentations/*_Run_Summary.pptx
+# ArchiMate backup files
+*.archimate.bak
 
 # Power Automate Installers
 src/*.exe
 src/*.exe:*
+
+# Zone Identifier files (Windows ADS metadata)
+*:Zone.Identifier
+*:SmartScreen
