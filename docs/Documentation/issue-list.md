@@ -14,7 +14,7 @@
 - [ ] Create JSON/CSV transformation schema for ISA data
 - [ ] Develop automated chart generation (bar charts, pie charts, trends)
 - [ ] Implement presentation export functionality (PowerPoint/PDF)
-- [ ] **Implement "Bereitstellung für Operator": Magic chart system for professor requirements**
+- [ ] **Implement "Operator Provisioning": Automated chart system for professor requirements**
 - [ ] Add unit tests for ISA extraction and visualization components
 
 ## M3: A+I Module Development

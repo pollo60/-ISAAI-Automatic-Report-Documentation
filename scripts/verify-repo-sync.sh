@@ -22,6 +22,6 @@ fi
 
 echo ""
 echo "=== Critical paths ==="
-for p in README.md MASTER_PROMPT.md docs/Documentation .github/workflows src tests presentations; do
+for p in README.md docs/Documentation docs/guides .github/workflows src scripts tests presentations; do
   if [[ -e "$p" ]]; then echo "OK  $p"; else echo "MISS $p"; fi
 done

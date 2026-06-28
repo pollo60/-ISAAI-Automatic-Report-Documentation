@@ -5,8 +5,6 @@ on:
     branches: [ main, develop ]
   pull_request:
     branches: [ main, develop ]
-  schedule:
-    - cron: '0 */6 * * *'
 
 jobs:
   sync-validation:
@@ -19,10 +17,10 @@ jobs:
         run: |
           critical_files=(
             "README.md"
-            "MASTER_PROMPT.md"
             "docs/Documentation/"
+            "docs/guides/"
             "src/"
-            ".github/workflows/"
+            "scripts/"
             "presentations/"
           )
           for file in "${critical_files[@]}"; do
@@ -36,11 +34,12 @@ jobs:
       - name: Validate documentation structure
         run: |
           required_docs=(
-            "docs/README.md"
             "docs/Documentation/Architecture/"
             "docs/Documentation/Process Modeling/"
-            "docs/api/openapi/"
-            "docs/compliance/"
+            "docs/Documentation/Architecture/CURRENT Architecture/"
+            "docs/Documentation/Architecture/VISION Architecture/"
+            "docs/Documentation/Architecture/GOAL Architecture/"
+            "docs/guides/SHAREPOINT_FLOW_GUIDE.md"
           )
           for doc in "${required_docs[@]}"; do
             if [ ! -e "$doc" ]; then
@@ -49,6 +48,22 @@ jobs:
             fi
           done
           echo "Documentation structure valid"
+
+      - name: Validate flow package
+        run: |
+          if ls src/flow/ISAAI*.zip 1>/dev/null 2>&1; then
+            echo "Flow package found"
+          else
+            echo "Missing Power Automate flow package"
+            exit 1
+          fi
+
+      - name: Validate JSON files
+        run: |
+          for f in $(find src/flow -name "*.json" -not -path "*/\.*"); do
+            python3 -c "import json; json.load(open('$f'))" || { echo "Invalid JSON: $f"; exit 1; }
+          done
+          echo "All JSON files valid"
 
       - name: Sync check report
         if: success()
