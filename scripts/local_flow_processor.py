@@ -4,7 +4,7 @@
 Simulates the Power Automate (Microsoft Flow) logic completely offline:
 1. Extracts ZIP attachments from tests/runs/ directories.
 2. Parses the XML data using native XML parsing.
-3. Evaluates the two-step validation rules (Marker = 'V', Schwellenwert < 50).
+3. Evaluates the two-step validation rules (Marker = 'V', Threshold < 50).
 4. Generates local CSV/Excel evidence sheets.
 5. Populates a local PowerPoint run summary template.
 6. Logs all results into a local CSV mimicking your SharePoint List schema.
@@ -36,8 +36,8 @@ SHAREPOINT_LOG_CSV = TESTS_DIR / "Report_Processing_Log_Local.csv"
 CSV_COLUMNS = [
     "Titel", "ReceivedDateTime", "SenderEmail", "ReportDate",
     "ReportA_Status", "ReportB_Status", "ReportA_ViolationDetails",
-    "ReportB_ViolationDetails ", "OverallStatus", "ExceptionFlag",
-    "EvidenceA_Link", "EvidenceB_Link ", "Presentation_Link"
+    "ReportB_ViolationDetails", "OverallStatus", "ExceptionFlag",
+    "EvidenceA_Link", "EvidenceB_Link", "Presentation_Link"
 ]
 
 THRESHOLD_LIMIT = 50
@@ -90,11 +90,10 @@ def setup_powerpoint_template():
     return template_path
 
 def init_log_file():
-    """Initializes the mock SharePoint List CSV locally if it doesn't exist."""
-    if not SHAREPOINT_LOG_CSV.exists():
-        with open(SHAREPOINT_LOG_CSV, "w", newline="", encoding="utf-8") as f:
-            writer = csv.writer(f)
-            writer.writerow(CSV_COLUMNS)
+    """Initializes the mock SharePoint List CSV locally (always fresh)."""
+    with open(SHAREPOINT_LOG_CSV, "w", newline="", encoding="utf-8") as f:
+        writer = csv.writer(f)
+        writer.writerow(CSV_COLUMNS)
 
 def parse_xml_rules(xml_path):
     """Parses XML and evaluates the two-step validation rules."""
@@ -216,11 +215,11 @@ def process_run(run_path, template_path):
         "ReportA_Status": status_a,
         "ReportB_Status": status_b,
         "ReportA_ViolationDetails": details_a,
-        "ReportB_ViolationDetails ": details_b,
+        "ReportB_ViolationDetails": details_b,
         "OverallStatus": overall_status,
         "ExceptionFlag": exception_flag,
         "EvidenceA_Link": str(evidence_a.relative_to(ROOT)),
-        "EvidenceB_Link ": str(evidence_b.relative_to(ROOT)),
+        "EvidenceB_Link": str(evidence_b.relative_to(ROOT)),
         "Presentation_Link": str(presentation_path.relative_to(ROOT))
     }
     
