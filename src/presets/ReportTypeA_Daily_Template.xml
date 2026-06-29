@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ISAAI Report Type A — Daily Record Preset
+  
+  Coverage:  Previous business day (daily snapshot)
+  Frequency: Daily, at agreed processing time
+  Purpose:   Detects same-day threshold breaches
+  
+  Validation Rules:
+    Step 1: Check DayViol marker for value "V" (violation flag)
+    Step 2: If DayViol = "V", check Threshold1–4 against limit (< 50 = breach)
+  
+  Status Values (from SharePoint dropdown):
+    ReportA_Status:  Pass | Violation | Error | Pending
+    OverallStatus:   Completed | Exception | Processing | Failed
+    ExceptionFlag:   Yes | No
+-->
+<Report type="ReportTypeA" date="YYYYMMDD">
+  <Metadata>
+    <ReportID>RPT-XXXXXX</ReportID>
+    <GeneratedAt>ISO-TIMESTAMP</GeneratedAt>
+    <Description>Daily financial report — previous business day snapshot</Description>
+    <CoveragePeriod>Daily</CoveragePeriod>
+  </Metadata>
+  <Data>
+    <Row>
+      <RowID>1</RowID>
+      <DayViol>N</DayViol>
+      <Threshold1>75</Threshold1>
+      <Threshold2>82</Threshold2>
+      <Threshold3>91</Threshold3>
+      <Threshold4>68</Threshold4>
+    </Row>
+  </Data>
+</Report>

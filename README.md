@@ -67,7 +67,7 @@ The VISION describes the planned architecture after automation: email ingestion,
 
 ### 2.3 GOAL (Realized State)
 
-The GOAL state represents the actually implemented solution — the completed Power Automate flow with SharePoint integration, parallel XML validation, and automatic PowerPoint generation.
+The GOAL state represents the actually implemented solution — the completed Power Automate flow with SharePoint integration, parallel XML validation, and automatic XLSX evidence file generation.
 
 **ArchiMate GOAL — Realized Architecture:**
 
@@ -79,7 +79,70 @@ The GOAL state represents the actually implemented solution — the completed Po
 
 ---
 
-## 3. Power Automate Flow — Technical Architecture
+## 3. Report Types & XML Presets
+
+Two report types are processed daily, each using a distinct violation marker:
+
+| Attribute | Report Type A (Daily) | Report Type B (Monthly) |
+|---|---|---|
+| **Coverage period** | Previous business day (daily snapshot) | Month-to-date cumulative |
+| **Delivery frequency** | Daily, at agreed processing time | Daily, alongside Report Type A |
+| **Violation marker** | `<DayViol>` | `<MonthViol>` |
+| **Purpose** | Detects same-day threshold breaches | Tracks cumulative monthly breach trend |
+
+### XML Structure — Report A (Daily)
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<Report type="ReportTypeA" date="20260610">
+  <Metadata>
+    <ReportID>RPT-651910</ReportID>
+    <GeneratedAt>2026-06-25T13:52:06</GeneratedAt>
+    <Description>Daily financial report — previous business day snapshot</Description>
+    <CoveragePeriod>Daily</CoveragePeriod>
+  </Metadata>
+  <Data>
+    <Row>
+      <RowID>1</RowID>
+      <DayViol>N</DayViol>
+      <Threshold1>77</Threshold1>
+      <Threshold2>92</Threshold2>
+      <Threshold3>72</Threshold3>
+      <Threshold4>89</Threshold4>
+    </Row>
+  </Data>
+</Report>
+```
+
+### XML Structure — Report B (Monthly)
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<Report type="ReportTypeB" date="20260610">
+  <Metadata>
+    <ReportID>RPT-834215</ReportID>
+    <GeneratedAt>2026-06-25T13:52:06</GeneratedAt>
+    <Description>Monthly financial report — month-to-date cumulative</Description>
+    <CoveragePeriod>Monthly</CoveragePeriod>
+  </Metadata>
+  <Data>
+    <Row>
+      <RowID>1</RowID>
+      <MonthViol>V</MonthViol>
+      <Threshold1>88</Threshold1>
+      <Threshold2>42</Threshold2>
+      <Threshold3>95</Threshold3>
+      <Threshold4>61</Threshold4>
+    </Row>
+  </Data>
+</Report>
+```
+
+Reference presets are provided in `src/presets/`.
+
+---
+
+## 4. Power Automate Flow — Technical Architecture
 
 The flow **"ISAAI – Daily Report Processing"** is structured in six phases and is fully included as an importable Power Automate package in this repository.
 
@@ -100,13 +163,15 @@ src/flow/ISAAI–DailyReportProcessing_20260625165442.zip
 - Reads `ReportTypeA.xml` and `ReportTypeB.xml` as text content
 
 ### Phase D: Parallel Validation
-- **Left branch (Report A):** XPath query on `ViolationMarker` → if `V`: threshold check (Threshold1–4 < 50 → Violation)
-- **Right branch (Report B):** Identical logic for Report Type B
+- **Left branch (Report A):** XPath query on `DayViol` → if `V`: threshold check (Threshold1–4 < 50 → Violation)
+- **Right branch (Report B):** XPath query on `MonthViol` → identical threshold logic
 - Both branches execute in parallel
 
-### Phase E: Evidence & Presentation
-- CSV evidence files are saved to `/Evidence Archive/Evidence/`
-- PowerPoint template is copied and populated with validation results (`{{ReportDate}}`, `{{ReportA_Status}}`, etc.)
+### Phase E: Evidence Storage
+- XLSX evidence files are saved to `/Evidence Archive/Evidence/` (Report A and B separately)
+- Original XML files are archived to `/Evidence Archive/XML Archive/`
+- Report A evidence includes: DayViol marker, all threshold values, validation status
+- Report B evidence includes: MonthViol marker, all threshold values, validation status
 
 ### Phase F: Exception Gate & Completion
 - **Violation detected:** SharePoint → `Exception`, email to supervisor (priority: High)
@@ -115,21 +180,21 @@ src/flow/ISAAI–DailyReportProcessing_20260625165442.zip
 ### Two-Step Validation Logic
 
 ```
-┌─────────────────────────────────────────────────────┐
-│  Step 1: ViolationMarker == "V"?                    │
-│          No  → Pass (Clean)                         │
-│          Yes → proceed to Step 2                    │
-│                                                     │
-│  Step 2: Threshold1..4 < 50?                        │
-│          All ≥ 50 → Pass (Marker present,           │
-│                      but thresholds healthy)        │
-│          At least 1 < 50 → VIOLATION → Exception    │
-└─────────────────────────────────────────────────────┘
+┌──────────────────────────────────────────────────────────────────┐
+│  Report A: Step 1 — DayViol == "V"?                             │
+│  Report B: Step 1 — MonthViol == "V"?                           │
+│            No  → Pass (Clean — no marker)                       │
+│            Yes → proceed to Step 2                              │
+│                                                                  │
+│  Step 2: Threshold1..4 < 50?                                     │
+│          All ≥ 50 → Pass (Marker present but thresholds healthy) │
+│          At least 1 < 50 → VIOLATION → Exception                 │
+└──────────────────────────────────────────────────────────────────┘
 ```
 
 ---
 
-## 4. Test Data & Simulations
+## 5. Test Data & Simulations
 
 The repository contains scripts for a complete offline simulation of the Power Automate flow.
 
@@ -137,7 +202,7 @@ The repository contains scripts for a complete offline simulation of the Power A
 
 ```bash
 # 1. Install dependencies
-pip install python-pptx
+pip install python-pptx openpyxl
 
 # 2. Generate test runs (30 days, reproducible)
 python scripts/simulate_runs.py --count 30 --seed 42
@@ -145,48 +210,30 @@ python scripts/simulate_runs.py --count 30 --seed 42
 # 3. Local processing (simulates the Power Automate flow)
 python scripts/local_flow_processor.py
 
-# 4. Generate consolidated presentation
-python scripts/generate_automated_presentations.py
+# 4. Generate consolidated findings presentation
+python scripts/generate_findings_presentation.py
 ```
 
-### Results Overview (30 Runs)
+### Evidence Output
 
-| Status | Count | Share |
-|--------|-------|-------|
-| ✅ Completed (Happy Path) | 27 | 90.0% |
-| ⚠️ Exception (Threshold Breach) | 3 | 10.0% |
+Each run generates:
+- `evidence_ReportTypeA.xlsx` — Styled XLSX with DayViol marker, thresholds, and breach details
+- `evidence_ReportTypeB.xlsx` — Styled XLSX with MonthViol marker, thresholds, and breach details
+- `summary.txt` — Human-readable validation summary
 
-**Example of a Threshold Breach (Run 4, Report B):**
-- ViolationMarker: `V`
-- At least one Threshold < 50 → **BREACH**
-- Result: `Exception`, supervisor email triggered
+### SharePoint List Status Values
 
-### XML Data Structure
+These values match the dropdown menus in the SharePoint list schema:
 
-```xml
-<?xml version="1.0" encoding="UTF-8"?>
-<Report type="ReportTypeA" date="20260610">
-  <Metadata>
-    <ReportID>RPT-651910</ReportID>
-    <GeneratedAt>2026-06-25T13:52:06</GeneratedAt>
-    <Description>Simulated daily financial report snapshot</Description>
-  </Metadata>
-  <Data>
-    <Row>
-      <RowID>1</RowID>
-      <ViolationMarker>N</ViolationMarker>
-      <Threshold1>77</Threshold1>
-      <Threshold2>92</Threshold2>
-      <Threshold3>72</Threshold3>
-      <Threshold4>89</Threshold4>
-    </Row>
-  </Data>
-</Report>
-```
+| Column | Allowed Values |
+|--------|---------------|
+| `ReportA_Status` / `ReportB_Status` | **Pass**, **Violation**, **Error**, **Pending** |
+| `OverallStatus` | **Completed**, **Exception**, **Processing**, **Failed** |
+| `ExceptionFlag` | **Yes**, **No** |
 
 ---
 
-## 5. SharePoint List — Schema
+## 6. SharePoint List — Schema
 
 The SharePoint list **"Report Processing Log"** serves as the central audit trail:
 
@@ -202,13 +249,12 @@ The SharePoint list **"Report Processing Log"** serves as the central audit trai
 | `ReportB_ViolationDetails` | Multiline Text | Details on violation |
 | `OverallStatus` | Choice | `Completed` / `Exception` / `Processing` / `Failed` |
 | `ExceptionFlag` | Yes/No | Escalation triggered? |
-| `EvidenceA_Link` | Hyperlink | Link to evidence file A |
-| `EvidenceB_Link` | Hyperlink | Link to evidence file B |
-| `Presentation_Link` | Hyperlink | Link to generated presentation |
+| `EvidenceA_Link` | Hyperlink | Link to Report A evidence (.xlsx) |
+| `EvidenceB_Link` | Hyperlink | Link to Report B evidence (.xlsx) |
 
 ---
 
-## 6. Repository Structure
+## 7. Repository Structure
 
 ```
 ISAAI-Automatic-Report-Documentation/
@@ -241,14 +287,17 @@ ISAAI-Automatic-Report-Documentation/
 │   │           ├── definition.json              ← Complete flow logic
 │   │           ├── apisMap.json
 │   │           └── connectionsMap.json
+│   ├── presets/
+│   │   ├── ReportTypeA_Daily_Template.xml       ← Daily report XML preset
+│   │   ├── ReportTypeB_Monthly_Template.xml     ← Monthly report XML preset
+│   │   └── README.md                            ← Preset documentation
 │   └── report_template/
-│       ├── daily_run_template.pptx              ← PowerPoint template
 │       └── Report Processing Log (1).csv        ← SharePoint CSV schema
 │
 ├── scripts/
 │   ├── simulate_runs.py               ← Generates mock XML/ZIP test data
 │   ├── local_flow_processor.py        ← Simulates the flow locally (offline)
-│   ├── generate_automated_presentations.py  ← Creates consolidated PPTX
+│   ├── generate_findings_presentation.py  ← Creates consolidated findings PPTX
 │   └── build_boardroom_deck.py        ← Creates the boardroom deck
 │
 ├── tests/
@@ -257,24 +306,22 @@ ISAAI-Automatic-Report-Documentation/
 │   │       ├── YYYYMMDD_ReportTypeA.xml
 │   │       ├── YYYYMMDD_ReportTypeB.xml
 │   │       ├── YYYYMMDD_Reports.zip
-│   │       ├── evidence_ReportTypeA.csv
-│   │       ├── evidence_ReportTypeB.csv
+│   │       ├── evidence_ReportTypeA.xlsx  ← XLSX evidence (DayViol + thresholds)
+│   │       ├── evidence_ReportTypeB.xlsx  ← XLSX evidence (MonthViol + thresholds)
 │   │       └── summary.txt
 │   ├── Report_Processing_Log_Local.csv  ← Local SharePoint equivalent
-│   └── Email_Report_Schema (1).xlsx     ← Excel schema of report structure
+│   └── Email_Report_Schema (1).xlsx     ← SharePoint list schema definition
 │
 └── presentations/
-    ├── Automated Presentations/       ← Auto-generated daily PPTX files
-    │   ├── YYYYMMDD_Run_Summary.pptx  ← One presentation per run
-    │   └── ISAAI-Runs-Summary-Deck.pptx  ← Consolidated audit deck
+    ├── ISAAI-Consolidated-Findings.pptx  ← Single consolidated findings deck
     └── Project Presentation/
-        ├── praesi isa 2906.pptx.pptx  ← ISA module presentation
-        └── praesi ai 2906.pptx.pptx   ← A+I module presentation
+        ├── praesi isa 2906.pptx.pptx     ← ISA module presentation
+        └── praesi ai 2906.pptx.pptx      ← A+I module presentation
 ```
 
 ---
 
-## 7. Importing the Flow — Instructions
+## 8. Importing the Flow — Instructions
 
 1. Open [Power Automate](https://make.powerautomate.com/)
 2. Navigate to **My Flows → Import → Import Package (Legacy)**
@@ -288,23 +335,32 @@ ISAAI-Automatic-Report-Documentation/
 
 > **Prerequisite:** A SharePoint site with the list "Report Processing Log" and the document library "Evidence Archive" must exist. See [`docs/guides/SHAREPOINT_FLOW_GUIDE.md`](docs/guides/SHAREPOINT_FLOW_GUIDE.md) for the complete setup guide.
 
+### Testing via Power Automate
+
+To test the flow using Microsoft's built-in testing feature:
+1. Open the imported flow in the Power Automate designer
+2. Click **Test** in the top-right corner
+3. Select **Manually** and click **Test**
+4. Send an email with subject "Financial Report" and a ZIP attachment containing the XML files from `tests/runs/`
+5. Watch the flow execute in real-time in the test view
+
 ---
 
-## 8. Technology Stack
+## 9. Technology Stack
 
 | Component | Technology |
 |-----------|------------|
 | Automation | Microsoft Power Automate (Cloud Flow) |
 | Data Storage | SharePoint Online (Lists + Document Library) |
+| Evidence Format | XLSX (Excel) |
 | Architecture Modeling | ArchiMate 3.1 (Archi) |
 | Process Modeling | BPMN 2.0 |
-| Local Simulation | Python 3, `python-pptx` |
+| Local Simulation | Python 3, `openpyxl`, `python-pptx` |
 | Version Control | Git / GitHub |
-| Presentations | PowerPoint (auto-generated) |
 
 ---
 
-## 9. Authors
+## 10. Authors
 
 - **Altay Hennig** — Frankfurt University of Applied Sciences
 - Modules: ISA (Information Systems Architecture) & A+I (Architecture & Integration)

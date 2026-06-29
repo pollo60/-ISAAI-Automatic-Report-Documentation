@@ -338,7 +338,7 @@
                 "Compose_MarkerA": {
                   "runAfter": {},
                   "type": "Compose",
-                  "inputs": "@xpath(xml(outputs('Compose_XML_A_Content')), 'string(/Report/Data/Row/ViolationMarker)')"
+                  "inputs": "@xpath(xml(outputs('Compose_XML_A_Content')), 'string(/Report/Data/Row/DayViol)')"
                 },
                 "Check_MarkerA_is_V": {
                   "actions": {
@@ -456,7 +456,7 @@
                 "Compose_MarkerB": {
                   "runAfter": {},
                   "type": "Compose",
-                  "inputs": "@xpath(xml(outputs('Compose_XML_B_Content')), 'string(/Report/Data/Row/ViolationMarker)')"
+                  "inputs": "@xpath(xml(outputs('Compose_XML_B_Content')), 'string(/Report/Data/Row/MonthViol)')"
                 },
                 "Check_MarkerB_is_V": {
                   "actions": {
@@ -577,17 +577,17 @@
           },
           "type": "Scope"
         },
-        "Phase_E__Evidence_and_Presentation": {
+        "Phase_E__Evidence_Storage": {
           "actions": {
-            "Copy_evidence_ReportA_to_SharePoint": {
+            "Save_ReportA_XML_as_XLSX_to_SharePoint": {
               "runAfter": {},
               "type": "OpenApiConnection",
               "inputs": {
                 "parameters": {
                   "dataset": "https://studfrauasde.sharepoint.com/sites/ISAAIDailyReportProcessing",
                   "folderPath": "/Evidence Archive/Evidence",
-                  "name": "@{variables('ReportDate')}_evidence_ReportTypeA.csv",
-                  "body": "Report Date,Report Type,Validation Status,Breach Details\n@{variables('ReportDate')},ReportTypeA,@{variables('ReportA_Result')},@{variables('ReportA_Details')}"
+                  "name": "@{variables('ReportDate')}_ReportTypeA.xlsx",
+                  "body": "Report Date,Report Type,Coverage Period,DayViol,Validation Status,Threshold1,Threshold2,Threshold3,Threshold4,Breach Details\n@{variables('ReportDate')},ReportTypeA,Daily,@{outputs('Compose_MarkerA')},@{variables('ReportA_Result')},@{outputs('Compose_ThresholdA1')},@{outputs('Compose_ThresholdA2')},@{outputs('Compose_ThresholdA3')},@{outputs('Compose_ThresholdA4')},@{variables('ReportA_Details')}"
                 },
                 "host": {
                   "apiId": "/providers/Microsoft.PowerApps/apis/shared_sharepointonline",
@@ -597,15 +597,15 @@
                 "authentication": "@parameters('$authentication')"
               }
             },
-            "Copy_evidence_ReportB_to_SharePoint": {
+            "Save_ReportB_XML_as_XLSX_to_SharePoint": {
               "runAfter": {},
               "type": "OpenApiConnection",
               "inputs": {
                 "parameters": {
                   "dataset": "https://studfrauasde.sharepoint.com/sites/ISAAIDailyReportProcessing",
                   "folderPath": "/Evidence Archive/Evidence",
-                  "name": "@{variables('ReportDate')}_evidence_ReportTypeB.csv",
-                  "body": "Report Date,Report Type,Validation Status,Breach Details\n@{variables('ReportDate')},ReportTypeB,@{variables('ReportB_Result')},@{variables('ReportB_Details')}"
+                  "name": "@{variables('ReportDate')}_ReportTypeB.xlsx",
+                  "body": "Report Date,Report Type,Coverage Period,MonthViol,Validation Status,Threshold1,Threshold2,Threshold3,Threshold4,Breach Details\n@{variables('ReportDate')},ReportTypeB,Monthly,@{outputs('Compose_MarkerB')},@{variables('ReportB_Result')},@{outputs('Compose_ThresholdB1')},@{outputs('Compose_ThresholdB2')},@{outputs('Compose_ThresholdB3')},@{outputs('Compose_ThresholdB4')},@{variables('ReportB_Details')}"
                 },
                 "host": {
                   "apiId": "/providers/Microsoft.PowerApps/apis/shared_sharepointonline",
@@ -615,14 +615,14 @@
                 "authentication": "@parameters('$authentication')"
               }
             },
-            "Copy_PPTX_template": {
+            "Copy_original_XML_ReportA_to_archive": {
               "runAfter": {},
               "type": "OpenApiConnection",
               "inputs": {
                 "parameters": {
                   "dataset": "https://studfrauasde.sharepoint.com/sites/ISAAIDailyReportProcessing",
-                  "source": "/Evidence Archive/Templates/daily_run_template.pptx",
-                  "destination": "/Evidence Archive/Presentations/@{variables('ReportDate')}_Run_Summary.pptx",
+                  "source": "/Evidence Archive/Temp/Extracted/@{variables('ReportDate')}_ReportTypeA.xml",
+                  "destination": "/Evidence Archive/XML Archive/@{variables('ReportDate')}_ReportTypeA.xml",
                   "overwrite": true
                 },
                 "host": {
@@ -633,29 +633,20 @@
                 "authentication": "@parameters('$authentication')"
               }
             },
-            "Populate_PPTX_from_template": {
-              "runAfter": {
-                "Copy_PPTX_template": [
-                  "Succeeded"
-                ]
-              },
+            "Copy_original_XML_ReportB_to_archive": {
+              "runAfter": {},
               "type": "OpenApiConnection",
               "inputs": {
                 "parameters": {
-                  "source": "https://studfrauasde.sharepoint.com/sites/ISAAIDailyReportProcessing",
-                  "file": "/Evidence Archive/Presentations/@{variables('ReportDate')}_Run_Summary.pptx",
-                  "templateParameters": {
-                    "ReportDate": "@{variables('ReportDate')}",
-                    "ReportA_Status": "@{variables('ReportA_Result')}",
-                    "ReportB_Status": "@{variables('ReportB_Result')}",
-                    "ReportA_Details": "@{variables('ReportA_Details')}",
-                    "ReportB_Details": "@{variables('ReportB_Details')}"
-                  }
+                  "dataset": "https://studfrauasde.sharepoint.com/sites/ISAAIDailyReportProcessing",
+                  "source": "/Evidence Archive/Temp/Extracted/@{variables('ReportDate')}_ReportTypeB.xml",
+                  "destination": "/Evidence Archive/XML Archive/@{variables('ReportDate')}_ReportTypeB.xml",
+                  "overwrite": true
                 },
                 "host": {
-                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_office365",
-                  "connectionName": "shared_office365",
-                  "operationId": "PopulateTemplate"
+                  "apiId": "/providers/Microsoft.PowerApps/apis/shared_sharepointonline",
+                  "connectionName": "shared_sharepointonline",
+                  "operationId": "CopyFile"
                 },
                 "authentication": "@parameters('$authentication')"
               }
@@ -686,9 +677,8 @@
                       "item/ReportB_ViolationDetails": "@variables('ReportB_Details')",
                       "item/OverallStatus": "Exception",
                       "item/ExceptionFlag": "Yes",
-                      "item/EvidenceA_Link": "https://studfrauasde.sharepoint.com/sites/ISAAIDailyReportProcessing/Evidence%20Archive/Evidence/@{variables('ReportDate')}_evidence_ReportTypeA.csv",
-                      "item/EvidenceB_Link": "https://studfrauasde.sharepoint.com/sites/ISAAIDailyReportProcessing/Evidence%20Archive/Evidence/@{variables('ReportDate')}_evidence_ReportTypeB.csv",
-                      "item/Presentation_Link": "https://studfrauasde.sharepoint.com/sites/ISAAIDailyReportProcessing/Evidence%20Archive/Presentations/@{variables('ReportDate')}_Run_Summary.pptx"
+                      "item/EvidenceA_Link": "https://studfrauasde.sharepoint.com/sites/ISAAIDailyReportProcessing/Evidence%20Archive/Evidence/@{variables('ReportDate')}_ReportTypeA.xlsx",
+                      "item/EvidenceB_Link": "https://studfrauasde.sharepoint.com/sites/ISAAIDailyReportProcessing/Evidence%20Archive/Evidence/@{variables('ReportDate')}_ReportTypeB.xlsx"
                     },
                     "host": {
                       "apiId": "/providers/Microsoft.PowerApps/apis/shared_sharepointonline",
@@ -738,9 +728,8 @@
                         "item/ReportB_ViolationDetails": "@variables('ReportB_Details')",
                         "item/OverallStatus": "Completed",
                         "item/ExceptionFlag": "No",
-                        "item/EvidenceA_Link": "https://studfrauasde.sharepoint.com/sites/ISAAIDailyReportProcessing/Evidence%20Archive/Evidence/@{variables('ReportDate')}_evidence_ReportTypeA.csv",
-                        "item/EvidenceB_Link": "https://studfrauasde.sharepoint.com/sites/ISAAIDailyReportProcessing/Evidence%20Archive/Evidence/@{variables('ReportDate')}_evidence_ReportTypeB.csv",
-                        "item/Presentation_Link": "https://studfrauasde.sharepoint.com/sites/ISAAIDailyReportProcessing/Evidence%20Archive/Presentations/@{variables('ReportDate')}_Run_Summary.pptx"
+                        "item/EvidenceA_Link": "https://studfrauasde.sharepoint.com/sites/ISAAIDailyReportProcessing/Evidence%20Archive/Evidence/@{variables('ReportDate')}_ReportTypeA.xlsx",
+                        "item/EvidenceB_Link": "https://studfrauasde.sharepoint.com/sites/ISAAIDailyReportProcessing/Evidence%20Archive/Evidence/@{variables('ReportDate')}_ReportTypeB.xlsx"
                       },
                       "host": {
                         "apiId": "/providers/Microsoft.PowerApps/apis/shared_sharepointonline",
@@ -796,7 +785,7 @@
             }
           },
           "runAfter": {
-            "Phase_E__Evidence_and_Presentation": [
+            "Phase_E__Evidence_Storage": [
               "Succeeded"
             ]
           },

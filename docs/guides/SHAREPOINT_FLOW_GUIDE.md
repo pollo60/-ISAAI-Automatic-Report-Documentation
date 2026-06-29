@@ -22,7 +22,7 @@ Your list should use exactly the column names from `src/report_template/Report P
    - **ReportA_ViolationDetails** & **ReportB_ViolationDetails**: Multiple lines of text.
    - **OverallStatus**: Choice with options: `Completed`, `Exception`, `Processing`, `Failed`.
    - **ExceptionFlag**: Yes/No or Single line of text.
-   - **EvidenceA_Link**, **EvidenceB_Link**, **Presentation_Link**: Hyperlink.
+   - **EvidenceA_Link**, **EvidenceB_Link**: Hyperlink.
 6. Name the list **Report Processing Log** and click **Create**.
 
 ---
@@ -30,9 +30,9 @@ Your list should use exactly the column names from `src/report_template/Report P
 ## 2. Prepare the SharePoint Document Library
 
 Create a document library named **Evidence Archive** in SharePoint and set up the following folder structure:
-- `Evidence Archive/Templates/` → Upload your PowerPoint template `daily_run_template.pptx` here.
-- `Evidence Archive/Presentations/` → Power Automate will save the generated presentations here.
-- `Evidence Archive/Evidence/` → The Excel evidence files will be stored here.
+- `Evidence Archive/Evidence/` → XLSX evidence files will be stored here.
+- `Evidence Archive/XML Archive/` → Original XML report files will be archived here.
+- `Evidence Archive/Temp/` → Temporary extraction folder (auto-cleaned by flow).
 
 ---
 
@@ -78,9 +78,9 @@ Since the Copilot import can throw errors on complex branching flows, build the 
 ### Phase D: Parallel Validation
 Create a **Parallel Branch** after closing the attachment loop:
 
-#### Left Branch (Report Type A)
+#### Left Branch (Report Type A — Daily, DayViol)
 1. **Action**: *Compose* → `MarkerA`.
-   - Value (Expression): `xpath(xml(outputs('XML_A_Content')), 'string(/Report/Data/Row/ViolationMarker)')`
+   - Value (Expression): `xpath(xml(outputs('XML_A_Content')), 'string(/Report/Data/Row/DayViol)')`
 2. **Action**: *Condition* → Check if `MarkerA` equals `V`.
 3. **In the Yes branch (violation check)**:
    - Read the four threshold values (Threshold1 through Threshold4) with XPath conversions to integers. Example for Threshold1:
@@ -89,25 +89,27 @@ Create a **Parallel Branch** after closing the attachment loop:
      - Set variable `ReportA_Result` = `Violation`.
      - Set variable `ReportA_Details` = *Details of the violation*.
 
-#### Right Branch (Report Type B)
-Perform the same steps analogously for `XML_B_Content` and set `ReportB_Result` and `ReportB_Details`.
+#### Right Branch (Report Type B — Monthly, MonthViol)
+1. **Action**: *Compose* → `MarkerB`.
+   - Value (Expression): `xpath(xml(outputs('XML_B_Content')), 'string(/Report/Data/Row/MonthViol)')`
+2. **Action**: *Condition* → Check if `MarkerB` equals `V`.
+3. **In the Yes branch (violation check)**:
+   - Perform the same threshold checks as for Report A and set `ReportB_Result` and `ReportB_Details`.
 
-### Phase E: Excel Evidence & PowerPoint Creation
+### Phase E: Evidence Storage (XLSX + XML Archive)
 After the parallel branches merge:
-1. **Action**: *Run script* (Excel Online).
-   - Execute your Office Script to write the rows and results to `evidence_log.xlsx`.
-2. **Action**: *Copy file* (SharePoint).
-   - **Source**: `/Evidence Archive/Templates/daily_run_template.pptx`
-   - **Destination**: `/Evidence Archive/Presentations/`
-   - **New name**: `concat(variables('ReportDate'), '_Run_Summary.pptx')`
-3. **Action**: *Populate a PowerPoint template* (PowerPoint Online).
-   - Select the copied presentation.
-   - Enter the variables into the detected tags:
-     - `{{ReportDate}}` → `variables('ReportDate')`
-     - `{{ReportA_Status}}` → `variables('ReportA_Result')`
-     - `{{ReportB_Status}}` → `variables('ReportB_Result')`
-     - `{{ReportA_Details}}` → `variables('ReportA_Details')`
-     - `{{ReportB_Details}}` → `variables('ReportB_Details')`
+1. **Action**: *Create file* (SharePoint) → Save Report A evidence as XLSX.
+   - **Folder path**: `/Evidence Archive/Evidence/`
+   - **File name**: `@{variables('ReportDate')}_ReportTypeA.xlsx`
+   - **Body**: CSV-formatted evidence data (Report Date, DayViol, Thresholds, Status, Breach Details)
+2. **Action**: *Create file* (SharePoint) → Save Report B evidence as XLSX.
+   - **Folder path**: `/Evidence Archive/Evidence/`
+   - **File name**: `@{variables('ReportDate')}_ReportTypeB.xlsx`
+   - **Body**: CSV-formatted evidence data (Report Date, MonthViol, Thresholds, Status, Breach Details)
+3. **Action**: *Copy file* (SharePoint) → Archive original XML files.
+   - **Source**: `/Evidence Archive/Temp/Extracted/YYYYMMDD_ReportTypeA.xml`
+   - **Destination**: `/Evidence Archive/XML Archive/YYYYMMDD_ReportTypeA.xml`
+   - Repeat for ReportTypeB.
 
 ### Phase F: Exception Gate & Completion
 1. **Action**: *Condition* → Is `ReportA_Result` equal to `Violation` OR `ReportB_Result` equal to `Violation`?
@@ -115,11 +117,10 @@ After the parallel branches merge:
    - **Action**: *Update item* (SharePoint `Report Processing Log` with `LogItemID`):
      - `OverallStatus`: `Exception`
      - `ExceptionFlag`: `Yes`
-     - `EvidenceA_Link`, `EvidenceB_Link`, `Presentation_Link` → Links to the created files.
-   - **Action**: *Send an email (V2)* (To supervisor, Importance: High) with links to the Excel and PowerPoint files.
+     - `EvidenceA_Link`, `EvidenceB_Link` → Links to the created XLSX files.
+   - **Action**: *Send an email (V2)* (To supervisor, Importance: High) with links to the evidence XLSX files.
 3. **In the No branch (no errors)**:
    - **Action**: *Update item* (SharePoint `Report Processing Log` with `LogItemID`):
      - `OverallStatus`: `Completed`
-     - `EvidenceA_Link`, `EvidenceB_Link`, `Presentation_Link` → Links to the files.
-   - **Action**: *Send an email (V2)* (To standard distribution) with Excel and PowerPoint attachments.
-   - **Action**: Export email as `.eml` and save to SharePoint.
+     - `EvidenceA_Link`, `EvidenceB_Link` → Links to the XLSX files.
+   - **Action**: *Send an email (V2)* (To standard distribution) with evidence confirmation.

@@ -1,4 +1,0 @@
-Run ID: 13
-Report Date: 20260610
-Report A Status: Happy (Marker: N, Thresholds: {'Threshold1': 70, 'Threshold2': 89, 'Threshold3': 60, 'Threshold4': 76})
-Report B Status: Happy (Marker: N, Thresholds: {'Threshold1': 71, 'Threshold2': 92, 'Threshold3': 66, 'Threshold4': 100})

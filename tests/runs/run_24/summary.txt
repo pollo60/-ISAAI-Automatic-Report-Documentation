@@ -1,4 +1,0 @@
-Run ID: 24
-Report Date: 20260621
-Report A Status: Exception (Marker: V, Thresholds: {'Threshold1': 76, 'Threshold2': 81, 'Threshold3': 80, 'Threshold4': 13})
-Report B Status: Happy (Marker: N, Thresholds: {'Threshold1': 84, 'Threshold2': 60, 'Threshold3': 84, 'Threshold4': 76})

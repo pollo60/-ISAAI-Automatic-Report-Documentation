@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ISAAI Report Type B — Monthly Record Preset
+  
+  Coverage:  Month-to-date cumulative
+  Frequency: Daily, alongside Report Type A
+  Purpose:   Tracks cumulative monthly threshold breach trend
+  
+  Validation Rules:
+    Step 1: Check MonthViol marker for value "V" (violation flag)
+    Step 2: If MonthViol = "V", check Threshold1–4 against limit (< 50 = breach)
+  
+  Status Values (from SharePoint dropdown):
+    ReportB_Status:  Pass | Violation | Error | Pending
+    OverallStatus:   Completed | Exception | Processing | Failed
+    ExceptionFlag:   Yes | No
+-->
+<Report type="ReportTypeB" date="YYYYMMDD">
+  <Metadata>
+    <ReportID>RPT-XXXXXX</ReportID>
+    <GeneratedAt>ISO-TIMESTAMP</GeneratedAt>
+    <Description>Monthly financial report — month-to-date cumulative</Description>
+    <CoveragePeriod>Monthly</CoveragePeriod>
+  </Metadata>
+  <Data>
+    <Row>
+      <RowID>1</RowID>
+      <MonthViol>N</MonthViol>
+      <Threshold1>88</Threshold1>
+      <Threshold2>73</Threshold2>
+      <Threshold3>95</Threshold3>
+      <Threshold4>61</Threshold4>
+    </Row>
+  </Data>
+</Report>

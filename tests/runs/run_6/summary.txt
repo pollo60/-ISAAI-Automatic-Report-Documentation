@@ -1,4 +1,0 @@
-Run ID: 6
-Report Date: 20260603
-Report A Status: NoEscalation (Marker: V, Thresholds: {'Threshold1': 68, 'Threshold2': 55, 'Threshold3': 64, 'Threshold4': 56})
-Report B Status: Happy (Marker: N, Thresholds: {'Threshold1': 77, 'Threshold2': 89, 'Threshold3': 100, 'Threshold4': 83})

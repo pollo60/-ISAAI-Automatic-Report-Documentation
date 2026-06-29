@@ -1,9 +1,17 @@
 #!/usr/bin/env python3
 """ISAAI Daily Report Run Simulator.
 
-Generates mock XML/ZIP reports for Report Type A and B with varying
-validation statuses (Happy Path, No Escalation, Exception) and
-provides an automated SMTP dispatcher to simulate daily email runs.
+Generates mock XML/ZIP reports for Report Type A (Daily) and B (Monthly) with
+varying validation statuses and provides an automated SMTP dispatcher to
+simulate daily email runs.
+
+Report Type A uses DayViol marker (daily snapshot).
+Report Type B uses MonthViol marker (month-to-date cumulative).
+
+Status values match the SharePoint dropdown schema:
+  ReportA_Status / ReportB_Status: Pass, Violation, Error, Pending
+  OverallStatus: Completed, Exception, Processing, Failed
+  ExceptionFlag: Yes, No
 """
 
 import os
@@ -30,18 +38,20 @@ RUNS_DIR.mkdir(parents=True, exist_ok=True)
 # Schema parameters
 THRESHOLD_LIMIT = 50
 
-# Mock templates
-XML_TEMPLATE = """<?xml version="1.0" encoding="UTF-8"?>
-<Report type="{report_type}" date="{date_str}">
+# XML template for Report Type A (Daily — DayViol marker)
+XML_TEMPLATE_A = """\
+<?xml version="1.0" encoding="UTF-8"?>
+<Report type="ReportTypeA" date="{date_str}">
   <Metadata>
     <ReportID>{report_id}</ReportID>
     <GeneratedAt>{timestamp}</GeneratedAt>
-    <Description>Simulated daily financial report snapshot</Description>
+    <Description>Daily financial report — previous business day snapshot</Description>
+    <CoveragePeriod>Daily</CoveragePeriod>
   </Metadata>
   <Data>
     <Row>
       <RowID>1</RowID>
-      <ViolationMarker>{violation_marker}</ViolationMarker>
+      <DayViol>{violation_marker}</DayViol>
       <Threshold1>{t1}</Threshold1>
       <Threshold2>{t2}</Threshold2>
       <Threshold3>{t3}</Threshold3>
@@ -51,20 +61,40 @@ XML_TEMPLATE = """<?xml version="1.0" encoding="UTF-8"?>
 </Report>
 """
 
-def generate_mock_xml(report_type, date_str, status_type):
-    """Generates mock XML contents based on the requested validation status."""
-    report_id = f"RPT-{random.randint(100000, 999999)}"
-    timestamp = datetime.now().isoformat()
-    
-    if status_type == "Happy":
+# XML template for Report Type B (Monthly — MonthViol marker)
+XML_TEMPLATE_B = """\
+<?xml version="1.0" encoding="UTF-8"?>
+<Report type="ReportTypeB" date="{date_str}">
+  <Metadata>
+    <ReportID>{report_id}</ReportID>
+    <GeneratedAt>{timestamp}</GeneratedAt>
+    <Description>Monthly financial report — month-to-date cumulative</Description>
+    <CoveragePeriod>Monthly</CoveragePeriod>
+  </Metadata>
+  <Data>
+    <Row>
+      <RowID>1</RowID>
+      <MonthViol>{violation_marker}</MonthViol>
+      <Threshold1>{t1}</Threshold1>
+      <Threshold2>{t2}</Threshold2>
+      <Threshold3>{t3}</Threshold3>
+      <Threshold4>{t4}</Threshold4>
+    </Row>
+  </Data>
+</Report>
+"""
+
+def generate_threshold_values(status_type):
+    """Generates threshold values based on the requested validation status."""
+    if status_type == "Pass":
         # Step 1 fails to trigger (marker is 'N', healthy thresholds)
         violation_marker = "N"
         t1, t2, t3, t4 = (random.randint(60, 100) for _ in range(4))
-    elif status_type == "NoEscalation":
+    elif status_type == "Pass_NoEscalation":
         # Step 1 triggers (marker 'V'), but Step 2 passes (all >= 50)
         violation_marker = "V"
         t1, t2, t3, t4 = (random.randint(50, 100) for _ in range(4))
-    else:  # "Exception"
+    elif status_type == "Violation":
         # Step 1 triggers (marker 'V') and Step 2 fails (at least one < 50)
         violation_marker = "V"
         t1, t2, t3, t4 = [random.randint(50, 100) for _ in range(4)]
@@ -74,20 +104,42 @@ def generate_mock_xml(report_type, date_str, status_type):
         elif failed_idx == 1: t2 = random.randint(10, 49)
         elif failed_idx == 2: t3 = random.randint(10, 49)
         else: t4 = random.randint(10, 49)
+    else:
+        raise ValueError(f"Unknown status type: {status_type}")
 
-    return XML_TEMPLATE.format(
-        report_type=report_type,
+    return violation_marker, {"Threshold1": t1, "Threshold2": t2, "Threshold3": t3, "Threshold4": t4}
+
+
+def generate_mock_xml(report_type, date_str, status_type):
+    """Generates mock XML contents for Report A (DayViol) or Report B (MonthViol)."""
+    report_id = f"RPT-{random.randint(100000, 999999)}"
+    timestamp = datetime.now().isoformat()
+
+    violation_marker, thresholds = generate_threshold_values(status_type)
+
+    template = XML_TEMPLATE_A if report_type == "ReportTypeA" else XML_TEMPLATE_B
+
+    xml_content = template.format(
         date_str=date_str,
         report_id=report_id,
         timestamp=timestamp,
         violation_marker=violation_marker,
-        t1=t1, t2=t2, t3=t3, t4=t4
-    ), violation_marker, {
-        "Threshold1": t1,
-        "Threshold2": t2,
-        "Threshold3": t3,
-        "Threshold4": t4
-    }
+        t1=thresholds["Threshold1"],
+        t2=thresholds["Threshold2"],
+        t3=thresholds["Threshold3"],
+        t4=thresholds["Threshold4"],
+    )
+
+    # Map internal status to SharePoint dropdown values
+    if status_type == "Pass":
+        sp_status = "Pass"
+    elif status_type == "Pass_NoEscalation":
+        sp_status = "Pass"
+    else:
+        sp_status = "Violation"
+
+    return xml_content, violation_marker, thresholds, sp_status
+
 
 def create_run_files(run_id, date):
     """Generates the XML files and packages them into a ZIP archive locally."""
@@ -96,22 +148,22 @@ def create_run_files(run_id, date):
     run_dir.mkdir(exist_ok=True)
 
     # Determine status types randomly
-    # 70% Happy, 15% NoEscalation, 15% Exception
-    status_choices = ["Happy"] * 70 + ["NoEscalation"] * 15 + ["Exception"] * 15
+    # 60% Pass, 20% Pass_NoEscalation, 20% Violation
+    status_choices = ["Pass"] * 60 + ["Pass_NoEscalation"] * 20 + ["Violation"] * 20
     status_a = random.choice(status_choices)
     status_b = random.choice(status_choices)
 
     # Generate XML contents
-    xml_content_a, marker_a, thresh_a = generate_mock_xml("ReportTypeA", date_str, status_a)
-    xml_content_b, marker_b, thresh_b = generate_mock_xml("ReportTypeB", date_str, status_b)
+    xml_a, marker_a, thresh_a, sp_status_a = generate_mock_xml("ReportTypeA", date_str, status_a)
+    xml_b, marker_b, thresh_b, sp_status_b = generate_mock_xml("ReportTypeB", date_str, status_b)
 
     xml_file_a = run_dir / f"{date_str}_ReportTypeA.xml"
     xml_file_b = run_dir / f"{date_str}_ReportTypeB.xml"
 
     with open(xml_file_a, "w") as f:
-        f.write(xml_content_a)
+        f.write(xml_a)
     with open(xml_file_b, "w") as f:
-        f.write(xml_content_b)
+        f.write(xml_b)
 
     # Package into a ZIP file
     zip_filename = f"{date_str}_Reports.zip"
@@ -120,18 +172,28 @@ def create_run_files(run_id, date):
         zipf.write(xml_file_a, arcname=f"{date_str}_ReportTypeA.xml")
         zipf.write(xml_file_b, arcname=f"{date_str}_ReportTypeB.xml")
 
+    # Determine overall status using SharePoint dropdown values
+    has_violation = (sp_status_a == "Violation" or sp_status_b == "Violation")
+    overall_status = "Exception" if has_violation else "Completed"
+    exception_flag = "Yes" if has_violation else "No"
+
     # Save summary metadata locally
     summary_file = run_dir / "summary.txt"
     with open(summary_file, "w") as f:
         f.write(f"Run ID: {run_id}\n")
         f.write(f"Report Date: {date_str}\n")
-        f.write(f"Report A Status: {status_a} (Marker: {marker_a}, Thresholds: {thresh_a})\n")
-        f.write(f"Report B Status: {status_b} (Marker: {marker_b}, Thresholds: {thresh_b})\n")
+        f.write(f"Report A Status: {sp_status_a} (DayViol: {marker_a}, Thresholds: {thresh_a})\n")
+        f.write(f"Report B Status: {sp_status_b} (MonthViol: {marker_b}, Thresholds: {thresh_b})\n")
+        f.write(f"OverallStatus: {overall_status}\n")
+        f.write(f"ExceptionFlag: {exception_flag}\n")
 
     return zip_filepath, date_str, {
-        "A": {"status": status_a, "marker": marker_a, "thresholds": thresh_a},
-        "B": {"status": status_b, "marker": marker_b, "thresholds": thresh_b}
+        "A": {"status": sp_status_a, "marker": marker_a, "thresholds": thresh_a},
+        "B": {"status": sp_status_b, "marker": marker_b, "thresholds": thresh_b},
+        "overall": overall_status,
+        "exception_flag": exception_flag,
     }
+
 
 def send_email(zip_path, date_str, smtp_config):
     """Sends the ZIP file as an email attachment to trigger the Power Automate flow."""
@@ -140,7 +202,10 @@ def send_email(zip_path, date_str, smtp_config):
     msg['To'] = smtp_config['recipient']
     msg['Subject'] = f"Financial Report Daily Ingest - {date_str}"
 
-    body = f"Hello,\n\nPlease find attached the daily financial reports for {date_str}.\n\nBest regards,\nAutomated Report Simulator"
+    body = (
+        f"Hello,\n\nPlease find attached the daily financial reports for {date_str}.\n\n"
+        f"Best regards,\nAutomated Report Simulator"
+    )
     msg.attach(MIMEText(body, 'plain'))
 
     # Attach ZIP
@@ -155,7 +220,6 @@ def send_email(zip_path, date_str, smtp_config):
         msg.attach(part)
 
     try:
-        # SMTP Session
         server = smtplib.SMTP(smtp_config['server'], smtp_config['port'])
         server.starttls()
         server.login(smtp_config['username'], smtp_config['password'])
@@ -167,13 +231,14 @@ def send_email(zip_path, date_str, smtp_config):
         print(f"Error sending email for run {date_str}: {e}")
         return False
 
+
 def main():
     parser = argparse.ArgumentParser(description="Simulate daily report validation runs.")
     parser.add_argument("--count", type=int, default=30, help="Number of daily runs to simulate (default: 30).")
     parser.add_argument("--seed", type=int, default=42, help="Random seed for reproducible data generation (default: 42).")
     parser.add_argument("--send", action="store_true", help="Send generated ZIP files via email to trigger the flow.")
     parser.add_argument("--dry-run", action="store_true", help="Only generate files locally (default).")
-    
+
     # SMTP options
     parser.add_argument("--smtp-server", default=os.getenv("SMTP_SERVER"), help="SMTP Server hostname.")
     parser.add_argument("--smtp-port", type=int, default=int(os.getenv("SMTP_PORT", 587)), help="SMTP Server port.")
@@ -195,7 +260,6 @@ def main():
             "sender": args.sender,
             "recipient": args.recipient
         }
-        # Check missing args
         missing = [k for k, v in smtp_config.items() if not v]
         if missing:
             print(f"Error: Missing SMTP configuration options: {', '.join(missing)}")
@@ -205,14 +269,15 @@ def main():
     random.seed(args.seed)
     print(f"Starting simulation of {args.count} daily runs (seed={args.seed})...")
     print(f"Test data will end up locally in: {TESTS_DIR.relative_to(ROOT)}")
-    
+
     start_date = datetime.now() - timedelta(days=args.count)
 
     for i in range(args.count):
         run_date = start_date + timedelta(days=i)
         zip_path, date_str, summary = create_run_files(i + 1, run_date)
         print(f"Run {i+1:03d} [{date_str}]: Created ZIP locally at {zip_path.relative_to(ROOT)}")
-        print(f"  └─ Report A: {summary['A']['status']}, Report B: {summary['B']['status']}")
+        print(f"  └─ Report A: {summary['A']['status']} (DayViol={summary['A']['marker']}), "
+              f"Report B: {summary['B']['status']} (MonthViol={summary['B']['marker']})")
 
         if args.send:
             send_email(zip_path, date_str, smtp_config)
@@ -221,6 +286,7 @@ def main():
     if not args.send:
         print("To run the email simulation, configure your SMTP server and run with --send.")
         print(f"Local files generated successfully inside {RUNS_DIR.relative_to(ROOT)}/")
+
 
 if __name__ == "__main__":
     main()
