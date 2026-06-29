@@ -8,7 +8,7 @@
 
 ## 1. Project Objective
 
-The ISAAI system automates the daily processing of structured financial reports (Report Type A and Report Type B), which arrive as XML files in ZIP archives via email. The manual process — extraction, threshold validation, evidence archiving, and supervisor escalation — is replaced by a fully automated Microsoft Power Automate flow.
+The ISAAI system automates the daily processing of structured financial reports (Report Type A and Report Type B), which arrive as XML files in ZIP archives via email. The manual process — extraction, compliance checking, evidence archiving, and supervisor escalation — is replaced by a fully automated Microsoft Power Automate flow.
 
 **Dual-Module Approach:**
 
@@ -81,61 +81,108 @@ The GOAL state represents the actually implemented solution — the completed Po
 
 ## 3. Report Types & XML Presets
 
-Two report types are processed daily, each using a distinct violation marker:
+Two report types are processed daily, each using a distinct compliance marker:
 
 | Attribute | Report Type A (Daily) | Report Type B (Monthly) |
 |---|---|---|
-| **Coverage period** | Previous business day (daily snapshot) | Month-to-date cumulative |
+| **Coverage period** | Previous business day (trade-level detail) | Month-to-date cumulative trader summary |
 | **Delivery frequency** | Daily, at agreed processing time | Daily, alongside Report Type A |
 | **Violation marker** | `<DayViol>` | `<MonthViol>` |
-| **Purpose** | Detects same-day threshold breaches | Tracks cumulative monthly breach trend |
+| **Purpose** | Detects same-day trade exceptions | Tracks monthly cumulative trader breach trend |
 
-### XML Structure — Report A (Daily)
+### XML Structure — Report A (Daily Trades)
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
-<Report type="ReportTypeA" date="20260610">
+<XetraReport type="ReportTypeA" date="20260610">
   <Metadata>
-    <ReportID>RPT-651910</ReportID>
-    <GeneratedAt>2026-06-25T13:52:06</GeneratedAt>
-    <Description>Daily financial report — previous business day snapshot</Description>
-    <CoveragePeriod>Daily</CoveragePeriod>
+    <ReportID>XETRA-DA-20260610</ReportID>
+    <GeneratedAt>2026-06-10T18:30:00</GeneratedAt>
+    <ReportType>Daily</ReportType>
+    <CoveragePeriod>2026-06-10</CoveragePeriod>
+    <TradingVenue>XETR</TradingVenue>
+    <MemberID>FRAUAS01</MemberID>
   </Metadata>
-  <Data>
-    <Row>
-      <RowID>1</RowID>
-      <DayViol>N</DayViol>
-      <Threshold1>77</Threshold1>
-      <Threshold2>92</Threshold2>
-      <Threshold3>72</Threshold3>
-      <Threshold4>89</Threshold4>
-    </Row>
-  </Data>
-</Report>
+  <Trades>
+    <Trade>
+      <TradeID>XTR-20260610-00147</TradeID>
+      <ExecutionTime>09:02:31</ExecutionTime>
+      <ISIN>DE0007164600</ISIN>
+      <Instrument>SAP SE</Instrument>
+      <Side>Buy</Side>
+      <Quantity>250</Quantity>
+      <Price>198.45</Price>
+      <Currency>EUR</Currency>
+      <OrderType>Limit</OrderType>
+      <TraderID>T-1042</TraderID>
+      <DayViol>No</DayViol>
+      <ViolationDetails/>
+      <Status>Pass</Status>
+    </Trade>
+    <Trade>
+      <TradeID>XTR-20260610-00312</TradeID>
+      <ExecutionTime>10:15:44</ExecutionTime>
+      <ISIN>DE0007236101</ISIN>
+      <Instrument>Siemens AG</Instrument>
+      <Side>Sell</Side>
+      <Quantity>500</Quantity>
+      <Price>176.20</Price>
+      <Currency>EUR</Currency>
+      <OrderType>Market</OrderType>
+      <TraderID>T-2087</TraderID>
+      <DayViol>Yes</DayViol>
+      <ViolationDetails>Position limit exceeded — net short exposure beyond approved threshold</ViolationDetails>
+      <Status>Violation</Status>
+    </Trade>
+  </Trades>
+  <Summary>
+    <TotalTrades>2</TotalTrades>
+    <TotalVolume>137672.50</TotalVolume>
+    <ViolationsFound>1</ViolationsFound>
+    <OverallStatus>Violation</OverallStatus>
+    <ExceptionFlag>Yes</ExceptionFlag>
+  </Summary>
+</XetraReport>
 ```
 
-### XML Structure — Report B (Monthly)
+### XML Structure — Report B (Monthly Trader Summaries)
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
-<Report type="ReportTypeB" date="20260610">
+<XetraReport type="ReportTypeB" date="20260610">
   <Metadata>
-    <ReportID>RPT-834215</ReportID>
-    <GeneratedAt>2026-06-25T13:52:06</GeneratedAt>
-    <Description>Monthly financial report — month-to-date cumulative</Description>
-    <CoveragePeriod>Monthly</CoveragePeriod>
+    <ReportID>XETRA-MA-202606</ReportID>
+    <GeneratedAt>2026-06-10T18:30:00</GeneratedAt>
+    <ReportType>Monthly</ReportType>
+    <CoveragePeriod>2026-06-01 to 2026-06-10</CoveragePeriod>
+    <TradingVenue>XETR</TradingVenue>
+    <MemberID>FRAUAS01</MemberID>
   </Metadata>
-  <Data>
-    <Row>
-      <RowID>1</RowID>
-      <MonthViol>V</MonthViol>
-      <Threshold1>88</Threshold1>
-      <Threshold2>42</Threshold2>
-      <Threshold3>95</Threshold3>
-      <Threshold4>61</Threshold4>
-    </Row>
-  </Data>
-</Report>
+  <TraderSummaries>
+    <Trader>
+      <TraderID>T-1042</TraderID>
+      <TraderName>Weber, Lukas</TraderName>
+      <Desk>Equities</Desk>
+      <TotalTrades>312</TotalTrades>
+      <TotalVolume>4850000.00</TotalVolume>
+      <AvgTradeSize>15544.87</AvgTradeSize>
+      <TopInstrument>SAP SE (DE0007164600)</TopInstrument>
+      <MonthViol>No</MonthViol>
+      <ViolationCount>0</ViolationCount>
+      <ViolationDetails/>
+      <ComplianceRating>A</ComplianceRating>
+      <Status>Pass</Status>
+    </Trader>
+  </TraderSummaries>
+  <Summary>
+    <TotalTraders>1</TotalTraders>
+    <TotalTrades>312</TotalTrades>
+    <TotalVolume>4850000.00</TotalVolume>
+    <ViolationsFound>0</ViolationsFound>
+    <OverallStatus>Pass</OverallStatus>
+    <ExceptionFlag>No</ExceptionFlag>
+  </Summary>
+</XetraReport>
 ```
 
 Reference presets are provided in `src/presets/`.
@@ -162,33 +209,31 @@ src/flow/ISAAI–DailyReportProcessing_20260625165442.zip
 - Extracts ZIP attachment to OneDrive `/Evidence Archive/Temp/`
 - Reads `ReportTypeA.xml` and `ReportTypeB.xml` as text content
 
-### Phase D: Parallel Validation
-- **Left branch (Report A):** XPath query on `DayViol` → if `V`: threshold check (Threshold1–4 < 50 → Violation)
-- **Right branch (Report B):** XPath query on `MonthViol` → identical threshold logic
-- Both branches execute in parallel
+### Phase D: Status Evaluation
+- **Report A (Daily):** XPath query checks `/XetraReport/Summary/OverallStatus` value
+- **Report B (Monthly):** XPath query checks `/XetraReport/Summary/OverallStatus` value
+- If either report has a status of `Violation`, the corresponding result is flagged
 
 ### Phase E: Evidence Storage
 - XLSX evidence files are saved to `/Evidence Archive/Evidence/` (Report A and B separately)
 - Original XML files are archived to `/Evidence Archive/XML Archive/`
-- Report A evidence includes: DayViol marker, all threshold values, validation status
-- Report B evidence includes: MonthViol marker, all threshold values, validation status
+- The raw XML content is written to the respective evidence spreadsheet for audit review
 
 ### Phase F: Exception Gate & Completion
 - **Violation detected:** SharePoint → `Exception`, email to supervisor (priority: High)
 - **No violation:** SharePoint → `Completed`, confirmation email to standard distribution
 
-### Two-Step Validation Logic
+### Flow Validation & Routing Logic
 
 ```
 ┌──────────────────────────────────────────────────────────────────┐
-│  Report A: Step 1 — DayViol == "V"?                             │
-│  Report B: Step 1 — MonthViol == "V"?                           │
-│            No  → Pass (Clean — no marker)                       │
-│            Yes → proceed to Step 2                              │
+│  Read Status:                                                    │
+│  - Report A: /XetraReport/Summary/OverallStatus                  │
+│  - Report B: /XetraReport/Summary/OverallStatus                  │
 │                                                                  │
-│  Step 2: Threshold1..4 < 50?                                     │
-│          All ≥ 50 → Pass (Marker present but thresholds healthy) │
-│          At least 1 < 50 → VIOLATION → Exception                 │
+│  Evaluate:                                                       │
+│  - If A or B == "Violation" → OverallStatus = Exception          │
+│  - Else                     → OverallStatus = Completed          │
 └──────────────────────────────────────────────────────────────────┘
 ```
 
@@ -204,21 +249,24 @@ The repository contains scripts for a complete offline simulation of the Power A
 # 1. Install dependencies
 pip install python-pptx openpyxl
 
-# 2. Generate test runs (30 days, reproducible)
-python scripts/simulate_runs.py --count 30 --seed 42
+# 2. Generate Xetra test runs (30 days, reproducible)
+python3 scripts/simulate_runs.py --count 30 --seed 42
 
-# 3. Local processing (simulates the Power Automate flow)
-python scripts/local_flow_processor.py
+# 3. Local processing (simulates the Power Automate flow, outputs XLSX)
+python3 scripts/local_flow_processor.py
 
 # 4. Generate consolidated findings presentation
-python scripts/generate_findings_presentation.py
+python3 scripts/generate_findings_presentation.py
+
+# 5. Run the visual walkthrough video recorder
+python3 scripts/demo_flow.py --run 1
 ```
 
 ### Evidence Output
 
 Each run generates:
-- `evidence_ReportTypeA.xlsx` — Styled XLSX with DayViol marker, thresholds, and breach details
-- `evidence_ReportTypeB.xlsx` — Styled XLSX with MonthViol marker, thresholds, and breach details
+- `evidence_ReportTypeA.xlsx` — Professional, styled trade compliance spreadsheet
+- `evidence_ReportTypeB.xlsx` — Professional, styled monthly trader summary spreadsheet
 - `summary.txt` — Human-readable validation summary
 
 ### SharePoint List Status Values
@@ -298,7 +346,8 @@ ISAAI-Automatic-Report-Documentation/
 │   ├── simulate_runs.py               ← Generates mock XML/ZIP test data
 │   ├── local_flow_processor.py        ← Simulates the flow locally (offline)
 │   ├── generate_findings_presentation.py  ← Creates consolidated findings PPTX
-│   └── build_boardroom_deck.py        ← Creates the boardroom deck
+│   ├── build_boardroom_deck.py        ← Creates the boardroom deck
+│   └── demo_flow.py                   ← Interactive flow preview demo script
 │
 ├── tests/
 │   ├── runs/                          ← Generated test runs (run_1..run_30)
@@ -306,8 +355,8 @@ ISAAI-Automatic-Report-Documentation/
 │   │       ├── YYYYMMDD_ReportTypeA.xml
 │   │       ├── YYYYMMDD_ReportTypeB.xml
 │   │       ├── YYYYMMDD_Reports.zip
-│   │       ├── evidence_ReportTypeA.xlsx  ← XLSX evidence (DayViol + thresholds)
-│   │       ├── evidence_ReportTypeB.xlsx  ← XLSX evidence (MonthViol + thresholds)
+│   │       ├── evidence_ReportTypeA.xlsx  ← XLSX trade evidence
+│   │       ├── evidence_ReportTypeB.xlsx  ← XLSX trader summary evidence
 │   │       └── summary.txt
 │   ├── Report_Processing_Log_Local.csv  ← Local SharePoint equivalent
 │   └── Email_Report_Schema (1).xlsx     ← SharePoint list schema definition
