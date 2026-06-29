@@ -1,19 +1,63 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<Report type="ReportTypeB" date="20260604">
+<?xml version="1.0" ?>
+<XetraReport type="ReportTypeB" date="20260604">
   <Metadata>
-    <ReportID>RPT-270555</ReportID>
-    <GeneratedAt>2026-06-29T10:17:16.024723</GeneratedAt>
-    <Description>Monthly financial report — month-to-date cumulative</Description>
-    <CoveragePeriod>Monthly</CoveragePeriod>
+    <ReportID>XETRA-MA-202606</ReportID>
+    <GeneratedAt>2026-06-04T18:30:00</GeneratedAt>
+    <ReportType>Monthly</ReportType>
+    <CoveragePeriod>2026-06-01 to 2026-06-04</CoveragePeriod>
+    <TradingVenue>XETR</TradingVenue>
+    <MemberID>FRAUAS01</MemberID>
   </Metadata>
-  <Data>
-    <Row>
-      <RowID>1</RowID>
-      <MonthViol>N</MonthViol>
-      <Threshold1>83</Threshold1>
-      <Threshold2>82</Threshold2>
-      <Threshold3>73</Threshold3>
-      <Threshold4>77</Threshold4>
-    </Row>
-  </Data>
-</Report>
+  <TraderSummaries>
+    <Trader>
+      <TraderID>T-2087</TraderID>
+      <TraderName>Schmidt, Anna</TraderName>
+      <Desk>Derivatives</Desk>
+      <TotalTrades>123</TotalTrades>
+      <TotalVolume>11936140.29</TotalVolume>
+      <AvgTradeSize>97041.79</AvgTradeSize>
+      <TopInstrument>Siemens AG (DE0007236101)</TopInstrument>
+      <MonthViol>No</MonthViol>
+      <ViolationCount>0</ViolationCount>
+      <ViolationDetails/>
+      <ComplianceRating>B</ComplianceRating>
+      <Status>Pass</Status>
+    </Trader>
+    <Trader>
+      <TraderID>T-6091</TraderID>
+      <TraderName>Krause, Sophie</TraderName>
+      <Desk>Commodities</Desk>
+      <TotalTrades>390</TotalTrades>
+      <TotalVolume>7759331.88</TotalVolume>
+      <AvgTradeSize>19895.72</AvgTradeSize>
+      <TopInstrument>Daimler Truck Holding (DE000DTR0CK8)</TopInstrument>
+      <MonthViol>No</MonthViol>
+      <ViolationCount>0</ViolationCount>
+      <ViolationDetails/>
+      <ComplianceRating>B</ComplianceRating>
+      <Status>Pass</Status>
+    </Trader>
+    <Trader>
+      <TraderID>T-3011</TraderID>
+      <TraderName>Fischer, Moritz</TraderName>
+      <Desk>Fixed Income</Desk>
+      <TotalTrades>274</TotalTrades>
+      <TotalVolume>6230401.88</TotalVolume>
+      <AvgTradeSize>22738.69</AvgTradeSize>
+      <TopInstrument>Infineon Technologies (DE0006231004)</TopInstrument>
+      <MonthViol>No</MonthViol>
+      <ViolationCount>0</ViolationCount>
+      <ViolationDetails/>
+      <ComplianceRating>B</ComplianceRating>
+      <Status>Pass</Status>
+    </Trader>
+  </TraderSummaries>
+  <Summary>
+    <TotalTraders>3</TotalTraders>
+    <TotalTrades>787</TotalTrades>
+    <TotalVolume>25925874.05</TotalVolume>
+    <ViolationsFound>0</ViolationsFound>
+    <OverallStatus>Pass</OverallStatus>
+    <ExceptionFlag>No</ExceptionFlag>
+  </Summary>
+</XetraReport>

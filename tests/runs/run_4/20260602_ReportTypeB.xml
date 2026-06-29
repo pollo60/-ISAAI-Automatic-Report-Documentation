@@ -1,19 +1,105 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<Report type="ReportTypeB" date="20260602">
+<?xml version="1.0" ?>
+<XetraReport type="ReportTypeB" date="20260602">
   <Metadata>
-    <ReportID>RPT-377370</ReportID>
-    <GeneratedAt>2026-06-29T10:17:16.023120</GeneratedAt>
-    <Description>Monthly financial report — month-to-date cumulative</Description>
-    <CoveragePeriod>Monthly</CoveragePeriod>
+    <ReportID>XETRA-MA-202606</ReportID>
+    <GeneratedAt>2026-06-02T18:30:00</GeneratedAt>
+    <ReportType>Monthly</ReportType>
+    <CoveragePeriod>2026-06-01 to 2026-06-02</CoveragePeriod>
+    <TradingVenue>XETR</TradingVenue>
+    <MemberID>FRAUAS01</MemberID>
   </Metadata>
-  <Data>
-    <Row>
-      <RowID>1</RowID>
-      <MonthViol>N</MonthViol>
-      <Threshold1>62</Threshold1>
-      <Threshold2>89</Threshold2>
-      <Threshold3>94</Threshold3>
-      <Threshold4>67</Threshold4>
-    </Row>
-  </Data>
-</Report>
+  <TraderSummaries>
+    <Trader>
+      <TraderID>T-2087</TraderID>
+      <TraderName>Schmidt, Anna</TraderName>
+      <Desk>Derivatives</Desk>
+      <TotalTrades>346</TotalTrades>
+      <TotalVolume>6588268.68</TotalVolume>
+      <AvgTradeSize>19041.24</AvgTradeSize>
+      <TopInstrument>Bayer AG (DE000BAY0017)</TopInstrument>
+      <MonthViol>No</MonthViol>
+      <ViolationCount>0</ViolationCount>
+      <ViolationDetails/>
+      <ComplianceRating>A</ComplianceRating>
+      <Status>Pass</Status>
+    </Trader>
+    <Trader>
+      <TraderID>T-4055</TraderID>
+      <TraderName>Hoffmann, Lena</TraderName>
+      <Desk>FX Spot</Desk>
+      <TotalTrades>445</TotalTrades>
+      <TotalVolume>4500145.58</TotalVolume>
+      <AvgTradeSize>10112.69</AvgTradeSize>
+      <TopInstrument>Deutsche Bank AG (DE0005140008)</TopInstrument>
+      <MonthViol>No</MonthViol>
+      <ViolationCount>0</ViolationCount>
+      <ViolationDetails/>
+      <ComplianceRating>B</ComplianceRating>
+      <Status>Pass</Status>
+    </Trader>
+    <Trader>
+      <TraderID>T-5023</TraderID>
+      <TraderName>Becker, Jan</TraderName>
+      <Desk>Equities</Desk>
+      <TotalTrades>121</TotalTrades>
+      <TotalVolume>2952927.65</TotalVolume>
+      <AvgTradeSize>24404.36</AvgTradeSize>
+      <TopInstrument>Bayer AG (DE000BAY0017)</TopInstrument>
+      <MonthViol>No</MonthViol>
+      <ViolationCount>0</ViolationCount>
+      <ViolationDetails/>
+      <ComplianceRating>A</ComplianceRating>
+      <Status>Pass</Status>
+    </Trader>
+    <Trader>
+      <TraderID>T-6091</TraderID>
+      <TraderName>Krause, Sophie</TraderName>
+      <Desk>Commodities</Desk>
+      <TotalTrades>441</TotalTrades>
+      <TotalVolume>3746505.21</TotalVolume>
+      <AvgTradeSize>8495.48</AvgTradeSize>
+      <TopInstrument>BASF SE (DE000BASF111)</TopInstrument>
+      <MonthViol>No</MonthViol>
+      <ViolationCount>0</ViolationCount>
+      <ViolationDetails/>
+      <ComplianceRating>B</ComplianceRating>
+      <Status>Pass</Status>
+    </Trader>
+    <Trader>
+      <TraderID>T-1042</TraderID>
+      <TraderName>Weber, Lukas</TraderName>
+      <Desk>Equities</Desk>
+      <TotalTrades>318</TotalTrades>
+      <TotalVolume>5865629.46</TotalVolume>
+      <AvgTradeSize>18445.38</AvgTradeSize>
+      <TopInstrument>Bayer AG (DE000BAY0017)</TopInstrument>
+      <MonthViol>No</MonthViol>
+      <ViolationCount>0</ViolationCount>
+      <ViolationDetails/>
+      <ComplianceRating>B</ComplianceRating>
+      <Status>Pass</Status>
+    </Trader>
+    <Trader>
+      <TraderID>T-3011</TraderID>
+      <TraderName>Fischer, Moritz</TraderName>
+      <Desk>Fixed Income</Desk>
+      <TotalTrades>379</TotalTrades>
+      <TotalVolume>11433651.35</TotalVolume>
+      <AvgTradeSize>30167.95</AvgTradeSize>
+      <TopInstrument>SAP SE (DE0007164600)</TopInstrument>
+      <MonthViol>No</MonthViol>
+      <ViolationCount>0</ViolationCount>
+      <ViolationDetails/>
+      <ComplianceRating>B</ComplianceRating>
+      <Status>Pass</Status>
+    </Trader>
+  </TraderSummaries>
+  <Summary>
+    <TotalTraders>6</TotalTraders>
+    <TotalTrades>2050</TotalTrades>
+    <TotalVolume>35087127.93</TotalVolume>
+    <ViolationsFound>0</ViolationsFound>
+    <OverallStatus>Pass</OverallStatus>
+    <ExceptionFlag>No</ExceptionFlag>
+  </Summary>
+</XetraReport>

@@ -1,19 +1,110 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<Report type="ReportTypeA" date="20260615">
+<?xml version="1.0" ?>
+<XetraReport type="ReportTypeA" date="20260615">
   <Metadata>
-    <ReportID>RPT-573417</ReportID>
-    <GeneratedAt>2026-06-29T10:17:16.034525</GeneratedAt>
-    <Description>Daily financial report — previous business day snapshot</Description>
-    <CoveragePeriod>Daily</CoveragePeriod>
+    <ReportID>XETRA-DA-20260615</ReportID>
+    <GeneratedAt>2026-06-15T18:30:00</GeneratedAt>
+    <ReportType>Daily</ReportType>
+    <CoveragePeriod>2026-06-15</CoveragePeriod>
+    <TradingVenue>XETR</TradingVenue>
+    <MemberID>FRAUAS01</MemberID>
   </Metadata>
-  <Data>
-    <Row>
-      <RowID>1</RowID>
-      <DayViol>N</DayViol>
-      <Threshold1>67</Threshold1>
-      <Threshold2>75</Threshold2>
-      <Threshold3>74</Threshold3>
-      <Threshold4>64</Threshold4>
-    </Row>
-  </Data>
-</Report>
+  <Trades>
+    <Trade>
+      <TradeID>XTR-20260615-00001</TradeID>
+      <ExecutionTime>12:46:03</ExecutionTime>
+      <ISIN>DE000BASF111</ISIN>
+      <Instrument>BASF SE</Instrument>
+      <Side>Sell</Side>
+      <Quantity>50</Quantity>
+      <Price>48.37</Price>
+      <Currency>EUR</Currency>
+      <OrderType>Market</OrderType>
+      <TraderID>T-5023</TraderID>
+      <DayViol>No</DayViol>
+      <ViolationDetails/>
+      <Status>Pass</Status>
+    </Trade>
+    <Trade>
+      <TradeID>XTR-20260615-00002</TradeID>
+      <ExecutionTime>09:36:44</ExecutionTime>
+      <ISIN>DE0008404005</ISIN>
+      <Instrument>Allianz SE</Instrument>
+      <Side>Sell</Side>
+      <Quantity>150</Quantity>
+      <Price>274.65</Price>
+      <Currency>EUR</Currency>
+      <OrderType>Limit</OrderType>
+      <TraderID>T-5023</TraderID>
+      <DayViol>Yes</DayViol>
+      <ViolationDetails>Position limit exceeded — net exposure beyond approved threshold</ViolationDetails>
+      <Status>Violation</Status>
+    </Trade>
+    <Trade>
+      <TradeID>XTR-20260615-00003</TradeID>
+      <ExecutionTime>15:32:49</ExecutionTime>
+      <ISIN>DE0006231004</ISIN>
+      <Instrument>Infineon Technologies</Instrument>
+      <Side>Sell</Side>
+      <Quantity>150</Quantity>
+      <Price>33.30</Price>
+      <Currency>EUR</Currency>
+      <OrderType>Limit</OrderType>
+      <TraderID>T-3011</TraderID>
+      <DayViol>No</DayViol>
+      <ViolationDetails/>
+      <Status>Pass</Status>
+    </Trade>
+    <Trade>
+      <TradeID>XTR-20260615-00004</TradeID>
+      <ExecutionTime>14:42:30</ExecutionTime>
+      <ISIN>DE0006231004</ISIN>
+      <Instrument>Infineon Technologies</Instrument>
+      <Side>Buy</Side>
+      <Quantity>150</Quantity>
+      <Price>34.15</Price>
+      <Currency>EUR</Currency>
+      <OrderType>Stop-Limit</OrderType>
+      <TraderID>T-6091</TraderID>
+      <DayViol>No</DayViol>
+      <ViolationDetails/>
+      <Status>Pass</Status>
+    </Trade>
+    <Trade>
+      <TradeID>XTR-20260615-00005</TradeID>
+      <ExecutionTime>13:39:30</ExecutionTime>
+      <ISIN>DE0007100000</ISIN>
+      <Instrument>Mercedes-Benz Group</Instrument>
+      <Side>Sell</Side>
+      <Quantity>500</Quantity>
+      <Price>69.10</Price>
+      <Currency>EUR</Currency>
+      <OrderType>Stop-Limit</OrderType>
+      <TraderID>T-2087</TraderID>
+      <DayViol>No</DayViol>
+      <ViolationDetails/>
+      <Status>Pass</Status>
+    </Trade>
+    <Trade>
+      <TradeID>XTR-20260615-00006</TradeID>
+      <ExecutionTime>13:45:13</ExecutionTime>
+      <ISIN>DE000BAY0017</ISIN>
+      <Instrument>Bayer AG</Instrument>
+      <Side>Sell</Side>
+      <Quantity>200</Quantity>
+      <Price>34.59</Price>
+      <Currency>EUR</Currency>
+      <OrderType>Market</OrderType>
+      <TraderID>T-3011</TraderID>
+      <DayViol>No</DayViol>
+      <ViolationDetails/>
+      <Status>Pass</Status>
+    </Trade>
+  </Trades>
+  <Summary>
+    <TotalTrades>6</TotalTrades>
+    <TotalVolume>95201.50</TotalVolume>
+    <ViolationsFound>1</ViolationsFound>
+    <OverallStatus>Violation</OverallStatus>
+    <ExceptionFlag>Yes</ExceptionFlag>
+  </Summary>
+</XetraReport>

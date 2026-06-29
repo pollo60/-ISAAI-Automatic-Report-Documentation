@@ -1,19 +1,125 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<Report type="ReportTypeA" date="20260531">
+<?xml version="1.0" ?>
+<XetraReport type="ReportTypeA" date="20260531">
   <Metadata>
-    <ReportID>RPT-198246</ReportID>
-    <GeneratedAt>2026-06-29T10:17:16.021700</GeneratedAt>
-    <Description>Daily financial report — previous business day snapshot</Description>
-    <CoveragePeriod>Daily</CoveragePeriod>
+    <ReportID>XETRA-DA-20260531</ReportID>
+    <GeneratedAt>2026-05-31T18:30:00</GeneratedAt>
+    <ReportType>Daily</ReportType>
+    <CoveragePeriod>2026-05-31</CoveragePeriod>
+    <TradingVenue>XETR</TradingVenue>
+    <MemberID>FRAUAS01</MemberID>
   </Metadata>
-  <Data>
-    <Row>
-      <RowID>1</RowID>
-      <DayViol>N</DayViol>
-      <Threshold1>73</Threshold1>
-      <Threshold2>74</Threshold2>
-      <Threshold3>92</Threshold3>
-      <Threshold4>98</Threshold4>
-    </Row>
-  </Data>
-</Report>
+  <Trades>
+    <Trade>
+      <TradeID>XTR-20260531-00001</TradeID>
+      <ExecutionTime>12:45:19</ExecutionTime>
+      <ISIN>DE0005140008</ISIN>
+      <Instrument>Deutsche Bank AG</Instrument>
+      <Side>Sell</Side>
+      <Quantity>200</Quantity>
+      <Price>17.79</Price>
+      <Currency>EUR</Currency>
+      <OrderType>Stop-Limit</OrderType>
+      <TraderID>T-5023</TraderID>
+      <DayViol>No</DayViol>
+      <ViolationDetails/>
+      <Status>Pass</Status>
+    </Trade>
+    <Trade>
+      <TradeID>XTR-20260531-00002</TradeID>
+      <ExecutionTime>10:15:14</ExecutionTime>
+      <ISIN>DE0008430026</ISIN>
+      <Instrument>Münchener Rück</Instrument>
+      <Side>Sell</Side>
+      <Quantity>1000</Quantity>
+      <Price>475.98</Price>
+      <Currency>EUR</Currency>
+      <OrderType>Market</OrderType>
+      <TraderID>T-6091</TraderID>
+      <DayViol>Yes</DayViol>
+      <ViolationDetails>Position limit exceeded — net exposure beyond approved threshold</ViolationDetails>
+      <Status>Violation</Status>
+    </Trade>
+    <Trade>
+      <TradeID>XTR-20260531-00003</TradeID>
+      <ExecutionTime>09:14:04</ExecutionTime>
+      <ISIN>DE000DTR0CK8</ISIN>
+      <Instrument>Daimler Truck Holding</Instrument>
+      <Side>Buy</Side>
+      <Quantity>200</Quantity>
+      <Price>38.05</Price>
+      <Currency>EUR</Currency>
+      <OrderType>Stop-Limit</OrderType>
+      <TraderID>T-5023</TraderID>
+      <DayViol>No</DayViol>
+      <ViolationDetails/>
+      <Status>Pass</Status>
+    </Trade>
+    <Trade>
+      <TradeID>XTR-20260531-00004</TradeID>
+      <ExecutionTime>17:08:46</ExecutionTime>
+      <ISIN>DE0007100000</ISIN>
+      <Instrument>Mercedes-Benz Group</Instrument>
+      <Side>Buy</Side>
+      <Quantity>250</Quantity>
+      <Price>70.70</Price>
+      <Currency>EUR</Currency>
+      <OrderType>Limit</OrderType>
+      <TraderID>T-1042</TraderID>
+      <DayViol>No</DayViol>
+      <ViolationDetails/>
+      <Status>Pass</Status>
+    </Trade>
+    <Trade>
+      <TradeID>XTR-20260531-00005</TradeID>
+      <ExecutionTime>12:06:06</ExecutionTime>
+      <ISIN>DE000DTR0CK8</ISIN>
+      <Instrument>Daimler Truck Holding</Instrument>
+      <Side>Sell</Side>
+      <Quantity>200</Quantity>
+      <Price>43.49</Price>
+      <Currency>EUR</Currency>
+      <OrderType>Market</OrderType>
+      <TraderID>T-5023</TraderID>
+      <DayViol>No</DayViol>
+      <ViolationDetails/>
+      <Status>Pass</Status>
+    </Trade>
+    <Trade>
+      <TradeID>XTR-20260531-00006</TradeID>
+      <ExecutionTime>10:03:25</ExecutionTime>
+      <ISIN>DE0007100000</ISIN>
+      <Instrument>Mercedes-Benz Group</Instrument>
+      <Side>Sell</Side>
+      <Quantity>1000</Quantity>
+      <Price>73.23</Price>
+      <Currency>EUR</Currency>
+      <OrderType>Limit</OrderType>
+      <TraderID>T-4055</TraderID>
+      <DayViol>No</DayViol>
+      <ViolationDetails/>
+      <Status>Pass</Status>
+    </Trade>
+    <Trade>
+      <TradeID>XTR-20260531-00007</TradeID>
+      <ExecutionTime>15:11:17</ExecutionTime>
+      <ISIN>DE0007236101</ISIN>
+      <Instrument>Siemens AG</Instrument>
+      <Side>Buy</Side>
+      <Quantity>200</Quantity>
+      <Price>173.41</Price>
+      <Currency>EUR</Currency>
+      <OrderType>Limit</OrderType>
+      <TraderID>T-2087</TraderID>
+      <DayViol>No</DayViol>
+      <ViolationDetails/>
+      <Status>Pass</Status>
+    </Trade>
+  </Trades>
+  <Summary>
+    <TotalTrades>7</TotalTrades>
+    <TotalVolume>621433.00</TotalVolume>
+    <ViolationsFound>1</ViolationsFound>
+    <OverallStatus>Violation</OverallStatus>
+    <ExceptionFlag>Yes</ExceptionFlag>
+  </Summary>
+</XetraReport>

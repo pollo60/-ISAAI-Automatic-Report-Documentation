@@ -1,35 +1,61 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-  ISAAI Report Type A — Daily Record Preset
+  ISAAI Report Type A — Daily Xetra Trading Report
   
-  Coverage:  Previous business day (daily snapshot)
-  Frequency: Daily, at agreed processing time
-  Purpose:   Detects same-day threshold breaches
+  Coverage:  Previous business day (trade-level detail)
+  Frequency: Daily
+  Source:    Xetra T7 (Deutsche Börse)
+  Purpose:   Documents individual trades executed on Xetra for compliance review
   
-  Validation Rules:
-    Step 1: Check DayViol marker for value "V" (violation flag)
-    Step 2: If DayViol = "V", check Threshold1–4 against limit (< 50 = breach)
-  
-  Status Values (from SharePoint dropdown):
-    ReportA_Status:  Pass | Violation | Error | Pending
-    OverallStatus:   Completed | Exception | Processing | Failed
-    ExceptionFlag:   Yes | No
+  The operator opens this XML, visually checks for DayViol flags,
+  and saves the file as XLSX to the SharePoint Evidence Archive.
 -->
-<Report type="ReportTypeA" date="YYYYMMDD">
+<XetraReport type="ReportTypeA" date="YYYYMMDD">
   <Metadata>
-    <ReportID>RPT-XXXXXX</ReportID>
-    <GeneratedAt>ISO-TIMESTAMP</GeneratedAt>
-    <Description>Daily financial report — previous business day snapshot</Description>
-    <CoveragePeriod>Daily</CoveragePeriod>
+    <ReportID>XETRA-DA-YYYYMMDD</ReportID>
+    <GeneratedAt>2026-06-10T18:30:00</GeneratedAt>
+    <ReportType>Daily</ReportType>
+    <CoveragePeriod>2026-06-10</CoveragePeriod>
+    <TradingVenue>XETR</TradingVenue>
+    <MemberID>FRAUAS01</MemberID>
   </Metadata>
-  <Data>
-    <Row>
-      <RowID>1</RowID>
-      <DayViol>N</DayViol>
-      <Threshold1>75</Threshold1>
-      <Threshold2>82</Threshold2>
-      <Threshold3>91</Threshold3>
-      <Threshold4>68</Threshold4>
-    </Row>
-  </Data>
-</Report>
+  <Trades>
+    <Trade>
+      <TradeID>XTR-20260610-00147</TradeID>
+      <ExecutionTime>09:02:31</ExecutionTime>
+      <ISIN>DE0007164600</ISIN>
+      <Instrument>SAP SE</Instrument>
+      <Side>Buy</Side>
+      <Quantity>250</Quantity>
+      <Price>198.45</Price>
+      <Currency>EUR</Currency>
+      <OrderType>Limit</OrderType>
+      <TraderID>T-1042</TraderID>
+      <DayViol>No</DayViol>
+      <ViolationDetails/>
+      <Status>Pass</Status>
+    </Trade>
+    <Trade>
+      <TradeID>XTR-20260610-00312</TradeID>
+      <ExecutionTime>10:15:44</ExecutionTime>
+      <ISIN>DE0007236101</ISIN>
+      <Instrument>Siemens AG</Instrument>
+      <Side>Sell</Side>
+      <Quantity>500</Quantity>
+      <Price>176.20</Price>
+      <Currency>EUR</Currency>
+      <OrderType>Market</OrderType>
+      <TraderID>T-2087</TraderID>
+      <DayViol>Yes</DayViol>
+      <ViolationDetails>Position limit exceeded — net short exposure beyond approved threshold</ViolationDetails>
+      <Status>Violation</Status>
+    </Trade>
+  </Trades>
+  <Summary>
+    <TotalTrades>2</TotalTrades>
+    <TotalVolume>137672.50</TotalVolume>
+    <ViolationsFound>1</ViolationsFound>
+    <OverallStatus>Violation</OverallStatus>
+    <ExceptionFlag>Yes</ExceptionFlag>
+  </Summary>
+</XetraReport>

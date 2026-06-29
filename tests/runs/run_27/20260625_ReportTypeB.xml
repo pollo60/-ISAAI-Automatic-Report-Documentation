@@ -1,19 +1,63 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<Report type="ReportTypeB" date="20260625">
+<?xml version="1.0" ?>
+<XetraReport type="ReportTypeB" date="20260625">
   <Metadata>
-    <ReportID>RPT-373432</ReportID>
-    <GeneratedAt>2026-06-29T10:17:16.043785</GeneratedAt>
-    <Description>Monthly financial report — month-to-date cumulative</Description>
-    <CoveragePeriod>Monthly</CoveragePeriod>
+    <ReportID>XETRA-MA-202606</ReportID>
+    <GeneratedAt>2026-06-25T18:30:00</GeneratedAt>
+    <ReportType>Monthly</ReportType>
+    <CoveragePeriod>2026-06-01 to 2026-06-25</CoveragePeriod>
+    <TradingVenue>XETR</TradingVenue>
+    <MemberID>FRAUAS01</MemberID>
   </Metadata>
-  <Data>
-    <Row>
-      <RowID>1</RowID>
-      <MonthViol>N</MonthViol>
-      <Threshold1>73</Threshold1>
-      <Threshold2>80</Threshold2>
-      <Threshold3>75</Threshold3>
-      <Threshold4>76</Threshold4>
-    </Row>
-  </Data>
-</Report>
+  <TraderSummaries>
+    <Trader>
+      <TraderID>T-2087</TraderID>
+      <TraderName>Schmidt, Anna</TraderName>
+      <Desk>Derivatives</Desk>
+      <TotalTrades>126</TotalTrades>
+      <TotalVolume>8967152.68</TotalVolume>
+      <AvgTradeSize>71167.88</AvgTradeSize>
+      <TopInstrument>Mercedes-Benz Group (DE0007100000)</TopInstrument>
+      <MonthViol>No</MonthViol>
+      <ViolationCount>0</ViolationCount>
+      <ViolationDetails/>
+      <ComplianceRating>A</ComplianceRating>
+      <Status>Pass</Status>
+    </Trader>
+    <Trader>
+      <TraderID>T-3011</TraderID>
+      <TraderName>Fischer, Moritz</TraderName>
+      <Desk>Fixed Income</Desk>
+      <TotalTrades>426</TotalTrades>
+      <TotalVolume>4637827.47</TotalVolume>
+      <AvgTradeSize>10886.92</AvgTradeSize>
+      <TopInstrument>Allianz SE (DE0008404005)</TopInstrument>
+      <MonthViol>Yes</MonthViol>
+      <ViolationCount>4</ViolationCount>
+      <ViolationDetails>1x unauthorized instrument trade, 1x late trade booking, 1x position limit breach, 1x best execution deviation</ViolationDetails>
+      <ComplianceRating>C</ComplianceRating>
+      <Status>Violation</Status>
+    </Trader>
+    <Trader>
+      <TraderID>T-6091</TraderID>
+      <TraderName>Krause, Sophie</TraderName>
+      <Desk>Commodities</Desk>
+      <TotalTrades>193</TotalTrades>
+      <TotalVolume>2872509.99</TotalVolume>
+      <AvgTradeSize>14883.47</AvgTradeSize>
+      <TopInstrument>BASF SE (DE000BASF111)</TopInstrument>
+      <MonthViol>No</MonthViol>
+      <ViolationCount>0</ViolationCount>
+      <ViolationDetails/>
+      <ComplianceRating>C</ComplianceRating>
+      <Status>Pass</Status>
+    </Trader>
+  </TraderSummaries>
+  <Summary>
+    <TotalTraders>3</TotalTraders>
+    <TotalTrades>745</TotalTrades>
+    <TotalVolume>16477490.14</TotalVolume>
+    <ViolationsFound>4</ViolationsFound>
+    <OverallStatus>Violation</OverallStatus>
+    <ExceptionFlag>Yes</ExceptionFlag>
+  </Summary>
+</XetraReport>

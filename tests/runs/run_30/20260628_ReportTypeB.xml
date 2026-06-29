@@ -1,19 +1,91 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<Report type="ReportTypeB" date="20260628">
+<?xml version="1.0" ?>
+<XetraReport type="ReportTypeB" date="20260628">
   <Metadata>
-    <ReportID>RPT-800305</ReportID>
-    <GeneratedAt>2026-06-29T10:17:16.046316</GeneratedAt>
-    <Description>Monthly financial report — month-to-date cumulative</Description>
-    <CoveragePeriod>Monthly</CoveragePeriod>
+    <ReportID>XETRA-MA-202606</ReportID>
+    <GeneratedAt>2026-06-28T18:30:00</GeneratedAt>
+    <ReportType>Monthly</ReportType>
+    <CoveragePeriod>2026-06-01 to 2026-06-28</CoveragePeriod>
+    <TradingVenue>XETR</TradingVenue>
+    <MemberID>FRAUAS01</MemberID>
   </Metadata>
-  <Data>
-    <Row>
-      <RowID>1</RowID>
-      <MonthViol>V</MonthViol>
-      <Threshold1>85</Threshold1>
-      <Threshold2>69</Threshold2>
-      <Threshold3>92</Threshold3>
-      <Threshold4>56</Threshold4>
-    </Row>
-  </Data>
-</Report>
+  <TraderSummaries>
+    <Trader>
+      <TraderID>T-1042</TraderID>
+      <TraderName>Weber, Lukas</TraderName>
+      <Desk>Equities</Desk>
+      <TotalTrades>443</TotalTrades>
+      <TotalVolume>6821350.39</TotalVolume>
+      <AvgTradeSize>15398.08</AvgTradeSize>
+      <TopInstrument>Allianz SE (DE0008404005)</TopInstrument>
+      <MonthViol>No</MonthViol>
+      <ViolationCount>0</ViolationCount>
+      <ViolationDetails/>
+      <ComplianceRating>B</ComplianceRating>
+      <Status>Pass</Status>
+    </Trader>
+    <Trader>
+      <TraderID>T-5023</TraderID>
+      <TraderName>Becker, Jan</TraderName>
+      <Desk>Equities</Desk>
+      <TotalTrades>371</TotalTrades>
+      <TotalVolume>1803955.67</TotalVolume>
+      <AvgTradeSize>4862.41</AvgTradeSize>
+      <TopInstrument>Bayer AG (DE000BAY0017)</TopInstrument>
+      <MonthViol>No</MonthViol>
+      <ViolationCount>0</ViolationCount>
+      <ViolationDetails/>
+      <ComplianceRating>A</ComplianceRating>
+      <Status>Pass</Status>
+    </Trader>
+    <Trader>
+      <TraderID>T-2087</TraderID>
+      <TraderName>Schmidt, Anna</TraderName>
+      <Desk>Derivatives</Desk>
+      <TotalTrades>109</TotalTrades>
+      <TotalVolume>4119647.74</TotalVolume>
+      <AvgTradeSize>37794.93</AvgTradeSize>
+      <TopInstrument>Infineon Technologies (DE0006231004)</TopInstrument>
+      <MonthViol>Yes</MonthViol>
+      <ViolationCount>3</ViolationCount>
+      <ViolationDetails>2x late trade booking, 3x wash trade flag, 2x best execution deviation</ViolationDetails>
+      <ComplianceRating>C</ComplianceRating>
+      <Status>Violation</Status>
+    </Trader>
+    <Trader>
+      <TraderID>T-6091</TraderID>
+      <TraderName>Krause, Sophie</TraderName>
+      <Desk>Commodities</Desk>
+      <TotalTrades>428</TotalTrades>
+      <TotalVolume>1820913.52</TotalVolume>
+      <AvgTradeSize>4254.47</AvgTradeSize>
+      <TopInstrument>Mercedes-Benz Group (DE0007100000)</TopInstrument>
+      <MonthViol>No</MonthViol>
+      <ViolationCount>0</ViolationCount>
+      <ViolationDetails/>
+      <ComplianceRating>B</ComplianceRating>
+      <Status>Pass</Status>
+    </Trader>
+    <Trader>
+      <TraderID>T-4055</TraderID>
+      <TraderName>Hoffmann, Lena</TraderName>
+      <Desk>FX Spot</Desk>
+      <TotalTrades>170</TotalTrades>
+      <TotalVolume>11585463.97</TotalVolume>
+      <AvgTradeSize>68149.79</AvgTradeSize>
+      <TopInstrument>Infineon Technologies (DE0006231004)</TopInstrument>
+      <MonthViol>No</MonthViol>
+      <ViolationCount>0</ViolationCount>
+      <ViolationDetails/>
+      <ComplianceRating>A</ComplianceRating>
+      <Status>Pass</Status>
+    </Trader>
+  </TraderSummaries>
+  <Summary>
+    <TotalTraders>5</TotalTraders>
+    <TotalTrades>1521</TotalTrades>
+    <TotalVolume>26151331.29</TotalVolume>
+    <ViolationsFound>3</ViolationsFound>
+    <OverallStatus>Violation</OverallStatus>
+    <ExceptionFlag>Yes</ExceptionFlag>
+  </Summary>
+</XetraReport>

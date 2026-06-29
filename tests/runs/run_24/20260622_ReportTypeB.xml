@@ -1,19 +1,91 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<Report type="ReportTypeB" date="20260622">
+<?xml version="1.0" ?>
+<XetraReport type="ReportTypeB" date="20260622">
   <Metadata>
-    <ReportID>RPT-411120</ReportID>
-    <GeneratedAt>2026-06-29T10:17:16.041212</GeneratedAt>
-    <Description>Monthly financial report — month-to-date cumulative</Description>
-    <CoveragePeriod>Monthly</CoveragePeriod>
+    <ReportID>XETRA-MA-202606</ReportID>
+    <GeneratedAt>2026-06-22T18:30:00</GeneratedAt>
+    <ReportType>Monthly</ReportType>
+    <CoveragePeriod>2026-06-01 to 2026-06-22</CoveragePeriod>
+    <TradingVenue>XETR</TradingVenue>
+    <MemberID>FRAUAS01</MemberID>
   </Metadata>
-  <Data>
-    <Row>
-      <RowID>1</RowID>
-      <MonthViol>N</MonthViol>
-      <Threshold1>73</Threshold1>
-      <Threshold2>63</Threshold2>
-      <Threshold3>97</Threshold3>
-      <Threshold4>94</Threshold4>
-    </Row>
-  </Data>
-</Report>
+  <TraderSummaries>
+    <Trader>
+      <TraderID>T-6091</TraderID>
+      <TraderName>Krause, Sophie</TraderName>
+      <Desk>Commodities</Desk>
+      <TotalTrades>404</TotalTrades>
+      <TotalVolume>9843285.62</TotalVolume>
+      <AvgTradeSize>24364.57</AvgTradeSize>
+      <TopInstrument>Siemens AG (DE0007236101)</TopInstrument>
+      <MonthViol>No</MonthViol>
+      <ViolationCount>0</ViolationCount>
+      <ViolationDetails/>
+      <ComplianceRating>C</ComplianceRating>
+      <Status>Pass</Status>
+    </Trader>
+    <Trader>
+      <TraderID>T-4055</TraderID>
+      <TraderName>Hoffmann, Lena</TraderName>
+      <Desk>FX Spot</Desk>
+      <TotalTrades>222</TotalTrades>
+      <TotalVolume>8794387.97</TotalVolume>
+      <AvgTradeSize>39614.36</AvgTradeSize>
+      <TopInstrument>Mercedes-Benz Group (DE0007100000)</TopInstrument>
+      <MonthViol>No</MonthViol>
+      <ViolationCount>0</ViolationCount>
+      <ViolationDetails/>
+      <ComplianceRating>B</ComplianceRating>
+      <Status>Pass</Status>
+    </Trader>
+    <Trader>
+      <TraderID>T-5023</TraderID>
+      <TraderName>Becker, Jan</TraderName>
+      <Desk>Equities</Desk>
+      <TotalTrades>247</TotalTrades>
+      <TotalVolume>7610533.22</TotalVolume>
+      <AvgTradeSize>30811.88</AvgTradeSize>
+      <TopInstrument>adidas AG (DE000A1EWWW0)</TopInstrument>
+      <MonthViol>Yes</MonthViol>
+      <ViolationCount>4</ViolationCount>
+      <ViolationDetails>1x wash trade flag, 2x position limit breach, 1x best execution deviation, 2x late trade booking</ViolationDetails>
+      <ComplianceRating>D</ComplianceRating>
+      <Status>Violation</Status>
+    </Trader>
+    <Trader>
+      <TraderID>T-2087</TraderID>
+      <TraderName>Schmidt, Anna</TraderName>
+      <Desk>Derivatives</Desk>
+      <TotalTrades>245</TotalTrades>
+      <TotalVolume>10197607.98</TotalVolume>
+      <AvgTradeSize>41622.89</AvgTradeSize>
+      <TopInstrument>Mercedes-Benz Group (DE0007100000)</TopInstrument>
+      <MonthViol>No</MonthViol>
+      <ViolationCount>0</ViolationCount>
+      <ViolationDetails/>
+      <ComplianceRating>A</ComplianceRating>
+      <Status>Pass</Status>
+    </Trader>
+    <Trader>
+      <TraderID>T-1042</TraderID>
+      <TraderName>Weber, Lukas</TraderName>
+      <Desk>Equities</Desk>
+      <TotalTrades>369</TotalTrades>
+      <TotalVolume>10450437.05</TotalVolume>
+      <AvgTradeSize>28320.97</AvgTradeSize>
+      <TopInstrument>Mercedes-Benz Group (DE0007100000)</TopInstrument>
+      <MonthViol>No</MonthViol>
+      <ViolationCount>0</ViolationCount>
+      <ViolationDetails/>
+      <ComplianceRating>A</ComplianceRating>
+      <Status>Pass</Status>
+    </Trader>
+  </TraderSummaries>
+  <Summary>
+    <TotalTraders>5</TotalTraders>
+    <TotalTrades>1487</TotalTrades>
+    <TotalVolume>46896251.84</TotalVolume>
+    <ViolationsFound>4</ViolationsFound>
+    <OverallStatus>Violation</OverallStatus>
+    <ExceptionFlag>Yes</ExceptionFlag>
+  </Summary>
+</XetraReport>

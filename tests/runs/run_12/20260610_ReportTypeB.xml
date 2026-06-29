@@ -1,19 +1,63 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<Report type="ReportTypeB" date="20260610">
+<?xml version="1.0" ?>
+<XetraReport type="ReportTypeB" date="20260610">
   <Metadata>
-    <ReportID>RPT-575763</ReportID>
-    <GeneratedAt>2026-06-29T10:17:16.030048</GeneratedAt>
-    <Description>Monthly financial report — month-to-date cumulative</Description>
-    <CoveragePeriod>Monthly</CoveragePeriod>
+    <ReportID>XETRA-MA-202606</ReportID>
+    <GeneratedAt>2026-06-10T18:30:00</GeneratedAt>
+    <ReportType>Monthly</ReportType>
+    <CoveragePeriod>2026-06-01 to 2026-06-10</CoveragePeriod>
+    <TradingVenue>XETR</TradingVenue>
+    <MemberID>FRAUAS01</MemberID>
   </Metadata>
-  <Data>
-    <Row>
-      <RowID>1</RowID>
-      <MonthViol>N</MonthViol>
-      <Threshold1>60</Threshold1>
-      <Threshold2>76</Threshold2>
-      <Threshold3>92</Threshold3>
-      <Threshold4>71</Threshold4>
-    </Row>
-  </Data>
-</Report>
+  <TraderSummaries>
+    <Trader>
+      <TraderID>T-6091</TraderID>
+      <TraderName>Krause, Sophie</TraderName>
+      <Desk>Commodities</Desk>
+      <TotalTrades>385</TotalTrades>
+      <TotalVolume>5455558.64</TotalVolume>
+      <AvgTradeSize>14170.28</AvgTradeSize>
+      <TopInstrument>Allianz SE (DE0008404005)</TopInstrument>
+      <MonthViol>Yes</MonthViol>
+      <ViolationCount>2</ViolationCount>
+      <ViolationDetails>2x unauthorized instrument trade, 2x position limit breach</ViolationDetails>
+      <ComplianceRating>C</ComplianceRating>
+      <Status>Violation</Status>
+    </Trader>
+    <Trader>
+      <TraderID>T-3011</TraderID>
+      <TraderName>Fischer, Moritz</TraderName>
+      <Desk>Fixed Income</Desk>
+      <TotalTrades>307</TotalTrades>
+      <TotalVolume>7911251.93</TotalVolume>
+      <AvgTradeSize>25769.55</AvgTradeSize>
+      <TopInstrument>adidas AG (DE000A1EWWW0)</TopInstrument>
+      <MonthViol>No</MonthViol>
+      <ViolationCount>0</ViolationCount>
+      <ViolationDetails/>
+      <ComplianceRating>A</ComplianceRating>
+      <Status>Pass</Status>
+    </Trader>
+    <Trader>
+      <TraderID>T-2087</TraderID>
+      <TraderName>Schmidt, Anna</TraderName>
+      <Desk>Derivatives</Desk>
+      <TotalTrades>353</TotalTrades>
+      <TotalVolume>4011269.22</TotalVolume>
+      <AvgTradeSize>11363.37</AvgTradeSize>
+      <TopInstrument>Infineon Technologies (DE0006231004)</TopInstrument>
+      <MonthViol>No</MonthViol>
+      <ViolationCount>0</ViolationCount>
+      <ViolationDetails/>
+      <ComplianceRating>A</ComplianceRating>
+      <Status>Pass</Status>
+    </Trader>
+  </TraderSummaries>
+  <Summary>
+    <TotalTraders>3</TotalTraders>
+    <TotalTrades>1045</TotalTrades>
+    <TotalVolume>17378079.79</TotalVolume>
+    <ViolationsFound>2</ViolationsFound>
+    <OverallStatus>Violation</OverallStatus>
+    <ExceptionFlag>Yes</ExceptionFlag>
+  </Summary>
+</XetraReport>

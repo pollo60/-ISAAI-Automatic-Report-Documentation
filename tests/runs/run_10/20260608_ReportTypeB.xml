@@ -1,19 +1,105 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<Report type="ReportTypeB" date="20260608">
+<?xml version="1.0" ?>
+<XetraReport type="ReportTypeB" date="20260608">
   <Metadata>
-    <ReportID>RPT-757924</ReportID>
-    <GeneratedAt>2026-06-29T10:17:16.028081</GeneratedAt>
-    <Description>Monthly financial report — month-to-date cumulative</Description>
-    <CoveragePeriod>Monthly</CoveragePeriod>
+    <ReportID>XETRA-MA-202606</ReportID>
+    <GeneratedAt>2026-06-08T18:30:00</GeneratedAt>
+    <ReportType>Monthly</ReportType>
+    <CoveragePeriod>2026-06-01 to 2026-06-08</CoveragePeriod>
+    <TradingVenue>XETR</TradingVenue>
+    <MemberID>FRAUAS01</MemberID>
   </Metadata>
-  <Data>
-    <Row>
-      <RowID>1</RowID>
-      <MonthViol>V</MonthViol>
-      <Threshold1>60</Threshold1>
-      <Threshold2>100</Threshold2>
-      <Threshold3>93</Threshold3>
-      <Threshold4>77</Threshold4>
-    </Row>
-  </Data>
-</Report>
+  <TraderSummaries>
+    <Trader>
+      <TraderID>T-6091</TraderID>
+      <TraderName>Krause, Sophie</TraderName>
+      <Desk>Commodities</Desk>
+      <TotalTrades>271</TotalTrades>
+      <TotalVolume>11512721.44</TotalVolume>
+      <AvgTradeSize>42482.37</AvgTradeSize>
+      <TopInstrument>Münchener Rück (DE0008430026)</TopInstrument>
+      <MonthViol>No</MonthViol>
+      <ViolationCount>0</ViolationCount>
+      <ViolationDetails/>
+      <ComplianceRating>A</ComplianceRating>
+      <Status>Pass</Status>
+    </Trader>
+    <Trader>
+      <TraderID>T-1042</TraderID>
+      <TraderName>Weber, Lukas</TraderName>
+      <Desk>Equities</Desk>
+      <TotalTrades>126</TotalTrades>
+      <TotalVolume>10233604.83</TotalVolume>
+      <AvgTradeSize>81219.09</AvgTradeSize>
+      <TopInstrument>Siemens AG (DE0007236101)</TopInstrument>
+      <MonthViol>No</MonthViol>
+      <ViolationCount>0</ViolationCount>
+      <ViolationDetails/>
+      <ComplianceRating>C</ComplianceRating>
+      <Status>Pass</Status>
+    </Trader>
+    <Trader>
+      <TraderID>T-3011</TraderID>
+      <TraderName>Fischer, Moritz</TraderName>
+      <Desk>Fixed Income</Desk>
+      <TotalTrades>270</TotalTrades>
+      <TotalVolume>10023577.50</TotalVolume>
+      <AvgTradeSize>37124.36</AvgTradeSize>
+      <TopInstrument>Deutsche Telekom AG (DE0005557508)</TopInstrument>
+      <MonthViol>Yes</MonthViol>
+      <ViolationCount>3</ViolationCount>
+      <ViolationDetails>3x position limit breach, 2x unauthorized instrument trade, 3x late trade booking</ViolationDetails>
+      <ComplianceRating>C</ComplianceRating>
+      <Status>Violation</Status>
+    </Trader>
+    <Trader>
+      <TraderID>T-2087</TraderID>
+      <TraderName>Schmidt, Anna</TraderName>
+      <Desk>Derivatives</Desk>
+      <TotalTrades>227</TotalTrades>
+      <TotalVolume>7804305.96</TotalVolume>
+      <AvgTradeSize>34380.20</AvgTradeSize>
+      <TopInstrument>Mercedes-Benz Group (DE0007100000)</TopInstrument>
+      <MonthViol>Yes</MonthViol>
+      <ViolationCount>2</ViolationCount>
+      <ViolationDetails>1x late trade booking, 1x unauthorized instrument trade</ViolationDetails>
+      <ComplianceRating>D</ComplianceRating>
+      <Status>Violation</Status>
+    </Trader>
+    <Trader>
+      <TraderID>T-4055</TraderID>
+      <TraderName>Hoffmann, Lena</TraderName>
+      <Desk>FX Spot</Desk>
+      <TotalTrades>364</TotalTrades>
+      <TotalVolume>5359391.03</TotalVolume>
+      <AvgTradeSize>14723.60</AvgTradeSize>
+      <TopInstrument>Deutsche Bank AG (DE0005140008)</TopInstrument>
+      <MonthViol>No</MonthViol>
+      <ViolationCount>0</ViolationCount>
+      <ViolationDetails/>
+      <ComplianceRating>B</ComplianceRating>
+      <Status>Pass</Status>
+    </Trader>
+    <Trader>
+      <TraderID>T-5023</TraderID>
+      <TraderName>Becker, Jan</TraderName>
+      <Desk>Equities</Desk>
+      <TotalTrades>367</TotalTrades>
+      <TotalVolume>11732739.32</TotalVolume>
+      <AvgTradeSize>31969.32</AvgTradeSize>
+      <TopInstrument>Daimler Truck Holding (DE000DTR0CK8)</TopInstrument>
+      <MonthViol>No</MonthViol>
+      <ViolationCount>0</ViolationCount>
+      <ViolationDetails/>
+      <ComplianceRating>C</ComplianceRating>
+      <Status>Pass</Status>
+    </Trader>
+  </TraderSummaries>
+  <Summary>
+    <TotalTraders>6</TotalTraders>
+    <TotalTrades>1625</TotalTrades>
+    <TotalVolume>56666340.08</TotalVolume>
+    <ViolationsFound>5</ViolationsFound>
+    <OverallStatus>Violation</OverallStatus>
+    <ExceptionFlag>Yes</ExceptionFlag>
+  </Summary>
+</XetraReport>

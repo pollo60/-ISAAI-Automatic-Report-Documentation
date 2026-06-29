@@ -1,19 +1,185 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<Report type="ReportTypeA" date="20260605">
+<?xml version="1.0" ?>
+<XetraReport type="ReportTypeA" date="20260605">
   <Metadata>
-    <ReportID>RPT-779514</ReportID>
-    <GeneratedAt>2026-06-29T10:17:16.025383</GeneratedAt>
-    <Description>Daily financial report — previous business day snapshot</Description>
-    <CoveragePeriod>Daily</CoveragePeriod>
+    <ReportID>XETRA-DA-20260605</ReportID>
+    <GeneratedAt>2026-06-05T18:30:00</GeneratedAt>
+    <ReportType>Daily</ReportType>
+    <CoveragePeriod>2026-06-05</CoveragePeriod>
+    <TradingVenue>XETR</TradingVenue>
+    <MemberID>FRAUAS01</MemberID>
   </Metadata>
-  <Data>
-    <Row>
-      <RowID>1</RowID>
-      <DayViol>V</DayViol>
-      <Threshold1>54</Threshold1>
-      <Threshold2>20</Threshold2>
-      <Threshold3>90</Threshold3>
-      <Threshold4>60</Threshold4>
-    </Row>
-  </Data>
-</Report>
+  <Trades>
+    <Trade>
+      <TradeID>XTR-20260605-00001</TradeID>
+      <ExecutionTime>12:16:42</ExecutionTime>
+      <ISIN>DE0005140008</ISIN>
+      <Instrument>Deutsche Bank AG</Instrument>
+      <Side>Buy</Side>
+      <Quantity>100</Quantity>
+      <Price>17.84</Price>
+      <Currency>EUR</Currency>
+      <OrderType>Limit</OrderType>
+      <TraderID>T-5023</TraderID>
+      <DayViol>Yes</DayViol>
+      <ViolationDetails>Late trade booking — execution not reported within T+0 window</ViolationDetails>
+      <Status>Violation</Status>
+    </Trade>
+    <Trade>
+      <TradeID>XTR-20260605-00002</TradeID>
+      <ExecutionTime>16:18:02</ExecutionTime>
+      <ISIN>DE0008404005</ISIN>
+      <Instrument>Allianz SE</Instrument>
+      <Side>Buy</Side>
+      <Quantity>150</Quantity>
+      <Price>250.08</Price>
+      <Currency>EUR</Currency>
+      <OrderType>Market</OrderType>
+      <TraderID>T-5023</TraderID>
+      <DayViol>No</DayViol>
+      <ViolationDetails/>
+      <Status>Pass</Status>
+    </Trade>
+    <Trade>
+      <TradeID>XTR-20260605-00003</TradeID>
+      <ExecutionTime>12:27:07</ExecutionTime>
+      <ISIN>DE000A1EWWW0</ISIN>
+      <Instrument>adidas AG</Instrument>
+      <Side>Sell</Side>
+      <Quantity>100</Quantity>
+      <Price>230.62</Price>
+      <Currency>EUR</Currency>
+      <OrderType>Market</OrderType>
+      <TraderID>T-3011</TraderID>
+      <DayViol>No</DayViol>
+      <ViolationDetails/>
+      <Status>Pass</Status>
+    </Trade>
+    <Trade>
+      <TradeID>XTR-20260605-00004</TradeID>
+      <ExecutionTime>13:38:47</ExecutionTime>
+      <ISIN>DE0008430026</ISIN>
+      <Instrument>Münchener Rück</Instrument>
+      <Side>Sell</Side>
+      <Quantity>150</Quantity>
+      <Price>442.86</Price>
+      <Currency>EUR</Currency>
+      <OrderType>Limit</OrderType>
+      <TraderID>T-2087</TraderID>
+      <DayViol>No</DayViol>
+      <ViolationDetails/>
+      <Status>Pass</Status>
+    </Trade>
+    <Trade>
+      <TradeID>XTR-20260605-00005</TradeID>
+      <ExecutionTime>15:17:32</ExecutionTime>
+      <ISIN>DE0005140008</ISIN>
+      <Instrument>Deutsche Bank AG</Instrument>
+      <Side>Buy</Side>
+      <Quantity>1000</Quantity>
+      <Price>17.07</Price>
+      <Currency>EUR</Currency>
+      <OrderType>Stop-Limit</OrderType>
+      <TraderID>T-4055</TraderID>
+      <DayViol>No</DayViol>
+      <ViolationDetails/>
+      <Status>Pass</Status>
+    </Trade>
+    <Trade>
+      <TradeID>XTR-20260605-00006</TradeID>
+      <ExecutionTime>13:01:05</ExecutionTime>
+      <ISIN>DE0006231004</ISIN>
+      <Instrument>Infineon Technologies</Instrument>
+      <Side>Buy</Side>
+      <Quantity>750</Quantity>
+      <Price>35.88</Price>
+      <Currency>EUR</Currency>
+      <OrderType>Stop-Limit</OrderType>
+      <TraderID>T-1042</TraderID>
+      <DayViol>No</DayViol>
+      <ViolationDetails/>
+      <Status>Pass</Status>
+    </Trade>
+    <Trade>
+      <TradeID>XTR-20260605-00007</TradeID>
+      <ExecutionTime>16:33:41</ExecutionTime>
+      <ISIN>DE0008430026</ISIN>
+      <Instrument>Münchener Rück</Instrument>
+      <Side>Buy</Side>
+      <Quantity>250</Quantity>
+      <Price>463.05</Price>
+      <Currency>EUR</Currency>
+      <OrderType>Limit</OrderType>
+      <TraderID>T-5023</TraderID>
+      <DayViol>No</DayViol>
+      <ViolationDetails/>
+      <Status>Pass</Status>
+    </Trade>
+    <Trade>
+      <TradeID>XTR-20260605-00008</TradeID>
+      <ExecutionTime>14:26:21</ExecutionTime>
+      <ISIN>DE0005140008</ISIN>
+      <Instrument>Deutsche Bank AG</Instrument>
+      <Side>Sell</Side>
+      <Quantity>1000</Quantity>
+      <Price>17.91</Price>
+      <Currency>EUR</Currency>
+      <OrderType>Market</OrderType>
+      <TraderID>T-2087</TraderID>
+      <DayViol>No</DayViol>
+      <ViolationDetails/>
+      <Status>Pass</Status>
+    </Trade>
+    <Trade>
+      <TradeID>XTR-20260605-00009</TradeID>
+      <ExecutionTime>15:52:48</ExecutionTime>
+      <ISIN>DE0007236101</ISIN>
+      <Instrument>Siemens AG</Instrument>
+      <Side>Sell</Side>
+      <Quantity>750</Quantity>
+      <Price>177.34</Price>
+      <Currency>EUR</Currency>
+      <OrderType>Market</OrderType>
+      <TraderID>T-2087</TraderID>
+      <DayViol>No</DayViol>
+      <ViolationDetails/>
+      <Status>Pass</Status>
+    </Trade>
+    <Trade>
+      <TradeID>XTR-20260605-00010</TradeID>
+      <ExecutionTime>17:52:00</ExecutionTime>
+      <ISIN>DE0006231004</ISIN>
+      <Instrument>Infineon Technologies</Instrument>
+      <Side>Sell</Side>
+      <Quantity>250</Quantity>
+      <Price>32.59</Price>
+      <Currency>EUR</Currency>
+      <OrderType>Market</OrderType>
+      <TraderID>T-1042</TraderID>
+      <DayViol>No</DayViol>
+      <ViolationDetails/>
+      <Status>Pass</Status>
+    </Trade>
+    <Trade>
+      <TradeID>XTR-20260605-00011</TradeID>
+      <ExecutionTime>16:40:28</ExecutionTime>
+      <ISIN>DE0005557508</ISIN>
+      <Instrument>Deutsche Telekom AG</Instrument>
+      <Side>Sell</Side>
+      <Quantity>50</Quantity>
+      <Price>24.75</Price>
+      <Currency>EUR</Currency>
+      <OrderType>Market</OrderType>
+      <TraderID>T-4055</TraderID>
+      <DayViol>No</DayViol>
+      <ViolationDetails/>
+      <Status>Pass</Status>
+    </Trade>
+  </Trades>
+  <Summary>
+    <TotalTrades>11</TotalTrades>
+    <TotalVolume>448829.50</TotalVolume>
+    <ViolationsFound>1</ViolationsFound>
+    <OverallStatus>Violation</OverallStatus>
+    <ExceptionFlag>Yes</ExceptionFlag>
+  </Summary>
+</XetraReport>

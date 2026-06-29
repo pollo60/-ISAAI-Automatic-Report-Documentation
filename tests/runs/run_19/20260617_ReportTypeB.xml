@@ -1,19 +1,63 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<Report type="ReportTypeB" date="20260617">
+<?xml version="1.0" ?>
+<XetraReport type="ReportTypeB" date="20260617">
   <Metadata>
-    <ReportID>RPT-238739</ReportID>
-    <GeneratedAt>2026-06-29T10:17:16.036228</GeneratedAt>
-    <Description>Monthly financial report — month-to-date cumulative</Description>
-    <CoveragePeriod>Monthly</CoveragePeriod>
+    <ReportID>XETRA-MA-202606</ReportID>
+    <GeneratedAt>2026-06-17T18:30:00</GeneratedAt>
+    <ReportType>Monthly</ReportType>
+    <CoveragePeriod>2026-06-01 to 2026-06-17</CoveragePeriod>
+    <TradingVenue>XETR</TradingVenue>
+    <MemberID>FRAUAS01</MemberID>
   </Metadata>
-  <Data>
-    <Row>
-      <RowID>1</RowID>
-      <MonthViol>N</MonthViol>
-      <Threshold1>96</Threshold1>
-      <Threshold2>96</Threshold2>
-      <Threshold3>90</Threshold3>
-      <Threshold4>75</Threshold4>
-    </Row>
-  </Data>
-</Report>
+  <TraderSummaries>
+    <Trader>
+      <TraderID>T-2087</TraderID>
+      <TraderName>Schmidt, Anna</TraderName>
+      <Desk>Derivatives</Desk>
+      <TotalTrades>304</TotalTrades>
+      <TotalVolume>3960562.42</TotalVolume>
+      <AvgTradeSize>13028.17</AvgTradeSize>
+      <TopInstrument>Bayer AG (DE000BAY0017)</TopInstrument>
+      <MonthViol>No</MonthViol>
+      <ViolationCount>0</ViolationCount>
+      <ViolationDetails/>
+      <ComplianceRating>A</ComplianceRating>
+      <Status>Pass</Status>
+    </Trader>
+    <Trader>
+      <TraderID>T-1042</TraderID>
+      <TraderName>Weber, Lukas</TraderName>
+      <Desk>Equities</Desk>
+      <TotalTrades>151</TotalTrades>
+      <TotalVolume>6790906.41</TotalVolume>
+      <AvgTradeSize>44972.89</AvgTradeSize>
+      <TopInstrument>Deutsche Bank AG (DE0005140008)</TopInstrument>
+      <MonthViol>No</MonthViol>
+      <ViolationCount>0</ViolationCount>
+      <ViolationDetails/>
+      <ComplianceRating>C</ComplianceRating>
+      <Status>Pass</Status>
+    </Trader>
+    <Trader>
+      <TraderID>T-4055</TraderID>
+      <TraderName>Hoffmann, Lena</TraderName>
+      <Desk>FX Spot</Desk>
+      <TotalTrades>374</TotalTrades>
+      <TotalVolume>4848488.81</TotalVolume>
+      <AvgTradeSize>12963.87</AvgTradeSize>
+      <TopInstrument>Daimler Truck Holding (DE000DTR0CK8)</TopInstrument>
+      <MonthViol>No</MonthViol>
+      <ViolationCount>0</ViolationCount>
+      <ViolationDetails/>
+      <ComplianceRating>A</ComplianceRating>
+      <Status>Pass</Status>
+    </Trader>
+  </TraderSummaries>
+  <Summary>
+    <TotalTraders>3</TotalTraders>
+    <TotalTrades>829</TotalTrades>
+    <TotalVolume>15599957.64</TotalVolume>
+    <ViolationsFound>0</ViolationsFound>
+    <OverallStatus>Pass</OverallStatus>
+    <ExceptionFlag>No</ExceptionFlag>
+  </Summary>
+</XetraReport>

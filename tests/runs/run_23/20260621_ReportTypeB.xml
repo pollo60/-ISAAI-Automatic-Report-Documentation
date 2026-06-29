@@ -1,19 +1,63 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<Report type="ReportTypeB" date="20260621">
+<?xml version="1.0" ?>
+<XetraReport type="ReportTypeB" date="20260621">
   <Metadata>
-    <ReportID>RPT-272634</ReportID>
-    <GeneratedAt>2026-06-29T10:17:16.040207</GeneratedAt>
-    <Description>Monthly financial report — month-to-date cumulative</Description>
-    <CoveragePeriod>Monthly</CoveragePeriod>
+    <ReportID>XETRA-MA-202606</ReportID>
+    <GeneratedAt>2026-06-21T18:30:00</GeneratedAt>
+    <ReportType>Monthly</ReportType>
+    <CoveragePeriod>2026-06-01 to 2026-06-21</CoveragePeriod>
+    <TradingVenue>XETR</TradingVenue>
+    <MemberID>FRAUAS01</MemberID>
   </Metadata>
-  <Data>
-    <Row>
-      <RowID>1</RowID>
-      <MonthViol>N</MonthViol>
-      <Threshold1>84</Threshold1>
-      <Threshold2>60</Threshold2>
-      <Threshold3>84</Threshold3>
-      <Threshold4>76</Threshold4>
-    </Row>
-  </Data>
-</Report>
+  <TraderSummaries>
+    <Trader>
+      <TraderID>T-3011</TraderID>
+      <TraderName>Fischer, Moritz</TraderName>
+      <Desk>Fixed Income</Desk>
+      <TotalTrades>166</TotalTrades>
+      <TotalVolume>9697772.07</TotalVolume>
+      <AvgTradeSize>58420.31</AvgTradeSize>
+      <TopInstrument>Daimler Truck Holding (DE000DTR0CK8)</TopInstrument>
+      <MonthViol>No</MonthViol>
+      <ViolationCount>0</ViolationCount>
+      <ViolationDetails/>
+      <ComplianceRating>B</ComplianceRating>
+      <Status>Pass</Status>
+    </Trader>
+    <Trader>
+      <TraderID>T-2087</TraderID>
+      <TraderName>Schmidt, Anna</TraderName>
+      <Desk>Derivatives</Desk>
+      <TotalTrades>361</TotalTrades>
+      <TotalVolume>6863462.79</TotalVolume>
+      <AvgTradeSize>19012.36</AvgTradeSize>
+      <TopInstrument>Daimler Truck Holding (DE000DTR0CK8)</TopInstrument>
+      <MonthViol>Yes</MonthViol>
+      <ViolationCount>3</ViolationCount>
+      <ViolationDetails>2x best execution deviation, 3x position limit breach, 1x wash trade flag</ViolationDetails>
+      <ComplianceRating>D</ComplianceRating>
+      <Status>Violation</Status>
+    </Trader>
+    <Trader>
+      <TraderID>T-6091</TraderID>
+      <TraderName>Krause, Sophie</TraderName>
+      <Desk>Commodities</Desk>
+      <TotalTrades>132</TotalTrades>
+      <TotalVolume>9227881.33</TotalVolume>
+      <AvgTradeSize>69908.19</AvgTradeSize>
+      <TopInstrument>Münchener Rück (DE0008430026)</TopInstrument>
+      <MonthViol>No</MonthViol>
+      <ViolationCount>0</ViolationCount>
+      <ViolationDetails/>
+      <ComplianceRating>A</ComplianceRating>
+      <Status>Pass</Status>
+    </Trader>
+  </TraderSummaries>
+  <Summary>
+    <TotalTraders>3</TotalTraders>
+    <TotalTrades>659</TotalTrades>
+    <TotalVolume>25789116.19</TotalVolume>
+    <ViolationsFound>3</ViolationsFound>
+    <OverallStatus>Violation</OverallStatus>
+    <ExceptionFlag>Yes</ExceptionFlag>
+  </Summary>
+</XetraReport>

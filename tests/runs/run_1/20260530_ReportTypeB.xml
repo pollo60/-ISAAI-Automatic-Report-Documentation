@@ -1,19 +1,77 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<Report type="ReportTypeB" date="20260530">
+<?xml version="1.0" ?>
+<XetraReport type="ReportTypeB" date="20260530">
   <Metadata>
-    <ReportID>RPT-809570</ReportID>
-    <GeneratedAt>2026-06-29T10:17:16.020952</GeneratedAt>
-    <Description>Monthly financial report — month-to-date cumulative</Description>
-    <CoveragePeriod>Monthly</CoveragePeriod>
+    <ReportID>XETRA-MA-202605</ReportID>
+    <GeneratedAt>2026-05-30T18:30:00</GeneratedAt>
+    <ReportType>Monthly</ReportType>
+    <CoveragePeriod>2026-05-01 to 2026-05-30</CoveragePeriod>
+    <TradingVenue>XETR</TradingVenue>
+    <MemberID>FRAUAS01</MemberID>
   </Metadata>
-  <Data>
-    <Row>
-      <RowID>1</RowID>
-      <MonthViol>N</MonthViol>
-      <Threshold1>94</Threshold1>
-      <Threshold2>65</Threshold2>
-      <Threshold3>97</Threshold3>
-      <Threshold4>87</Threshold4>
-    </Row>
-  </Data>
-</Report>
+  <TraderSummaries>
+    <Trader>
+      <TraderID>T-2087</TraderID>
+      <TraderName>Schmidt, Anna</TraderName>
+      <Desk>Derivatives</Desk>
+      <TotalTrades>351</TotalTrades>
+      <TotalVolume>11144181.69</TotalVolume>
+      <AvgTradeSize>31749.81</AvgTradeSize>
+      <TopInstrument>Daimler Truck Holding (DE000DTR0CK8)</TopInstrument>
+      <MonthViol>No</MonthViol>
+      <ViolationCount>0</ViolationCount>
+      <ViolationDetails/>
+      <ComplianceRating>A</ComplianceRating>
+      <Status>Pass</Status>
+    </Trader>
+    <Trader>
+      <TraderID>T-3011</TraderID>
+      <TraderName>Fischer, Moritz</TraderName>
+      <Desk>Fixed Income</Desk>
+      <TotalTrades>137</TotalTrades>
+      <TotalVolume>11255535.47</TotalVolume>
+      <AvgTradeSize>82157.19</AvgTradeSize>
+      <TopInstrument>Deutsche Bank AG (DE0005140008)</TopInstrument>
+      <MonthViol>No</MonthViol>
+      <ViolationCount>0</ViolationCount>
+      <ViolationDetails/>
+      <ComplianceRating>A</ComplianceRating>
+      <Status>Pass</Status>
+    </Trader>
+    <Trader>
+      <TraderID>T-6091</TraderID>
+      <TraderName>Krause, Sophie</TraderName>
+      <Desk>Commodities</Desk>
+      <TotalTrades>370</TotalTrades>
+      <TotalVolume>11442969.18</TotalVolume>
+      <AvgTradeSize>30926.94</AvgTradeSize>
+      <TopInstrument>Siemens AG (DE0007236101)</TopInstrument>
+      <MonthViol>No</MonthViol>
+      <ViolationCount>0</ViolationCount>
+      <ViolationDetails/>
+      <ComplianceRating>A</ComplianceRating>
+      <Status>Pass</Status>
+    </Trader>
+    <Trader>
+      <TraderID>T-5023</TraderID>
+      <TraderName>Becker, Jan</TraderName>
+      <Desk>Equities</Desk>
+      <TotalTrades>352</TotalTrades>
+      <TotalVolume>9541261.51</TotalVolume>
+      <AvgTradeSize>27105.86</AvgTradeSize>
+      <TopInstrument>Allianz SE (DE0008404005)</TopInstrument>
+      <MonthViol>No</MonthViol>
+      <ViolationCount>0</ViolationCount>
+      <ViolationDetails/>
+      <ComplianceRating>B</ComplianceRating>
+      <Status>Pass</Status>
+    </Trader>
+  </TraderSummaries>
+  <Summary>
+    <TotalTraders>4</TotalTraders>
+    <TotalTrades>1210</TotalTrades>
+    <TotalVolume>43383947.85</TotalVolume>
+    <ViolationsFound>0</ViolationsFound>
+    <OverallStatus>Pass</OverallStatus>
+    <ExceptionFlag>No</ExceptionFlag>
+  </Summary>
+</XetraReport>

@@ -1,35 +1,60 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-  ISAAI Report Type B — Monthly Record Preset
+  ISAAI Report Type B — Monthly Xetra Trading Summary
   
-  Coverage:  Month-to-date cumulative
-  Frequency: Daily, alongside Report Type A
-  Purpose:   Tracks cumulative monthly threshold breach trend
+  Coverage:  Full calendar month (trader-level aggregation)
+  Frequency: Monthly (delivered daily as running cumulative)
+  Source:    Xetra T7 (Deutsche Börse)
+  Purpose:   Aggregated monthly view of trader activity and compliance flags
   
-  Validation Rules:
-    Step 1: Check MonthViol marker for value "V" (violation flag)
-    Step 2: If MonthViol = "V", check Threshold1–4 against limit (< 50 = breach)
-  
-  Status Values (from SharePoint dropdown):
-    ReportB_Status:  Pass | Violation | Error | Pending
-    OverallStatus:   Completed | Exception | Processing | Failed
-    ExceptionFlag:   Yes | No
+  The operator opens this XML, visually checks for MonthViol flags,
+  and saves the file as XLSX to the SharePoint Evidence Archive.
 -->
-<Report type="ReportTypeB" date="YYYYMMDD">
+<XetraReport type="ReportTypeB" date="YYYYMMDD">
   <Metadata>
-    <ReportID>RPT-XXXXXX</ReportID>
-    <GeneratedAt>ISO-TIMESTAMP</GeneratedAt>
-    <Description>Monthly financial report — month-to-date cumulative</Description>
-    <CoveragePeriod>Monthly</CoveragePeriod>
+    <ReportID>XETRA-MA-202606</ReportID>
+    <GeneratedAt>2026-06-10T18:30:00</GeneratedAt>
+    <ReportType>Monthly</ReportType>
+    <CoveragePeriod>2026-06-01 to 2026-06-10</CoveragePeriod>
+    <TradingVenue>XETR</TradingVenue>
+    <MemberID>FRAUAS01</MemberID>
   </Metadata>
-  <Data>
-    <Row>
-      <RowID>1</RowID>
-      <MonthViol>N</MonthViol>
-      <Threshold1>88</Threshold1>
-      <Threshold2>73</Threshold2>
-      <Threshold3>95</Threshold3>
-      <Threshold4>61</Threshold4>
-    </Row>
-  </Data>
-</Report>
+  <TraderSummaries>
+    <Trader>
+      <TraderID>T-1042</TraderID>
+      <TraderName>Weber, Lukas</TraderName>
+      <Desk>Equities</Desk>
+      <TotalTrades>312</TotalTrades>
+      <TotalVolume>4850000.00</TotalVolume>
+      <AvgTradeSize>15544.87</AvgTradeSize>
+      <TopInstrument>SAP SE (DE0007164600)</TopInstrument>
+      <MonthViol>No</MonthViol>
+      <ViolationCount>0</ViolationCount>
+      <ViolationDetails/>
+      <ComplianceRating>A</ComplianceRating>
+      <Status>Pass</Status>
+    </Trader>
+    <Trader>
+      <TraderID>T-2087</TraderID>
+      <TraderName>Schmidt, Anna</TraderName>
+      <Desk>Derivatives</Desk>
+      <TotalTrades>187</TotalTrades>
+      <TotalVolume>7230000.00</TotalVolume>
+      <AvgTradeSize>38663.10</AvgTradeSize>
+      <TopInstrument>Siemens AG (DE0007236101)</TopInstrument>
+      <MonthViol>Yes</MonthViol>
+      <ViolationCount>3</ViolationCount>
+      <ViolationDetails>2x position limit breach, 1x late trade booking</ViolationDetails>
+      <ComplianceRating>C</ComplianceRating>
+      <Status>Violation</Status>
+    </Trader>
+  </TraderSummaries>
+  <Summary>
+    <TotalTraders>2</TotalTraders>
+    <TotalTrades>499</TotalTrades>
+    <TotalVolume>12080000.00</TotalVolume>
+    <ViolationsFound>3</ViolationsFound>
+    <OverallStatus>Violation</OverallStatus>
+    <ExceptionFlag>Yes</ExceptionFlag>
+  </Summary>
+</XetraReport>

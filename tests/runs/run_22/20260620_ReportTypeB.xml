@@ -1,19 +1,105 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<Report type="ReportTypeB" date="20260620">
+<?xml version="1.0" ?>
+<XetraReport type="ReportTypeB" date="20260620">
   <Metadata>
-    <ReportID>RPT-202664</ReportID>
-    <GeneratedAt>2026-06-29T10:17:16.039346</GeneratedAt>
-    <Description>Monthly financial report — month-to-date cumulative</Description>
-    <CoveragePeriod>Monthly</CoveragePeriod>
+    <ReportID>XETRA-MA-202606</ReportID>
+    <GeneratedAt>2026-06-20T18:30:00</GeneratedAt>
+    <ReportType>Monthly</ReportType>
+    <CoveragePeriod>2026-06-01 to 2026-06-20</CoveragePeriod>
+    <TradingVenue>XETR</TradingVenue>
+    <MemberID>FRAUAS01</MemberID>
   </Metadata>
-  <Data>
-    <Row>
-      <RowID>1</RowID>
-      <MonthViol>N</MonthViol>
-      <Threshold1>63</Threshold1>
-      <Threshold2>94</Threshold2>
-      <Threshold3>60</Threshold3>
-      <Threshold4>65</Threshold4>
-    </Row>
-  </Data>
-</Report>
+  <TraderSummaries>
+    <Trader>
+      <TraderID>T-5023</TraderID>
+      <TraderName>Becker, Jan</TraderName>
+      <Desk>Equities</Desk>
+      <TotalTrades>266</TotalTrades>
+      <TotalVolume>2695822.15</TotalVolume>
+      <AvgTradeSize>10134.67</AvgTradeSize>
+      <TopInstrument>Daimler Truck Holding (DE000DTR0CK8)</TopInstrument>
+      <MonthViol>Yes</MonthViol>
+      <ViolationCount>2</ViolationCount>
+      <ViolationDetails>3x best execution deviation, 2x position limit breach</ViolationDetails>
+      <ComplianceRating>C</ComplianceRating>
+      <Status>Violation</Status>
+    </Trader>
+    <Trader>
+      <TraderID>T-2087</TraderID>
+      <TraderName>Schmidt, Anna</TraderName>
+      <Desk>Derivatives</Desk>
+      <TotalTrades>304</TotalTrades>
+      <TotalVolume>9875697.97</TotalVolume>
+      <AvgTradeSize>32485.85</AvgTradeSize>
+      <TopInstrument>adidas AG (DE000A1EWWW0)</TopInstrument>
+      <MonthViol>Yes</MonthViol>
+      <ViolationCount>4</ViolationCount>
+      <ViolationDetails>1x unauthorized instrument trade, 2x late trade booking, 3x wash trade flag, 1x best execution deviation</ViolationDetails>
+      <ComplianceRating>D</ComplianceRating>
+      <Status>Violation</Status>
+    </Trader>
+    <Trader>
+      <TraderID>T-3011</TraderID>
+      <TraderName>Fischer, Moritz</TraderName>
+      <Desk>Fixed Income</Desk>
+      <TotalTrades>273</TotalTrades>
+      <TotalVolume>2276633.92</TotalVolume>
+      <AvgTradeSize>8339.32</AvgTradeSize>
+      <TopInstrument>Daimler Truck Holding (DE000DTR0CK8)</TopInstrument>
+      <MonthViol>No</MonthViol>
+      <ViolationCount>0</ViolationCount>
+      <ViolationDetails/>
+      <ComplianceRating>B</ComplianceRating>
+      <Status>Pass</Status>
+    </Trader>
+    <Trader>
+      <TraderID>T-6091</TraderID>
+      <TraderName>Krause, Sophie</TraderName>
+      <Desk>Commodities</Desk>
+      <TotalTrades>353</TotalTrades>
+      <TotalVolume>6819432.75</TotalVolume>
+      <AvgTradeSize>19318.51</AvgTradeSize>
+      <TopInstrument>adidas AG (DE000A1EWWW0)</TopInstrument>
+      <MonthViol>No</MonthViol>
+      <ViolationCount>0</ViolationCount>
+      <ViolationDetails/>
+      <ComplianceRating>A</ComplianceRating>
+      <Status>Pass</Status>
+    </Trader>
+    <Trader>
+      <TraderID>T-4055</TraderID>
+      <TraderName>Hoffmann, Lena</TraderName>
+      <Desk>FX Spot</Desk>
+      <TotalTrades>264</TotalTrades>
+      <TotalVolume>8867160.01</TotalVolume>
+      <AvgTradeSize>33587.73</AvgTradeSize>
+      <TopInstrument>Deutsche Telekom AG (DE0005557508)</TopInstrument>
+      <MonthViol>No</MonthViol>
+      <ViolationCount>0</ViolationCount>
+      <ViolationDetails/>
+      <ComplianceRating>A</ComplianceRating>
+      <Status>Pass</Status>
+    </Trader>
+    <Trader>
+      <TraderID>T-1042</TraderID>
+      <TraderName>Weber, Lukas</TraderName>
+      <Desk>Equities</Desk>
+      <TotalTrades>135</TotalTrades>
+      <TotalVolume>9574017.50</TotalVolume>
+      <AvgTradeSize>70918.65</AvgTradeSize>
+      <TopInstrument>Münchener Rück (DE0008430026)</TopInstrument>
+      <MonthViol>No</MonthViol>
+      <ViolationCount>0</ViolationCount>
+      <ViolationDetails/>
+      <ComplianceRating>A</ComplianceRating>
+      <Status>Pass</Status>
+    </Trader>
+  </TraderSummaries>
+  <Summary>
+    <TotalTraders>6</TotalTraders>
+    <TotalTrades>1595</TotalTrades>
+    <TotalVolume>40108764.30</TotalVolume>
+    <ViolationsFound>6</ViolationsFound>
+    <OverallStatus>Violation</OverallStatus>
+    <ExceptionFlag>Yes</ExceptionFlag>
+  </Summary>
+</XetraReport>

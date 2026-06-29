@@ -1,19 +1,185 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<Report type="ReportTypeA" date="20260628">
+<?xml version="1.0" ?>
+<XetraReport type="ReportTypeA" date="20260628">
   <Metadata>
-    <ReportID>RPT-837715</ReportID>
-    <GeneratedAt>2026-06-29T10:17:16.046306</GeneratedAt>
-    <Description>Daily financial report — previous business day snapshot</Description>
-    <CoveragePeriod>Daily</CoveragePeriod>
+    <ReportID>XETRA-DA-20260628</ReportID>
+    <GeneratedAt>2026-06-28T18:30:00</GeneratedAt>
+    <ReportType>Daily</ReportType>
+    <CoveragePeriod>2026-06-28</CoveragePeriod>
+    <TradingVenue>XETR</TradingVenue>
+    <MemberID>FRAUAS01</MemberID>
   </Metadata>
-  <Data>
-    <Row>
-      <RowID>1</RowID>
-      <DayViol>N</DayViol>
-      <Threshold1>79</Threshold1>
-      <Threshold2>99</Threshold2>
-      <Threshold3>93</Threshold3>
-      <Threshold4>60</Threshold4>
-    </Row>
-  </Data>
-</Report>
+  <Trades>
+    <Trade>
+      <TradeID>XTR-20260628-00001</TradeID>
+      <ExecutionTime>17:43:55</ExecutionTime>
+      <ISIN>DE000DTR0CK8</ISIN>
+      <Instrument>Daimler Truck Holding</Instrument>
+      <Side>Buy</Side>
+      <Quantity>750</Quantity>
+      <Price>43.73</Price>
+      <Currency>EUR</Currency>
+      <OrderType>Market</OrderType>
+      <TraderID>T-2087</TraderID>
+      <DayViol>No</DayViol>
+      <ViolationDetails/>
+      <Status>Pass</Status>
+    </Trade>
+    <Trade>
+      <TradeID>XTR-20260628-00002</TradeID>
+      <ExecutionTime>09:32:36</ExecutionTime>
+      <ISIN>DE000DTR0CK8</ISIN>
+      <Instrument>Daimler Truck Holding</Instrument>
+      <Side>Sell</Side>
+      <Quantity>250</Quantity>
+      <Price>38.55</Price>
+      <Currency>EUR</Currency>
+      <OrderType>Stop-Limit</OrderType>
+      <TraderID>T-2087</TraderID>
+      <DayViol>No</DayViol>
+      <ViolationDetails/>
+      <Status>Pass</Status>
+    </Trade>
+    <Trade>
+      <TradeID>XTR-20260628-00003</TradeID>
+      <ExecutionTime>11:10:13</ExecutionTime>
+      <ISIN>DE000DTR0CK8</ISIN>
+      <Instrument>Daimler Truck Holding</Instrument>
+      <Side>Buy</Side>
+      <Quantity>100</Quantity>
+      <Price>44.64</Price>
+      <Currency>EUR</Currency>
+      <OrderType>Market</OrderType>
+      <TraderID>T-6091</TraderID>
+      <DayViol>No</DayViol>
+      <ViolationDetails/>
+      <Status>Pass</Status>
+    </Trade>
+    <Trade>
+      <TradeID>XTR-20260628-00004</TradeID>
+      <ExecutionTime>12:52:40</ExecutionTime>
+      <ISIN>DE0008404005</ISIN>
+      <Instrument>Allianz SE</Instrument>
+      <Side>Sell</Side>
+      <Quantity>100</Quantity>
+      <Price>279.65</Price>
+      <Currency>EUR</Currency>
+      <OrderType>Market</OrderType>
+      <TraderID>T-1042</TraderID>
+      <DayViol>Yes</DayViol>
+      <ViolationDetails>Price manipulation flag — order significantly away from VWAP</ViolationDetails>
+      <Status>Violation</Status>
+    </Trade>
+    <Trade>
+      <TradeID>XTR-20260628-00005</TradeID>
+      <ExecutionTime>17:20:54</ExecutionTime>
+      <ISIN>DE0005140008</ISIN>
+      <Instrument>Deutsche Bank AG</Instrument>
+      <Side>Buy</Side>
+      <Quantity>100</Quantity>
+      <Price>16.16</Price>
+      <Currency>EUR</Currency>
+      <OrderType>Market</OrderType>
+      <TraderID>T-3011</TraderID>
+      <DayViol>No</DayViol>
+      <ViolationDetails/>
+      <Status>Pass</Status>
+    </Trade>
+    <Trade>
+      <TradeID>XTR-20260628-00006</TradeID>
+      <ExecutionTime>10:59:06</ExecutionTime>
+      <ISIN>DE0006231004</ISIN>
+      <Instrument>Infineon Technologies</Instrument>
+      <Side>Sell</Side>
+      <Quantity>100</Quantity>
+      <Price>33.32</Price>
+      <Currency>EUR</Currency>
+      <OrderType>Limit</OrderType>
+      <TraderID>T-1042</TraderID>
+      <DayViol>No</DayViol>
+      <ViolationDetails/>
+      <Status>Pass</Status>
+    </Trade>
+    <Trade>
+      <TradeID>XTR-20260628-00007</TradeID>
+      <ExecutionTime>16:36:38</ExecutionTime>
+      <ISIN>DE0007236101</ISIN>
+      <Instrument>Siemens AG</Instrument>
+      <Side>Sell</Side>
+      <Quantity>750</Quantity>
+      <Price>166.60</Price>
+      <Currency>EUR</Currency>
+      <OrderType>Stop-Limit</OrderType>
+      <TraderID>T-3011</TraderID>
+      <DayViol>No</DayViol>
+      <ViolationDetails/>
+      <Status>Pass</Status>
+    </Trade>
+    <Trade>
+      <TradeID>XTR-20260628-00008</TradeID>
+      <ExecutionTime>15:02:25</ExecutionTime>
+      <ISIN>DE0008404005</ISIN>
+      <Instrument>Allianz SE</Instrument>
+      <Side>Sell</Side>
+      <Quantity>150</Quantity>
+      <Price>268.55</Price>
+      <Currency>EUR</Currency>
+      <OrderType>Stop-Limit</OrderType>
+      <TraderID>T-3011</TraderID>
+      <DayViol>No</DayViol>
+      <ViolationDetails/>
+      <Status>Pass</Status>
+    </Trade>
+    <Trade>
+      <TradeID>XTR-20260628-00009</TradeID>
+      <ExecutionTime>14:01:21</ExecutionTime>
+      <ISIN>DE0007100000</ISIN>
+      <Instrument>Mercedes-Benz Group</Instrument>
+      <Side>Buy</Side>
+      <Quantity>50</Quantity>
+      <Price>71.69</Price>
+      <Currency>EUR</Currency>
+      <OrderType>Market</OrderType>
+      <TraderID>T-6091</TraderID>
+      <DayViol>No</DayViol>
+      <ViolationDetails/>
+      <Status>Pass</Status>
+    </Trade>
+    <Trade>
+      <TradeID>XTR-20260628-00010</TradeID>
+      <ExecutionTime>10:55:14</ExecutionTime>
+      <ISIN>DE0005140008</ISIN>
+      <Instrument>Deutsche Bank AG</Instrument>
+      <Side>Sell</Side>
+      <Quantity>1000</Quantity>
+      <Price>17.57</Price>
+      <Currency>EUR</Currency>
+      <OrderType>Stop-Limit</OrderType>
+      <TraderID>T-3011</TraderID>
+      <DayViol>Yes</DayViol>
+      <ViolationDetails>Unauthorized instrument — traded outside approved product list</ViolationDetails>
+      <Status>Violation</Status>
+    </Trade>
+    <Trade>
+      <TradeID>XTR-20260628-00011</TradeID>
+      <ExecutionTime>15:47:31</ExecutionTime>
+      <ISIN>DE0007100000</ISIN>
+      <Instrument>Mercedes-Benz Group</Instrument>
+      <Side>Sell</Side>
+      <Quantity>100</Quantity>
+      <Price>64.44</Price>
+      <Currency>EUR</Currency>
+      <OrderType>Limit</OrderType>
+      <TraderID>T-3011</TraderID>
+      <DayViol>No</DayViol>
+      <ViolationDetails/>
+      <Status>Pass</Status>
+    </Trade>
+  </Trades>
+  <Summary>
+    <TotalTrades>11</TotalTrades>
+    <TotalVolume>272643.00</TotalVolume>
+    <ViolationsFound>2</ViolationsFound>
+    <OverallStatus>Violation</OverallStatus>
+    <ExceptionFlag>Yes</ExceptionFlag>
+  </Summary>
+</XetraReport>

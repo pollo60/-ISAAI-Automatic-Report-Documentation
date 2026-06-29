@@ -1,19 +1,110 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<Report type="ReportTypeA" date="20260617">
+<?xml version="1.0" ?>
+<XetraReport type="ReportTypeA" date="20260617">
   <Metadata>
-    <ReportID>RPT-392004</ReportID>
-    <GeneratedAt>2026-06-29T10:17:16.036219</GeneratedAt>
-    <Description>Daily financial report — previous business day snapshot</Description>
-    <CoveragePeriod>Daily</CoveragePeriod>
+    <ReportID>XETRA-DA-20260617</ReportID>
+    <GeneratedAt>2026-06-17T18:30:00</GeneratedAt>
+    <ReportType>Daily</ReportType>
+    <CoveragePeriod>2026-06-17</CoveragePeriod>
+    <TradingVenue>XETR</TradingVenue>
+    <MemberID>FRAUAS01</MemberID>
   </Metadata>
-  <Data>
-    <Row>
-      <RowID>1</RowID>
-      <DayViol>V</DayViol>
-      <Threshold1>92</Threshold1>
-      <Threshold2>81</Threshold2>
-      <Threshold3>63</Threshold3>
-      <Threshold4>84</Threshold4>
-    </Row>
-  </Data>
-</Report>
+  <Trades>
+    <Trade>
+      <TradeID>XTR-20260617-00001</TradeID>
+      <ExecutionTime>11:49:08</ExecutionTime>
+      <ISIN>DE0005557508</ISIN>
+      <Instrument>Deutsche Telekom AG</Instrument>
+      <Side>Buy</Side>
+      <Quantity>1000</Quantity>
+      <Price>24.13</Price>
+      <Currency>EUR</Currency>
+      <OrderType>Market</OrderType>
+      <TraderID>T-1042</TraderID>
+      <DayViol>No</DayViol>
+      <ViolationDetails/>
+      <Status>Pass</Status>
+    </Trade>
+    <Trade>
+      <TradeID>XTR-20260617-00002</TradeID>
+      <ExecutionTime>16:55:58</ExecutionTime>
+      <ISIN>DE000A1EWWW0</ISIN>
+      <Instrument>adidas AG</Instrument>
+      <Side>Sell</Side>
+      <Quantity>500</Quantity>
+      <Price>239.79</Price>
+      <Currency>EUR</Currency>
+      <OrderType>Market</OrderType>
+      <TraderID>T-6091</TraderID>
+      <DayViol>No</DayViol>
+      <ViolationDetails/>
+      <Status>Pass</Status>
+    </Trade>
+    <Trade>
+      <TradeID>XTR-20260617-00003</TradeID>
+      <ExecutionTime>15:33:08</ExecutionTime>
+      <ISIN>DE000BASF111</ISIN>
+      <Instrument>BASF SE</Instrument>
+      <Side>Buy</Side>
+      <Quantity>500</Quantity>
+      <Price>44.07</Price>
+      <Currency>EUR</Currency>
+      <OrderType>Stop-Limit</OrderType>
+      <TraderID>T-1042</TraderID>
+      <DayViol>No</DayViol>
+      <ViolationDetails/>
+      <Status>Pass</Status>
+    </Trade>
+    <Trade>
+      <TradeID>XTR-20260617-00004</TradeID>
+      <ExecutionTime>17:27:34</ExecutionTime>
+      <ISIN>DE000BAY0017</ISIN>
+      <Instrument>Bayer AG</Instrument>
+      <Side>Buy</Side>
+      <Quantity>250</Quantity>
+      <Price>31.24</Price>
+      <Currency>EUR</Currency>
+      <OrderType>Stop-Limit</OrderType>
+      <TraderID>T-1042</TraderID>
+      <DayViol>No</DayViol>
+      <ViolationDetails/>
+      <Status>Pass</Status>
+    </Trade>
+    <Trade>
+      <TradeID>XTR-20260617-00005</TradeID>
+      <ExecutionTime>10:02:51</ExecutionTime>
+      <ISIN>DE000BAY0017</ISIN>
+      <Instrument>Bayer AG</Instrument>
+      <Side>Sell</Side>
+      <Quantity>500</Quantity>
+      <Price>29.09</Price>
+      <Currency>EUR</Currency>
+      <OrderType>Limit</OrderType>
+      <TraderID>T-2087</TraderID>
+      <DayViol>No</DayViol>
+      <ViolationDetails/>
+      <Status>Pass</Status>
+    </Trade>
+    <Trade>
+      <TradeID>XTR-20260617-00006</TradeID>
+      <ExecutionTime>09:28:38</ExecutionTime>
+      <ISIN>DE000DTR0CK8</ISIN>
+      <Instrument>Daimler Truck Holding</Instrument>
+      <Side>Buy</Side>
+      <Quantity>200</Quantity>
+      <Price>38.47</Price>
+      <Currency>EUR</Currency>
+      <OrderType>Stop-Limit</OrderType>
+      <TraderID>T-1042</TraderID>
+      <DayViol>No</DayViol>
+      <ViolationDetails/>
+      <Status>Pass</Status>
+    </Trade>
+  </Trades>
+  <Summary>
+    <TotalTrades>6</TotalTrades>
+    <TotalVolume>196109.00</TotalVolume>
+    <ViolationsFound>0</ViolationsFound>
+    <OverallStatus>Pass</OverallStatus>
+    <ExceptionFlag>No</ExceptionFlag>
+  </Summary>
+</XetraReport>

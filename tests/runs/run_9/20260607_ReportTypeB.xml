@@ -1,19 +1,63 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<Report type="ReportTypeB" date="20260607">
+<?xml version="1.0" ?>
+<XetraReport type="ReportTypeB" date="20260607">
   <Metadata>
-    <ReportID>RPT-549245</ReportID>
-    <GeneratedAt>2026-06-29T10:17:16.027151</GeneratedAt>
-    <Description>Monthly financial report — month-to-date cumulative</Description>
-    <CoveragePeriod>Monthly</CoveragePeriod>
+    <ReportID>XETRA-MA-202606</ReportID>
+    <GeneratedAt>2026-06-07T18:30:00</GeneratedAt>
+    <ReportType>Monthly</ReportType>
+    <CoveragePeriod>2026-06-01 to 2026-06-07</CoveragePeriod>
+    <TradingVenue>XETR</TradingVenue>
+    <MemberID>FRAUAS01</MemberID>
   </Metadata>
-  <Data>
-    <Row>
-      <RowID>1</RowID>
-      <MonthViol>N</MonthViol>
-      <Threshold1>97</Threshold1>
-      <Threshold2>85</Threshold2>
-      <Threshold3>83</Threshold3>
-      <Threshold4>74</Threshold4>
-    </Row>
-  </Data>
-</Report>
+  <TraderSummaries>
+    <Trader>
+      <TraderID>T-4055</TraderID>
+      <TraderName>Hoffmann, Lena</TraderName>
+      <Desk>FX Spot</Desk>
+      <TotalTrades>195</TotalTrades>
+      <TotalVolume>10531476.27</TotalVolume>
+      <AvgTradeSize>54007.57</AvgTradeSize>
+      <TopInstrument>adidas AG (DE000A1EWWW0)</TopInstrument>
+      <MonthViol>No</MonthViol>
+      <ViolationCount>0</ViolationCount>
+      <ViolationDetails/>
+      <ComplianceRating>B</ComplianceRating>
+      <Status>Pass</Status>
+    </Trader>
+    <Trader>
+      <TraderID>T-1042</TraderID>
+      <TraderName>Weber, Lukas</TraderName>
+      <Desk>Equities</Desk>
+      <TotalTrades>365</TotalTrades>
+      <TotalVolume>5340638.02</TotalVolume>
+      <AvgTradeSize>14631.88</AvgTradeSize>
+      <TopInstrument>BASF SE (DE000BASF111)</TopInstrument>
+      <MonthViol>Yes</MonthViol>
+      <ViolationCount>1</ViolationCount>
+      <ViolationDetails>2x unauthorized instrument trade</ViolationDetails>
+      <ComplianceRating>D</ComplianceRating>
+      <Status>Violation</Status>
+    </Trader>
+    <Trader>
+      <TraderID>T-2087</TraderID>
+      <TraderName>Schmidt, Anna</TraderName>
+      <Desk>Derivatives</Desk>
+      <TotalTrades>379</TotalTrades>
+      <TotalVolume>5500767.74</TotalVolume>
+      <AvgTradeSize>14513.90</AvgTradeSize>
+      <TopInstrument>Münchener Rück (DE0008430026)</TopInstrument>
+      <MonthViol>No</MonthViol>
+      <ViolationCount>0</ViolationCount>
+      <ViolationDetails/>
+      <ComplianceRating>A</ComplianceRating>
+      <Status>Pass</Status>
+    </Trader>
+  </TraderSummaries>
+  <Summary>
+    <TotalTraders>3</TotalTraders>
+    <TotalTrades>939</TotalTrades>
+    <TotalVolume>21372882.03</TotalVolume>
+    <ViolationsFound>1</ViolationsFound>
+    <OverallStatus>Violation</OverallStatus>
+    <ExceptionFlag>Yes</ExceptionFlag>
+  </Summary>
+</XetraReport>

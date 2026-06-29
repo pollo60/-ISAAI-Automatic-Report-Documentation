@@ -1,19 +1,105 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<Report type="ReportTypeB" date="20260614">
+<?xml version="1.0" ?>
+<XetraReport type="ReportTypeB" date="20260614">
   <Metadata>
-    <ReportID>RPT-891952</ReportID>
-    <GeneratedAt>2026-06-29T10:17:16.033667</GeneratedAt>
-    <Description>Monthly financial report — month-to-date cumulative</Description>
-    <CoveragePeriod>Monthly</CoveragePeriod>
+    <ReportID>XETRA-MA-202606</ReportID>
+    <GeneratedAt>2026-06-14T18:30:00</GeneratedAt>
+    <ReportType>Monthly</ReportType>
+    <CoveragePeriod>2026-06-01 to 2026-06-14</CoveragePeriod>
+    <TradingVenue>XETR</TradingVenue>
+    <MemberID>FRAUAS01</MemberID>
   </Metadata>
-  <Data>
-    <Row>
-      <RowID>1</RowID>
-      <MonthViol>N</MonthViol>
-      <Threshold1>72</Threshold1>
-      <Threshold2>79</Threshold2>
-      <Threshold3>85</Threshold3>
-      <Threshold4>83</Threshold4>
-    </Row>
-  </Data>
-</Report>
+  <TraderSummaries>
+    <Trader>
+      <TraderID>T-2087</TraderID>
+      <TraderName>Schmidt, Anna</TraderName>
+      <Desk>Derivatives</Desk>
+      <TotalTrades>285</TotalTrades>
+      <TotalVolume>2037155.72</TotalVolume>
+      <AvgTradeSize>7147.91</AvgTradeSize>
+      <TopInstrument>Deutsche Telekom AG (DE0005557508)</TopInstrument>
+      <MonthViol>Yes</MonthViol>
+      <ViolationCount>3</ViolationCount>
+      <ViolationDetails>2x position limit breach, 3x unauthorized instrument trade, 2x wash trade flag</ViolationDetails>
+      <ComplianceRating>C</ComplianceRating>
+      <Status>Violation</Status>
+    </Trader>
+    <Trader>
+      <TraderID>T-3011</TraderID>
+      <TraderName>Fischer, Moritz</TraderName>
+      <Desk>Fixed Income</Desk>
+      <TotalTrades>145</TotalTrades>
+      <TotalVolume>11738369.56</TotalVolume>
+      <AvgTradeSize>80954.27</AvgTradeSize>
+      <TopInstrument>BASF SE (DE000BASF111)</TopInstrument>
+      <MonthViol>No</MonthViol>
+      <ViolationCount>0</ViolationCount>
+      <ViolationDetails/>
+      <ComplianceRating>A</ComplianceRating>
+      <Status>Pass</Status>
+    </Trader>
+    <Trader>
+      <TraderID>T-5023</TraderID>
+      <TraderName>Becker, Jan</TraderName>
+      <Desk>Equities</Desk>
+      <TotalTrades>365</TotalTrades>
+      <TotalVolume>11358959.95</TotalVolume>
+      <AvgTradeSize>31120.44</AvgTradeSize>
+      <TopInstrument>Allianz SE (DE0008404005)</TopInstrument>
+      <MonthViol>Yes</MonthViol>
+      <ViolationCount>4</ViolationCount>
+      <ViolationDetails>1x best execution deviation, 3x position limit breach, 2x unauthorized instrument trade, 2x wash trade flag</ViolationDetails>
+      <ComplianceRating>D</ComplianceRating>
+      <Status>Violation</Status>
+    </Trader>
+    <Trader>
+      <TraderID>T-6091</TraderID>
+      <TraderName>Krause, Sophie</TraderName>
+      <Desk>Commodities</Desk>
+      <TotalTrades>156</TotalTrades>
+      <TotalVolume>7865735.49</TotalVolume>
+      <AvgTradeSize>50421.38</AvgTradeSize>
+      <TopInstrument>Deutsche Telekom AG (DE0005557508)</TopInstrument>
+      <MonthViol>Yes</MonthViol>
+      <ViolationCount>3</ViolationCount>
+      <ViolationDetails>3x late trade booking, 2x unauthorized instrument trade, 3x wash trade flag</ViolationDetails>
+      <ComplianceRating>D</ComplianceRating>
+      <Status>Violation</Status>
+    </Trader>
+    <Trader>
+      <TraderID>T-4055</TraderID>
+      <TraderName>Hoffmann, Lena</TraderName>
+      <Desk>FX Spot</Desk>
+      <TotalTrades>339</TotalTrades>
+      <TotalVolume>10197038.55</TotalVolume>
+      <AvgTradeSize>30079.76</AvgTradeSize>
+      <TopInstrument>Deutsche Telekom AG (DE0005557508)</TopInstrument>
+      <MonthViol>No</MonthViol>
+      <ViolationCount>0</ViolationCount>
+      <ViolationDetails/>
+      <ComplianceRating>B</ComplianceRating>
+      <Status>Pass</Status>
+    </Trader>
+    <Trader>
+      <TraderID>T-1042</TraderID>
+      <TraderName>Weber, Lukas</TraderName>
+      <Desk>Equities</Desk>
+      <TotalTrades>233</TotalTrades>
+      <TotalVolume>6486372.30</TotalVolume>
+      <AvgTradeSize>27838.51</AvgTradeSize>
+      <TopInstrument>SAP SE (DE0007164600)</TopInstrument>
+      <MonthViol>No</MonthViol>
+      <ViolationCount>0</ViolationCount>
+      <ViolationDetails/>
+      <ComplianceRating>C</ComplianceRating>
+      <Status>Pass</Status>
+    </Trader>
+  </TraderSummaries>
+  <Summary>
+    <TotalTraders>6</TotalTraders>
+    <TotalTrades>1523</TotalTrades>
+    <TotalVolume>49683631.57</TotalVolume>
+    <ViolationsFound>10</ViolationsFound>
+    <OverallStatus>Violation</OverallStatus>
+    <ExceptionFlag>Yes</ExceptionFlag>
+  </Summary>
+</XetraReport>

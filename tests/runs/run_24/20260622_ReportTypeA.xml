@@ -1,19 +1,95 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<Report type="ReportTypeA" date="20260622">
+<?xml version="1.0" ?>
+<XetraReport type="ReportTypeA" date="20260622">
   <Metadata>
-    <ReportID>RPT-543555</ReportID>
-    <GeneratedAt>2026-06-29T10:17:16.041198</GeneratedAt>
-    <Description>Daily financial report — previous business day snapshot</Description>
-    <CoveragePeriod>Daily</CoveragePeriod>
+    <ReportID>XETRA-DA-20260622</ReportID>
+    <GeneratedAt>2026-06-22T18:30:00</GeneratedAt>
+    <ReportType>Daily</ReportType>
+    <CoveragePeriod>2026-06-22</CoveragePeriod>
+    <TradingVenue>XETR</TradingVenue>
+    <MemberID>FRAUAS01</MemberID>
   </Metadata>
-  <Data>
-    <Row>
-      <RowID>1</RowID>
-      <DayViol>N</DayViol>
-      <Threshold1>95</Threshold1>
-      <Threshold2>91</Threshold2>
-      <Threshold3>69</Threshold3>
-      <Threshold4>72</Threshold4>
-    </Row>
-  </Data>
-</Report>
+  <Trades>
+    <Trade>
+      <TradeID>XTR-20260622-00001</TradeID>
+      <ExecutionTime>12:13:51</ExecutionTime>
+      <ISIN>DE0006231004</ISIN>
+      <Instrument>Infineon Technologies</Instrument>
+      <Side>Sell</Side>
+      <Quantity>100</Quantity>
+      <Price>33.51</Price>
+      <Currency>EUR</Currency>
+      <OrderType>Limit</OrderType>
+      <TraderID>T-3011</TraderID>
+      <DayViol>No</DayViol>
+      <ViolationDetails/>
+      <Status>Pass</Status>
+    </Trade>
+    <Trade>
+      <TradeID>XTR-20260622-00002</TradeID>
+      <ExecutionTime>12:51:03</ExecutionTime>
+      <ISIN>DE000A1EWWW0</ISIN>
+      <Instrument>adidas AG</Instrument>
+      <Side>Sell</Side>
+      <Quantity>150</Quantity>
+      <Price>228.48</Price>
+      <Currency>EUR</Currency>
+      <OrderType>Limit</OrderType>
+      <TraderID>T-3011</TraderID>
+      <DayViol>No</DayViol>
+      <ViolationDetails/>
+      <Status>Pass</Status>
+    </Trade>
+    <Trade>
+      <TradeID>XTR-20260622-00003</TradeID>
+      <ExecutionTime>13:36:17</ExecutionTime>
+      <ISIN>DE0005557508</ISIN>
+      <Instrument>Deutsche Telekom AG</Instrument>
+      <Side>Buy</Side>
+      <Quantity>500</Quantity>
+      <Price>27.92</Price>
+      <Currency>EUR</Currency>
+      <OrderType>Market</OrderType>
+      <TraderID>T-3011</TraderID>
+      <DayViol>No</DayViol>
+      <ViolationDetails/>
+      <Status>Pass</Status>
+    </Trade>
+    <Trade>
+      <TradeID>XTR-20260622-00004</TradeID>
+      <ExecutionTime>09:17:55</ExecutionTime>
+      <ISIN>DE0005557508</ISIN>
+      <Instrument>Deutsche Telekom AG</Instrument>
+      <Side>Buy</Side>
+      <Quantity>150</Quantity>
+      <Price>27.85</Price>
+      <Currency>EUR</Currency>
+      <OrderType>Market</OrderType>
+      <TraderID>T-6091</TraderID>
+      <DayViol>No</DayViol>
+      <ViolationDetails/>
+      <Status>Pass</Status>
+    </Trade>
+    <Trade>
+      <TradeID>XTR-20260622-00005</TradeID>
+      <ExecutionTime>15:31:09</ExecutionTime>
+      <ISIN>DE000A1EWWW0</ISIN>
+      <Instrument>adidas AG</Instrument>
+      <Side>Buy</Side>
+      <Quantity>150</Quantity>
+      <Price>231.34</Price>
+      <Currency>EUR</Currency>
+      <OrderType>Limit</OrderType>
+      <TraderID>T-2087</TraderID>
+      <DayViol>No</DayViol>
+      <ViolationDetails/>
+      <Status>Pass</Status>
+    </Trade>
+  </Trades>
+  <Summary>
+    <TotalTrades>5</TotalTrades>
+    <TotalVolume>90461.50</TotalVolume>
+    <ViolationsFound>0</ViolationsFound>
+    <OverallStatus>Pass</OverallStatus>
+    <ExceptionFlag>No</ExceptionFlag>
+  </Summary>
+</XetraReport>

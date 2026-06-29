@@ -1,19 +1,110 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<Report type="ReportTypeA" date="20260607">
+<?xml version="1.0" ?>
+<XetraReport type="ReportTypeA" date="20260607">
   <Metadata>
-    <ReportID>RPT-249811</ReportID>
-    <GeneratedAt>2026-06-29T10:17:16.027141</GeneratedAt>
-    <Description>Daily financial report — previous business day snapshot</Description>
-    <CoveragePeriod>Daily</CoveragePeriod>
+    <ReportID>XETRA-DA-20260607</ReportID>
+    <GeneratedAt>2026-06-07T18:30:00</GeneratedAt>
+    <ReportType>Daily</ReportType>
+    <CoveragePeriod>2026-06-07</CoveragePeriod>
+    <TradingVenue>XETR</TradingVenue>
+    <MemberID>FRAUAS01</MemberID>
   </Metadata>
-  <Data>
-    <Row>
-      <RowID>1</RowID>
-      <DayViol>V</DayViol>
-      <Threshold1>66</Threshold1>
-      <Threshold2>58</Threshold2>
-      <Threshold3>47</Threshold3>
-      <Threshold4>97</Threshold4>
-    </Row>
-  </Data>
-</Report>
+  <Trades>
+    <Trade>
+      <TradeID>XTR-20260607-00001</TradeID>
+      <ExecutionTime>13:12:24</ExecutionTime>
+      <ISIN>DE0006231004</ISIN>
+      <Instrument>Infineon Technologies</Instrument>
+      <Side>Sell</Side>
+      <Quantity>750</Quantity>
+      <Price>35.52</Price>
+      <Currency>EUR</Currency>
+      <OrderType>Market</OrderType>
+      <TraderID>T-3011</TraderID>
+      <DayViol>No</DayViol>
+      <ViolationDetails/>
+      <Status>Pass</Status>
+    </Trade>
+    <Trade>
+      <TradeID>XTR-20260607-00002</TradeID>
+      <ExecutionTime>13:01:53</ExecutionTime>
+      <ISIN>DE0007236101</ISIN>
+      <Instrument>Siemens AG</Instrument>
+      <Side>Sell</Side>
+      <Quantity>500</Quantity>
+      <Price>174.37</Price>
+      <Currency>EUR</Currency>
+      <OrderType>Stop-Limit</OrderType>
+      <TraderID>T-2087</TraderID>
+      <DayViol>No</DayViol>
+      <ViolationDetails/>
+      <Status>Pass</Status>
+    </Trade>
+    <Trade>
+      <TradeID>XTR-20260607-00003</TradeID>
+      <ExecutionTime>12:38:51</ExecutionTime>
+      <ISIN>DE0005140008</ISIN>
+      <Instrument>Deutsche Bank AG</Instrument>
+      <Side>Buy</Side>
+      <Quantity>1000</Quantity>
+      <Price>17.50</Price>
+      <Currency>EUR</Currency>
+      <OrderType>Market</OrderType>
+      <TraderID>T-1042</TraderID>
+      <DayViol>No</DayViol>
+      <ViolationDetails/>
+      <Status>Pass</Status>
+    </Trade>
+    <Trade>
+      <TradeID>XTR-20260607-00004</TradeID>
+      <ExecutionTime>09:19:50</ExecutionTime>
+      <ISIN>DE0008430026</ISIN>
+      <Instrument>Münchener Rück</Instrument>
+      <Side>Sell</Side>
+      <Quantity>150</Quantity>
+      <Price>465.13</Price>
+      <Currency>EUR</Currency>
+      <OrderType>Stop-Limit</OrderType>
+      <TraderID>T-2087</TraderID>
+      <DayViol>No</DayViol>
+      <ViolationDetails/>
+      <Status>Pass</Status>
+    </Trade>
+    <Trade>
+      <TradeID>XTR-20260607-00005</TradeID>
+      <ExecutionTime>15:11:12</ExecutionTime>
+      <ISIN>DE000DTR0CK8</ISIN>
+      <Instrument>Daimler Truck Holding</Instrument>
+      <Side>Buy</Side>
+      <Quantity>100</Quantity>
+      <Price>44.37</Price>
+      <Currency>EUR</Currency>
+      <OrderType>Market</OrderType>
+      <TraderID>T-3011</TraderID>
+      <DayViol>Yes</DayViol>
+      <ViolationDetails>Price manipulation flag — order significantly away from VWAP</ViolationDetails>
+      <Status>Violation</Status>
+    </Trade>
+    <Trade>
+      <TradeID>XTR-20260607-00006</TradeID>
+      <ExecutionTime>13:47:55</ExecutionTime>
+      <ISIN>DE0007100000</ISIN>
+      <Instrument>Mercedes-Benz Group</Instrument>
+      <Side>Sell</Side>
+      <Quantity>150</Quantity>
+      <Price>65.34</Price>
+      <Currency>EUR</Currency>
+      <OrderType>Market</OrderType>
+      <TraderID>T-5023</TraderID>
+      <DayViol>No</DayViol>
+      <ViolationDetails/>
+      <Status>Pass</Status>
+    </Trade>
+  </Trades>
+  <Summary>
+    <TotalTrades>6</TotalTrades>
+    <TotalVolume>215332.50</TotalVolume>
+    <ViolationsFound>1</ViolationsFound>
+    <OverallStatus>Violation</OverallStatus>
+    <ExceptionFlag>Yes</ExceptionFlag>
+  </Summary>
+</XetraReport>

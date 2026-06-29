@@ -331,107 +331,48 @@
           },
           "type": "Scope"
         },
-        "Phase_D__Parallel_Validation": {
+        "Phase_D__Read_Report_Status": {
           "actions": {
-            "Validate_ReportA": {
+            "Read_ReportA_Status": {
               "actions": {
-                "Compose_MarkerA": {
+                "Compose_StatusA": {
                   "runAfter": {},
                   "type": "Compose",
-                  "inputs": "@xpath(xml(outputs('Compose_XML_A_Content')), 'string(/Report/Data/Row/DayViol)')"
+                  "inputs": "@xpath(xml(outputs('Compose_XML_A_Content')), 'string(/XetraReport/Summary/OverallStatus)')"
                 },
-                "Check_MarkerA_is_V": {
+                "Compose_ViolationsA": {
+                  "runAfter": {},
+                  "type": "Compose",
+                  "inputs": "@xpath(xml(outputs('Compose_XML_A_Content')), 'string(/XetraReport/Summary/ViolationsFound)')"
+                },
+                "Check_ReportA_has_Violations": {
                   "actions": {
-                    "Compose_ThresholdA1": {
+                    "Set_ReportA_Violation": {
                       "runAfter": {},
-                      "type": "Compose",
-                      "inputs": "@int(xpath(xml(outputs('Compose_XML_A_Content')), 'string(/Report/Data/Row/Threshold1)'))"
+                      "type": "SetVariable",
+                      "inputs": {
+                        "name": "ReportA_Result",
+                        "value": "Violation"
+                      }
                     },
-                    "Compose_ThresholdA2": {
-                      "runAfter": {},
-                      "type": "Compose",
-                      "inputs": "@int(xpath(xml(outputs('Compose_XML_A_Content')), 'string(/Report/Data/Row/Threshold2)'))"
-                    },
-                    "Compose_ThresholdA3": {
-                      "runAfter": {},
-                      "type": "Compose",
-                      "inputs": "@int(xpath(xml(outputs('Compose_XML_A_Content')), 'string(/Report/Data/Row/Threshold3)'))"
-                    },
-                    "Compose_ThresholdA4": {
-                      "runAfter": {},
-                      "type": "Compose",
-                      "inputs": "@int(xpath(xml(outputs('Compose_XML_A_Content')), 'string(/Report/Data/Row/Threshold4)'))"
-                    },
-                    "Check_ThresholdsA_Breached": {
-                      "actions": {
-                        "Set_ReportA_Violation": {
-                          "runAfter": {},
-                          "type": "SetVariable",
-                          "inputs": {
-                            "name": "ReportA_Result",
-                            "value": "Violation"
-                          }
-                        },
-                        "Set_ReportA_Details_Violation": {
-                          "runAfter": {
-                            "Set_ReportA_Violation": [
-                              "Succeeded"
-                            ]
-                          },
-                          "type": "SetVariable",
-                          "inputs": {
-                            "name": "ReportA_Details",
-                            "value": "Threshold breach detected — T1: @{outputs('Compose_ThresholdA1')}, T2: @{outputs('Compose_ThresholdA2')}, T3: @{outputs('Compose_ThresholdA3')}, T4: @{outputs('Compose_ThresholdA4')}. Limit: 50."
-                          }
-                        }
-                      },
+                    "Set_ReportA_Details": {
                       "runAfter": {
-                        "Compose_ThresholdA1": [
-                          "Succeeded"
-                        ],
-                        "Compose_ThresholdA2": [
-                          "Succeeded"
-                        ],
-                        "Compose_ThresholdA3": [
-                          "Succeeded"
-                        ],
-                        "Compose_ThresholdA4": [
+                        "Set_ReportA_Violation": [
                           "Succeeded"
                         ]
                       },
-                      "expression": {
-                        "or": [
-                          {
-                            "less": [
-                              "@outputs('Compose_ThresholdA1')",
-                              50
-                            ]
-                          },
-                          {
-                            "less": [
-                              "@outputs('Compose_ThresholdA2')",
-                              50
-                            ]
-                          },
-                          {
-                            "less": [
-                              "@outputs('Compose_ThresholdA3')",
-                              50
-                            ]
-                          },
-                          {
-                            "less": [
-                              "@outputs('Compose_ThresholdA4')",
-                              50
-                            ]
-                          }
-                        ]
-                      },
-                      "type": "If"
+                      "type": "SetVariable",
+                      "inputs": {
+                        "name": "ReportA_Details",
+                        "value": "@{outputs('Compose_ViolationsA')} trade violation(s) flagged in daily Xetra report"
+                      }
                     }
                   },
                   "runAfter": {
-                    "Compose_MarkerA": [
+                    "Compose_StatusA": [
+                      "Succeeded"
+                    ],
+                    "Compose_ViolationsA": [
                       "Succeeded"
                     ]
                   },
@@ -439,8 +380,8 @@
                     "and": [
                       {
                         "equals": [
-                          "@outputs('Compose_MarkerA')",
-                          "V"
+                          "@outputs('Compose_StatusA')",
+                          "Violation"
                         ]
                       }
                     ]
@@ -451,105 +392,46 @@
               "runAfter": {},
               "type": "Scope"
             },
-            "Validate_ReportB": {
+            "Read_ReportB_Status": {
               "actions": {
-                "Compose_MarkerB": {
+                "Compose_StatusB": {
                   "runAfter": {},
                   "type": "Compose",
-                  "inputs": "@xpath(xml(outputs('Compose_XML_B_Content')), 'string(/Report/Data/Row/MonthViol)')"
+                  "inputs": "@xpath(xml(outputs('Compose_XML_B_Content')), 'string(/XetraReport/Summary/OverallStatus)')"
                 },
-                "Check_MarkerB_is_V": {
+                "Compose_ViolationsB": {
+                  "runAfter": {},
+                  "type": "Compose",
+                  "inputs": "@xpath(xml(outputs('Compose_XML_B_Content')), 'string(/XetraReport/Summary/ViolationsFound)')"
+                },
+                "Check_ReportB_has_Violations": {
                   "actions": {
-                    "Compose_ThresholdB1": {
+                    "Set_ReportB_Violation": {
                       "runAfter": {},
-                      "type": "Compose",
-                      "inputs": "@int(xpath(xml(outputs('Compose_XML_B_Content')), 'string(/Report/Data/Row/Threshold1)'))"
+                      "type": "SetVariable",
+                      "inputs": {
+                        "name": "ReportB_Result",
+                        "value": "Violation"
+                      }
                     },
-                    "Compose_ThresholdB2": {
-                      "runAfter": {},
-                      "type": "Compose",
-                      "inputs": "@int(xpath(xml(outputs('Compose_XML_B_Content')), 'string(/Report/Data/Row/Threshold2)'))"
-                    },
-                    "Compose_ThresholdB3": {
-                      "runAfter": {},
-                      "type": "Compose",
-                      "inputs": "@int(xpath(xml(outputs('Compose_XML_B_Content')), 'string(/Report/Data/Row/Threshold3)'))"
-                    },
-                    "Compose_ThresholdB4": {
-                      "runAfter": {},
-                      "type": "Compose",
-                      "inputs": "@int(xpath(xml(outputs('Compose_XML_B_Content')), 'string(/Report/Data/Row/Threshold4)'))"
-                    },
-                    "Check_ThresholdsB_Breached": {
-                      "actions": {
-                        "Set_ReportB_Violation": {
-                          "runAfter": {},
-                          "type": "SetVariable",
-                          "inputs": {
-                            "name": "ReportB_Result",
-                            "value": "Violation"
-                          }
-                        },
-                        "Set_ReportB_Details_Violation": {
-                          "runAfter": {
-                            "Set_ReportB_Violation": [
-                              "Succeeded"
-                            ]
-                          },
-                          "type": "SetVariable",
-                          "inputs": {
-                            "name": "ReportB_Details",
-                            "value": "Threshold breach detected — T1: @{outputs('Compose_ThresholdB1')}, T2: @{outputs('Compose_ThresholdB2')}, T3: @{outputs('Compose_ThresholdB3')}, T4: @{outputs('Compose_ThresholdB4')}. Limit: 50."
-                          }
-                        }
-                      },
+                    "Set_ReportB_Details": {
                       "runAfter": {
-                        "Compose_ThresholdB1": [
-                          "Succeeded"
-                        ],
-                        "Compose_ThresholdB2": [
-                          "Succeeded"
-                        ],
-                        "Compose_ThresholdB3": [
-                          "Succeeded"
-                        ],
-                        "Compose_ThresholdB4": [
+                        "Set_ReportB_Violation": [
                           "Succeeded"
                         ]
                       },
-                      "expression": {
-                        "or": [
-                          {
-                            "less": [
-                              "@outputs('Compose_ThresholdB1')",
-                              50
-                            ]
-                          },
-                          {
-                            "less": [
-                              "@outputs('Compose_ThresholdB2')",
-                              50
-                            ]
-                          },
-                          {
-                            "less": [
-                              "@outputs('Compose_ThresholdB3')",
-                              50
-                            ]
-                          },
-                          {
-                            "less": [
-                              "@outputs('Compose_ThresholdB4')",
-                              50
-                            ]
-                          }
-                        ]
-                      },
-                      "type": "If"
+                      "type": "SetVariable",
+                      "inputs": {
+                        "name": "ReportB_Details",
+                        "value": "@{outputs('Compose_ViolationsB')} trader violation(s) flagged in monthly Xetra summary"
+                      }
                     }
                   },
                   "runAfter": {
-                    "Compose_MarkerB": [
+                    "Compose_StatusB": [
+                      "Succeeded"
+                    ],
+                    "Compose_ViolationsB": [
                       "Succeeded"
                     ]
                   },
@@ -557,8 +439,8 @@
                     "and": [
                       {
                         "equals": [
-                          "@outputs('Compose_MarkerB')",
-                          "V"
+                          "@outputs('Compose_StatusB')",
+                          "Violation"
                         ]
                       }
                     ]
@@ -587,7 +469,7 @@
                   "dataset": "https://studfrauasde.sharepoint.com/sites/ISAAIDailyReportProcessing",
                   "folderPath": "/Evidence Archive/Evidence",
                   "name": "@{variables('ReportDate')}_ReportTypeA.xlsx",
-                  "body": "Report Date,Report Type,Coverage Period,DayViol,Validation Status,Threshold1,Threshold2,Threshold3,Threshold4,Breach Details\n@{variables('ReportDate')},ReportTypeA,Daily,@{outputs('Compose_MarkerA')},@{variables('ReportA_Result')},@{outputs('Compose_ThresholdA1')},@{outputs('Compose_ThresholdA2')},@{outputs('Compose_ThresholdA3')},@{outputs('Compose_ThresholdA4')},@{variables('ReportA_Details')}"
+                  "body": "@{outputs('Compose_XML_A_Content')}"
                 },
                 "host": {
                   "apiId": "/providers/Microsoft.PowerApps/apis/shared_sharepointonline",
@@ -605,7 +487,7 @@
                   "dataset": "https://studfrauasde.sharepoint.com/sites/ISAAIDailyReportProcessing",
                   "folderPath": "/Evidence Archive/Evidence",
                   "name": "@{variables('ReportDate')}_ReportTypeB.xlsx",
-                  "body": "Report Date,Report Type,Coverage Period,MonthViol,Validation Status,Threshold1,Threshold2,Threshold3,Threshold4,Breach Details\n@{variables('ReportDate')},ReportTypeB,Monthly,@{outputs('Compose_MarkerB')},@{variables('ReportB_Result')},@{outputs('Compose_ThresholdB1')},@{outputs('Compose_ThresholdB2')},@{outputs('Compose_ThresholdB3')},@{outputs('Compose_ThresholdB4')},@{variables('ReportB_Details')}"
+                  "body": "@{outputs('Compose_XML_B_Content')}"
                 },
                 "host": {
                   "apiId": "/providers/Microsoft.PowerApps/apis/shared_sharepointonline",
@@ -653,7 +535,7 @@
             }
           },
           "runAfter": {
-            "Phase_D__Parallel_Validation": [
+            "Phase_D__Read_Report_Status": [
               "Succeeded"
             ]
           },

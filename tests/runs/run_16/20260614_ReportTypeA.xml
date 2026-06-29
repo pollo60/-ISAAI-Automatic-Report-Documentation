@@ -1,19 +1,110 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<Report type="ReportTypeA" date="20260614">
+<?xml version="1.0" ?>
+<XetraReport type="ReportTypeA" date="20260614">
   <Metadata>
-    <ReportID>RPT-653306</ReportID>
-    <GeneratedAt>2026-06-29T10:17:16.033658</GeneratedAt>
-    <Description>Daily financial report — previous business day snapshot</Description>
-    <CoveragePeriod>Daily</CoveragePeriod>
+    <ReportID>XETRA-DA-20260614</ReportID>
+    <GeneratedAt>2026-06-14T18:30:00</GeneratedAt>
+    <ReportType>Daily</ReportType>
+    <CoveragePeriod>2026-06-14</CoveragePeriod>
+    <TradingVenue>XETR</TradingVenue>
+    <MemberID>FRAUAS01</MemberID>
   </Metadata>
-  <Data>
-    <Row>
-      <RowID>1</RowID>
-      <DayViol>N</DayViol>
-      <Threshold1>98</Threshold1>
-      <Threshold2>87</Threshold2>
-      <Threshold3>73</Threshold3>
-      <Threshold4>94</Threshold4>
-    </Row>
-  </Data>
-</Report>
+  <Trades>
+    <Trade>
+      <TradeID>XTR-20260614-00001</TradeID>
+      <ExecutionTime>12:21:38</ExecutionTime>
+      <ISIN>DE000A1EWWW0</ISIN>
+      <Instrument>adidas AG</Instrument>
+      <Side>Buy</Side>
+      <Quantity>1000</Quantity>
+      <Price>222.47</Price>
+      <Currency>EUR</Currency>
+      <OrderType>Market</OrderType>
+      <TraderID>T-1042</TraderID>
+      <DayViol>Yes</DayViol>
+      <ViolationDetails>Wash trade suspicion — offsetting buy/sell within 60 seconds</ViolationDetails>
+      <Status>Violation</Status>
+    </Trade>
+    <Trade>
+      <TradeID>XTR-20260614-00002</TradeID>
+      <ExecutionTime>17:06:20</ExecutionTime>
+      <ISIN>DE000A1EWWW0</ISIN>
+      <Instrument>adidas AG</Instrument>
+      <Side>Sell</Side>
+      <Quantity>150</Quantity>
+      <Price>232.82</Price>
+      <Currency>EUR</Currency>
+      <OrderType>Stop-Limit</OrderType>
+      <TraderID>T-3011</TraderID>
+      <DayViol>No</DayViol>
+      <ViolationDetails/>
+      <Status>Pass</Status>
+    </Trade>
+    <Trade>
+      <TradeID>XTR-20260614-00003</TradeID>
+      <ExecutionTime>13:24:55</ExecutionTime>
+      <ISIN>DE0007236101</ISIN>
+      <Instrument>Siemens AG</Instrument>
+      <Side>Sell</Side>
+      <Quantity>200</Quantity>
+      <Price>163.52</Price>
+      <Currency>EUR</Currency>
+      <OrderType>Limit</OrderType>
+      <TraderID>T-3011</TraderID>
+      <DayViol>No</DayViol>
+      <ViolationDetails/>
+      <Status>Pass</Status>
+    </Trade>
+    <Trade>
+      <TradeID>XTR-20260614-00004</TradeID>
+      <ExecutionTime>16:32:29</ExecutionTime>
+      <ISIN>DE000BAY0017</ISIN>
+      <Instrument>Bayer AG</Instrument>
+      <Side>Sell</Side>
+      <Quantity>500</Quantity>
+      <Price>29.33</Price>
+      <Currency>EUR</Currency>
+      <OrderType>Limit</OrderType>
+      <TraderID>T-2087</TraderID>
+      <DayViol>No</DayViol>
+      <ViolationDetails/>
+      <Status>Pass</Status>
+    </Trade>
+    <Trade>
+      <TradeID>XTR-20260614-00005</TradeID>
+      <ExecutionTime>16:15:13</ExecutionTime>
+      <ISIN>DE0005140008</ISIN>
+      <Instrument>Deutsche Bank AG</Instrument>
+      <Side>Buy</Side>
+      <Quantity>100</Quantity>
+      <Price>17.84</Price>
+      <Currency>EUR</Currency>
+      <OrderType>Stop-Limit</OrderType>
+      <TraderID>T-4055</TraderID>
+      <DayViol>No</DayViol>
+      <ViolationDetails/>
+      <Status>Pass</Status>
+    </Trade>
+    <Trade>
+      <TradeID>XTR-20260614-00006</TradeID>
+      <ExecutionTime>16:18:34</ExecutionTime>
+      <ISIN>DE0007164600</ISIN>
+      <Instrument>SAP SE</Instrument>
+      <Side>Sell</Side>
+      <Quantity>1000</Quantity>
+      <Price>199.94</Price>
+      <Currency>EUR</Currency>
+      <OrderType>Stop-Limit</OrderType>
+      <TraderID>T-1042</TraderID>
+      <DayViol>Yes</DayViol>
+      <ViolationDetails>Position limit exceeded — net exposure beyond approved threshold</ViolationDetails>
+      <Status>Violation</Status>
+    </Trade>
+  </Trades>
+  <Summary>
+    <TotalTrades>6</TotalTrades>
+    <TotalVolume>506486.00</TotalVolume>
+    <ViolationsFound>2</ViolationsFound>
+    <OverallStatus>Violation</OverallStatus>
+    <ExceptionFlag>Yes</ExceptionFlag>
+  </Summary>
+</XetraReport>

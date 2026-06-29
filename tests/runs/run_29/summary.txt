@@ -1,6 +1,6 @@
 Run ID: 29
 Report Date: 20260627
-Report A Status: Pass (DayViol: N, Thresholds: {'Threshold1': 92, 'Threshold2': 76, 'Threshold3': 68, 'Threshold4': 82})
-Report B Status: Pass (MonthViol: V, Thresholds: {'Threshold1': 65, 'Threshold2': 73, 'Threshold3': 68, 'Threshold4': 60})
-OverallStatus: Completed
-ExceptionFlag: No
+Report A (Daily Xetra): Violation (1 violations)
+Report B (Monthly Xetra): Violation (4 violations)
+OverallStatus: Exception
+ExceptionFlag: Yes

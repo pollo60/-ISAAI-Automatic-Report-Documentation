@@ -1,19 +1,245 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<Report type="ReportTypeA" date="20260608">
+<?xml version="1.0" ?>
+<XetraReport type="ReportTypeA" date="20260608">
   <Metadata>
-    <ReportID>RPT-617488</ReportID>
-    <GeneratedAt>2026-06-29T10:17:16.028071</GeneratedAt>
-    <Description>Daily financial report — previous business day snapshot</Description>
-    <CoveragePeriod>Daily</CoveragePeriod>
+    <ReportID>XETRA-DA-20260608</ReportID>
+    <GeneratedAt>2026-06-08T18:30:00</GeneratedAt>
+    <ReportType>Daily</ReportType>
+    <CoveragePeriod>2026-06-08</CoveragePeriod>
+    <TradingVenue>XETR</TradingVenue>
+    <MemberID>FRAUAS01</MemberID>
   </Metadata>
-  <Data>
-    <Row>
-      <RowID>1</RowID>
-      <DayViol>N</DayViol>
-      <Threshold1>65</Threshold1>
-      <Threshold2>63</Threshold2>
-      <Threshold3>67</Threshold3>
-      <Threshold4>69</Threshold4>
-    </Row>
-  </Data>
-</Report>
+  <Trades>
+    <Trade>
+      <TradeID>XTR-20260608-00001</TradeID>
+      <ExecutionTime>10:40:52</ExecutionTime>
+      <ISIN>DE000BAY0017</ISIN>
+      <Instrument>Bayer AG</Instrument>
+      <Side>Buy</Side>
+      <Quantity>500</Quantity>
+      <Price>34.41</Price>
+      <Currency>EUR</Currency>
+      <OrderType>Limit</OrderType>
+      <TraderID>T-4055</TraderID>
+      <DayViol>No</DayViol>
+      <ViolationDetails/>
+      <Status>Pass</Status>
+    </Trade>
+    <Trade>
+      <TradeID>XTR-20260608-00002</TradeID>
+      <ExecutionTime>13:31:07</ExecutionTime>
+      <ISIN>DE000A1EWWW0</ISIN>
+      <Instrument>adidas AG</Instrument>
+      <Side>Sell</Side>
+      <Quantity>100</Quantity>
+      <Price>214.19</Price>
+      <Currency>EUR</Currency>
+      <OrderType>Limit</OrderType>
+      <TraderID>T-3011</TraderID>
+      <DayViol>Yes</DayViol>
+      <ViolationDetails>Price manipulation flag — order significantly away from VWAP</ViolationDetails>
+      <Status>Violation</Status>
+    </Trade>
+    <Trade>
+      <TradeID>XTR-20260608-00003</TradeID>
+      <ExecutionTime>17:26:37</ExecutionTime>
+      <ISIN>DE0008404005</ISIN>
+      <Instrument>Allianz SE</Instrument>
+      <Side>Sell</Side>
+      <Quantity>500</Quantity>
+      <Price>270.11</Price>
+      <Currency>EUR</Currency>
+      <OrderType>Stop-Limit</OrderType>
+      <TraderID>T-4055</TraderID>
+      <DayViol>No</DayViol>
+      <ViolationDetails/>
+      <Status>Pass</Status>
+    </Trade>
+    <Trade>
+      <TradeID>XTR-20260608-00004</TradeID>
+      <ExecutionTime>09:44:23</ExecutionTime>
+      <ISIN>DE0008404005</ISIN>
+      <Instrument>Allianz SE</Instrument>
+      <Side>Buy</Side>
+      <Quantity>1000</Quantity>
+      <Price>268.47</Price>
+      <Currency>EUR</Currency>
+      <OrderType>Market</OrderType>
+      <TraderID>T-4055</TraderID>
+      <DayViol>No</DayViol>
+      <ViolationDetails/>
+      <Status>Pass</Status>
+    </Trade>
+    <Trade>
+      <TradeID>XTR-20260608-00005</TradeID>
+      <ExecutionTime>17:57:41</ExecutionTime>
+      <ISIN>DE0006231004</ISIN>
+      <Instrument>Infineon Technologies</Instrument>
+      <Side>Sell</Side>
+      <Quantity>100</Quantity>
+      <Price>37.85</Price>
+      <Currency>EUR</Currency>
+      <OrderType>Market</OrderType>
+      <TraderID>T-2087</TraderID>
+      <DayViol>No</DayViol>
+      <ViolationDetails/>
+      <Status>Pass</Status>
+    </Trade>
+    <Trade>
+      <TradeID>XTR-20260608-00006</TradeID>
+      <ExecutionTime>10:42:13</ExecutionTime>
+      <ISIN>DE000BASF111</ISIN>
+      <Instrument>BASF SE</Instrument>
+      <Side>Buy</Side>
+      <Quantity>100</Quantity>
+      <Price>51.54</Price>
+      <Currency>EUR</Currency>
+      <OrderType>Market</OrderType>
+      <TraderID>T-3011</TraderID>
+      <DayViol>No</DayViol>
+      <ViolationDetails/>
+      <Status>Pass</Status>
+    </Trade>
+    <Trade>
+      <TradeID>XTR-20260608-00007</TradeID>
+      <ExecutionTime>12:04:53</ExecutionTime>
+      <ISIN>DE000DTR0CK8</ISIN>
+      <Instrument>Daimler Truck Holding</Instrument>
+      <Side>Buy</Side>
+      <Quantity>500</Quantity>
+      <Price>39.70</Price>
+      <Currency>EUR</Currency>
+      <OrderType>Limit</OrderType>
+      <TraderID>T-1042</TraderID>
+      <DayViol>No</DayViol>
+      <ViolationDetails/>
+      <Status>Pass</Status>
+    </Trade>
+    <Trade>
+      <TradeID>XTR-20260608-00008</TradeID>
+      <ExecutionTime>09:17:54</ExecutionTime>
+      <ISIN>DE000BAY0017</ISIN>
+      <Instrument>Bayer AG</Instrument>
+      <Side>Buy</Side>
+      <Quantity>200</Quantity>
+      <Price>30.30</Price>
+      <Currency>EUR</Currency>
+      <OrderType>Limit</OrderType>
+      <TraderID>T-5023</TraderID>
+      <DayViol>No</DayViol>
+      <ViolationDetails/>
+      <Status>Pass</Status>
+    </Trade>
+    <Trade>
+      <TradeID>XTR-20260608-00009</TradeID>
+      <ExecutionTime>11:00:22</ExecutionTime>
+      <ISIN>DE0008404005</ISIN>
+      <Instrument>Allianz SE</Instrument>
+      <Side>Sell</Side>
+      <Quantity>150</Quantity>
+      <Price>253.30</Price>
+      <Currency>EUR</Currency>
+      <OrderType>Limit</OrderType>
+      <TraderID>T-5023</TraderID>
+      <DayViol>No</DayViol>
+      <ViolationDetails/>
+      <Status>Pass</Status>
+    </Trade>
+    <Trade>
+      <TradeID>XTR-20260608-00010</TradeID>
+      <ExecutionTime>11:47:26</ExecutionTime>
+      <ISIN>DE000BAY0017</ISIN>
+      <Instrument>Bayer AG</Instrument>
+      <Side>Sell</Side>
+      <Quantity>50</Quantity>
+      <Price>29.22</Price>
+      <Currency>EUR</Currency>
+      <OrderType>Limit</OrderType>
+      <TraderID>T-5023</TraderID>
+      <DayViol>No</DayViol>
+      <ViolationDetails/>
+      <Status>Pass</Status>
+    </Trade>
+    <Trade>
+      <TradeID>XTR-20260608-00011</TradeID>
+      <ExecutionTime>10:28:32</ExecutionTime>
+      <ISIN>DE000A1EWWW0</ISIN>
+      <Instrument>adidas AG</Instrument>
+      <Side>Sell</Side>
+      <Quantity>1000</Quantity>
+      <Price>233.34</Price>
+      <Currency>EUR</Currency>
+      <OrderType>Stop-Limit</OrderType>
+      <TraderID>T-1042</TraderID>
+      <DayViol>No</DayViol>
+      <ViolationDetails/>
+      <Status>Pass</Status>
+    </Trade>
+    <Trade>
+      <TradeID>XTR-20260608-00012</TradeID>
+      <ExecutionTime>09:30:54</ExecutionTime>
+      <ISIN>DE000DTR0CK8</ISIN>
+      <Instrument>Daimler Truck Holding</Instrument>
+      <Side>Sell</Side>
+      <Quantity>1000</Quantity>
+      <Price>42.50</Price>
+      <Currency>EUR</Currency>
+      <OrderType>Limit</OrderType>
+      <TraderID>T-1042</TraderID>
+      <DayViol>No</DayViol>
+      <ViolationDetails/>
+      <Status>Pass</Status>
+    </Trade>
+    <Trade>
+      <TradeID>XTR-20260608-00013</TradeID>
+      <ExecutionTime>14:38:09</ExecutionTime>
+      <ISIN>DE0008430026</ISIN>
+      <Instrument>Münchener Rück</Instrument>
+      <Side>Sell</Side>
+      <Quantity>1000</Quantity>
+      <Price>442.94</Price>
+      <Currency>EUR</Currency>
+      <OrderType>Limit</OrderType>
+      <TraderID>T-1042</TraderID>
+      <DayViol>Yes</DayViol>
+      <ViolationDetails>Wash trade suspicion — offsetting buy/sell within 60 seconds</ViolationDetails>
+      <Status>Violation</Status>
+    </Trade>
+    <Trade>
+      <TradeID>XTR-20260608-00014</TradeID>
+      <ExecutionTime>13:29:32</ExecutionTime>
+      <ISIN>DE000DTR0CK8</ISIN>
+      <Instrument>Daimler Truck Holding</Instrument>
+      <Side>Sell</Side>
+      <Quantity>750</Quantity>
+      <Price>44.96</Price>
+      <Currency>EUR</Currency>
+      <OrderType>Stop-Limit</OrderType>
+      <TraderID>T-6091</TraderID>
+      <DayViol>No</DayViol>
+      <ViolationDetails/>
+      <Status>Pass</Status>
+    </Trade>
+    <Trade>
+      <TradeID>XTR-20260608-00015</TradeID>
+      <ExecutionTime>15:21:52</ExecutionTime>
+      <ISIN>DE0007236101</ISIN>
+      <Instrument>Siemens AG</Instrument>
+      <Side>Buy</Side>
+      <Quantity>200</Quantity>
+      <Price>170.75</Price>
+      <Currency>EUR</Currency>
+      <OrderType>Limit</OrderType>
+      <TraderID>T-6091</TraderID>
+      <DayViol>No</DayViol>
+      <ViolationDetails/>
+      <Status>Pass</Status>
+    </Trade>
+  </Trades>
+  <Summary>
+    <TotalTrades>15</TotalTrades>
+    <TotalVolume>1303104.00</TotalVolume>
+    <ViolationsFound>2</ViolationsFound>
+    <OverallStatus>Violation</OverallStatus>
+    <ExceptionFlag>Yes</ExceptionFlag>
+  </Summary>
+</XetraReport>
