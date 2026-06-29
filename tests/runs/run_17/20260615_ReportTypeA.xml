@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report type="ReportTypeA" date="20260615">
+  <Metadata>
+    <ReportID>RPT-573417</ReportID>
+    <GeneratedAt>2026-06-29T10:17:16.034525</GeneratedAt>
+    <Description>Daily financial report — previous business day snapshot</Description>
+    <CoveragePeriod>Daily</CoveragePeriod>
+  </Metadata>
+  <Data>
+    <Row>
+      <RowID>1</RowID>
+      <DayViol>N</DayViol>
+      <Threshold1>67</Threshold1>
+      <Threshold2>75</Threshold2>
+      <Threshold3>74</Threshold3>
+      <Threshold4>64</Threshold4>
+    </Row>
+  </Data>
+</Report>

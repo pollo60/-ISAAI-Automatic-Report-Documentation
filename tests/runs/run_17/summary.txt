@@ -1,0 +1,6 @@
+Run ID: 17
+Report Date: 20260615
+Report A Status: Pass (DayViol: N, Thresholds: {'Threshold1': 67, 'Threshold2': 75, 'Threshold3': 74, 'Threshold4': 64})
+Report B Status: Pass (MonthViol: V, Thresholds: {'Threshold1': 51, 'Threshold2': 87, 'Threshold3': 85, 'Threshold4': 64})
+OverallStatus: Completed
+ExceptionFlag: No

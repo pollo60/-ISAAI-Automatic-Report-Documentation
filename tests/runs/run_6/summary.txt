@@ -1,0 +1,6 @@
+Run ID: 6
+Report Date: 20260604
+Report A Status: Violation (DayViol: V, Thresholds: {'Threshold1': 64, 'Threshold2': 56, 'Threshold3': 74, 'Threshold4': 33})
+Report B Status: Pass (MonthViol: N, Thresholds: {'Threshold1': 83, 'Threshold2': 82, 'Threshold3': 73, 'Threshold4': 77})
+OverallStatus: Exception
+ExceptionFlag: Yes

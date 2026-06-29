@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report type="ReportTypeB" date="20260607">
+  <Metadata>
+    <ReportID>RPT-549245</ReportID>
+    <GeneratedAt>2026-06-29T10:17:16.027151</GeneratedAt>
+    <Description>Monthly financial report — month-to-date cumulative</Description>
+    <CoveragePeriod>Monthly</CoveragePeriod>
+  </Metadata>
+  <Data>
+    <Row>
+      <RowID>1</RowID>
+      <MonthViol>N</MonthViol>
+      <Threshold1>97</Threshold1>
+      <Threshold2>85</Threshold2>
+      <Threshold3>83</Threshold3>
+      <Threshold4>74</Threshold4>
+    </Row>
+  </Data>
+</Report>
