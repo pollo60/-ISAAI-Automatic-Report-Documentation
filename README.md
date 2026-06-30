@@ -411,6 +411,6 @@ To test the flow using Microsoft's built-in testing feature:
 
 ## 10. Authors
 
-- **Altay Hennig** — Frankfurt University of Applied Sciences
+- **Project Team ISAAI** — Frankfurt University of Applied Sciences
 - Modules: ISA (Information Systems Architecture) & A+I (Architecture & Integration)
 - Semester: Summer Semester 2026
